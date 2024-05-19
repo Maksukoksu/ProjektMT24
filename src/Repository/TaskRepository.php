@@ -33,7 +33,7 @@ class TaskRepository extends ServiceEntityRepository
      *
      * @constant int
      */
-    public const PAGINATOR_ITEMS_PER_PAGE = 5;
+    public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * Constructor.
@@ -48,7 +48,7 @@ class TaskRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
     public function queryAll(): QueryBuilder
     {
@@ -60,6 +60,7 @@ class TaskRepository extends ServiceEntityRepository
             ->join('task.category', 'category')
             ->orderBy('task.updatedAt', 'DESC');
     }
+
     /**
      * Get or create new query builder.
      *
