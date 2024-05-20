@@ -86,7 +86,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('Dodano') //Wiadomość po utworzeniu
             );
 
             return $this->redirectToRoute('category_index');
@@ -124,7 +124,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('Zedytowano') //Wiadomość do edycji
             );
 
             return $this->redirectToRoute('category_index');
@@ -147,11 +147,11 @@ class CategoryController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: ['POST'])]
     public function delete(Request $request, Category $category): Response
     {
         $form = $this->createForm(FormType::class, $category, [
-            'method' => 'DELETE',
+            'method' => 'POST',
             'action' => $this->generateUrl('category_delete', ['id' => $category->getId()]),
         ]);
         $form->handleRequest($request);
@@ -161,7 +161,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.deleted_successfully')
+                $this->translator->trans('Usunięto') //Wiadomość usuwania
             );
 
             return $this->redirectToRoute('category_index');

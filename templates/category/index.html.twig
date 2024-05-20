@@ -1,35 +1,51 @@
-{# templates/category/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Category Index{% endblock %}
+{% block title %}
+    {{ 'title.category_list'|trans }}
+{% endblock %}
 
 {% block body %}
-    <h1>Category Index</h1>
+    <h1>{{ 'Lista kategorii'|trans }}</h1>
 
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for category in pagination %}
+    {# Przycisk dodawania #}
+    <a href="{{ path('category_create') }}" class="btn btn-primary mb-3">{{ 'Dodaj nową kategorię'|trans }}</a>
+
+    {% if pagination is defined and pagination.items|length %}
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.title }}</td>
-                <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                </td>
+                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'category.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Tytuł'|trans, 'category.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Data_stworzenia'|trans, 'category.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Data_aktualizacji'|trans, 'category.updatedAt') }}</th>
+                <th>{{ 'Akcje'|trans }}</th>
             </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    {{ knp_pagination_render(pagination) }}
+            </thead>
+            <tbody>
+            {% for category in pagination.items %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td><a href="{{ path('category_show', {id: category.id}) }}" class="no_underline">{{ category.title }}</a></td>
+                    <td>{{ category.createdAt|format_date('long') }}</td>
+                    <td>{{ category.updatedAt|format_date('long') }}</td>
+                    <td>
+                        <a href="{{ path('category_edit', {id: category.id}) }}" class="btn btn-sm btn-primary">{{ 'Edytuj'|trans }}</a>
+                        <form method="post" action="{{ path('category_delete', {id: category.id}) }}" style="display:inline-block" onsubmit="return confirm('{{ 'Czy na pewno chcesz usunąć tę kategorię?'|trans }}');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
+                            <button class="btn btn-sm btn-danger">{{ 'Usuń'|trans }}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            {{ 'message.empty_list'|trans }}
+        </p>
+    {% endif %}
 {% endblock %}

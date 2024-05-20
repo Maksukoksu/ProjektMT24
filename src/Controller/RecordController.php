@@ -1,25 +1,39 @@
 <?php
 /**
- * Task service interface.
+ * Record controller.
  */
 
-namespace App\Service;
+namespace App\Controller;
 
-use App\Entity\Task;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use App\Repository\RecordRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Interface TaskServiceInterface.
+ * Class RecordController.
  */
-interface TaskServiceInterface
+#[Route('/record')]
+class RecordController extends AbstractController
 {
     /**
-     * Get paginated list.
+     * Index action.
      *
-     * @param int $page Page number
+     * @param RecordRepository $repository Record repository
      *
-     * @return PaginationInterface<string, mixed> Paginated list
+     * @return Response HTTP response
      */
-    public function getPaginatedList(int $page): PaginationInterface;
+    #[Route(
+        name: 'record_index',
+        methods: 'GET'
+    )]
+    public function index(RecordRepository $repository): Response
+    {
+        $records = $repository->findAll();
 
+        return $this->render(
+            'record/index.html.twig',
+            ['records' => $records]
+        );
+    }
 }

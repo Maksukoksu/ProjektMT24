@@ -1,9 +1,0 @@
-{# templates/category/list.html.twig #}
-
-<h1>Categories</h1>
-
-<ul>
-    {% for category in categories %}
-        <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a></li>
-    {% endfor %}
-</ul>
