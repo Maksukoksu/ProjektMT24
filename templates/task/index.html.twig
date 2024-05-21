@@ -5,8 +5,14 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.task_list'|trans }}</h1>
+    <h1>{{ 'Lista zadań'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
+
+        <div class="create-task-link">
+            <a href="{{ path('task_create') }}" class="btn btn-primary">Stwórz zadanie</a>
+        </div>
+
+        <br>
 
         <div class="navigation text-center">
             {{ knp_pagination_render(pagination) }}
@@ -15,11 +21,11 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 'task.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'task.createdAt') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'task.updatedAt') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'task.title') }}</th>
-                <th>{{ 'label.category'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'ID'|trans, 'task.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Data Utworzenia'|trans, 'task.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Data aktualizacji'|trans, 'task.updatedAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Tytuł'|trans, 'task.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Kategoria'|trans, 'category.title') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -32,9 +38,13 @@
                     <td>{{ task.title }}</td>
                     <td>{{ task.category.title }}</td>
                     <td>
-                        <a href="{{ url('task_show', {id: task.id}) }}" title="{{ 'action.show'|trans }}">
-                            {{ 'action.show'|trans }}
-                        </a>
+                        <a href="{{ path('task_show', {'id': task.id}) }}" class="btn btn-primary">{{ 'Pokaż'|trans }}</a>
+                        <a href="{{ path('task_edit', {'id': task.id}) }}" class="btn btn-secondary">{{ 'Edytuj'|trans }}</a>
+                        <form method="post" action="{{ path('task_delete', {'id': task.id}) }}" style="display:inline-block;" onsubmit="return confirm('{{ 'Czy napewno chcesz usunąć ?'|trans }}');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button class="btn btn-danger">{{ 'Usuń'|trans }}</button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
@@ -47,7 +57,10 @@
 
     {% else %}
         <p>
-            {{ 'message.empty_list'|trans }}
+            {{ 'Lista pusta'|trans }}
         </p>
     {% endif %}
+    <div class="category-link">
+        <a href="{{ path('category_index') }}" class="btn btn-primary">Lista Kategorii</a>
+    </div>
 {% endblock %}

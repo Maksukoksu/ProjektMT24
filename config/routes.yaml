@@ -3,20 +3,3 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
-
-category_new:
-    path: /category/new
-    controller: App\Controller\CategoryController::create
-
-category_index:
-    path: /category
-    controller: App\Controller\CategoryController::index
-
-category_edit:
-    path: /category/edit/{id}
-    controller: App\Controller\CategoryController::edit
-
-category_delete:
-    path: /category/delete/{id}
-    controller: App\Controller\CategoryController::delete
-    methods: [POST]

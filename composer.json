@@ -12,8 +12,10 @@
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.17",
         "knplabs/knp-paginator-bundle": "6.3",
+        "matecat/xliff-parser": "^2.0",
         "phpdocumentor/reflection-docblock": "^5.4",
         "phpstan/phpdoc-parser": "^1.28",
+        "stof/doctrine-extensions-bundle": "*",
         "symfony/asset": "6.4.*",
         "symfony/asset-mapper": "6.4.*",
         "symfony/console": "6.4.*",
@@ -44,7 +46,7 @@
         "symfony/web-link": "6.4.*",
         "symfony/yaml": "6.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/intl-extra": "*",
+        "twig/intl-extra": "^3.9",
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
@@ -108,21 +110,22 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": "true",
             "require": "6.4.*"
         }
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "*",
-        "escapestudios/symfony2-coding-standard": "*",
-        "fakerphp/faker": "*",
+        "doctrine/doctrine-fixtures-bundle": "^3.6",
+        "escapestudios/symfony2-coding-standard": "^3.13",
+        "fakerphp/faker": "^1.23",
+        "friendsofphp/php-cs-fixer": "^3.54",
         "phpunit/phpunit": "^9.5",
         "rector/rector": "^1.0",
-        "squizlabs/php_codesniffer": "*",
+        "squizlabs/php_codesniffer": "^3.9",
         "symfony/browser-kit": "6.4.*",
         "symfony/css-selector": "6.4.*",
         "symfony/debug-bundle": "6.4.*",
-        "symfony/maker-bundle": "*",
+        "symfony/maker-bundle": "^1.59",
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"
