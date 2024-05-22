@@ -7,6 +7,7 @@ namespace App\Form\Type;
 
 use App\Entity\Category;
 use App\Entity\Task;
+use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -38,7 +39,9 @@ class TaskType extends AbstractType
                 'label' => 'label.title',
                 'required' => true,
                 'attr' => ['max_length' => 255],
-            ]);
+            ]
+        );
+
         $builder->add(
             'category',
             EntityType::class,
@@ -51,6 +54,21 @@ class TaskType extends AbstractType
                 'placeholder' => 'label.none',
                 'required' => true,
             ]
+        );
+                    $builder->add(
+                        'tags',
+                        EntityType::class,
+                        [
+                            'class' => Tag::class,
+                            'choice_label' => function ($tag): string {
+                                return $tag->getTitle();
+                            },
+                            'label' => 'label.tags',
+                            'placeholder' => 'label.none',
+                            'required' => false,
+                            'expanded' => true,
+                            'multiple' => true,
+                        ]
         );
     }
 
