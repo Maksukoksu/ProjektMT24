@@ -94,17 +94,17 @@ class WalletService implements WalletServiceInterface
     {
         $balance = $wallet->getBalance();
 
-        // If originalTransactionAmount is provided, add it back to the balance
+        // Pobranie i sprawdzenie stanu konta
         if (null !== $originalTransactionAmount) {
             $balance += abs($originalTransactionAmount);
         }
 
-        // Only check balance if the transaction amount is negative (a withdrawal).
+        // Check czy stan jest poniżej zera (ten pobrany stan)
         if ($transactionAmount < 0) {
             return ($balance - abs($transactionAmount)) >= 0;
         }
 
-        // If the transaction amount is positive (a deposit), it's always acceptable.
+        // Jesli pobrane dane sa okej, transakja prechodzi
         return true;
     }
 

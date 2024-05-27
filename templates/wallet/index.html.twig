@@ -7,14 +7,22 @@
 {% block body %}
     <h1>{{ 'Lista portfeli'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
-        <table>
+
+        <div class="create-wallet-link">
+            <a href="{{ url('wallet_create') }}" class="btn btn-primary">Dodaj portfel</a>
+        </div>
+        <br>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'wallet.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.type'|trans, 'wallet.type') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.balance'|trans, 'wallet.balance') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
-                <th>{{ 'label.delete'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -24,21 +32,12 @@
                     <td>{{ wallet.type }}</td>
                     <td>{{ wallet.balance|number_format(2, ',', ' ') }} PLN</td>
                     <td>
-                        <a href="{{ url('wallet_show', {id: wallet.id}) }}">{{ 'Pokaż'|trans }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ url('wallet_delete', {id: wallet.id}) }}">{{ 'Usuń'|trans }}</a>
-                    </td>
+                        <a href="{{ url('wallet_show', {id: wallet.id}) }}" class="btn btn-primary">{{ 'Pokaż'|trans }}</a>
+                        <a href="{{ url('wallet_delete', {id: wallet.id}) }}" class="btn btn-danger">{{ 'Usuń'|trans }}</a>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
-        <a href="{{ url('wallet_create') }}">{{ 'Stwórz'|trans }}</a>
     {% else %}
         {% include 'default/_single_alert_message.html.twig' with {
             type: 'warning',

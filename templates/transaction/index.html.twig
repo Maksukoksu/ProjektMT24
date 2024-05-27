@@ -1,13 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.task_list'|trans }}
+    {{ 'title.transaction_list'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Lista zadań'|trans }}</h1>
+    <h1>{{ 'Lista transakcji'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
-        <table>
+
+        <div class="create-category-link">
+            <a href="{{ path('transaction_create') }}" class="btn btn-primary">Dodaj transakcje</a>
+        </div>
+        <br>
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'transaction.createdAt') }}</th>
@@ -15,8 +24,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.wallet'|trans, 'wallet.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.amount'|trans, 'transaction.amount') }}</th>
-                <th>{{ 'label.edit'|trans }}</th>
-                <th>{{ 'label.delete'|trans }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -30,21 +38,14 @@
                     </td>
                     <td>{{ task.amount|number_format(2, ',', ' ') }} PLN</td>
                     <td>
-                        <a href="{{ url('transaction_edit', {id: task.id}) }}">{{ 'Edytuj'|trans }}</a>
-                    </td>
-                    <td>
-                        <a href="{{ url('transaction_delete', {id: task.id}) }}">{{ 'Usuń'|trans }}</a>
+                        <a href="{{ url('transaction_edit', {id: task.id}) }}" class="btn btn-secondary">{{ 'Edytuj'|trans }}</a>
+                        <a href="{{ url('transaction_delete', {id: task.id}) }}" class="btn btn-danger">{{ 'Usuń'|trans }}</a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
-        <a href="{{ url('transaction_create') }}" title="{{ 'action.create'|trans }}" class="btn btn-lg">{{ 'action.create'|trans }}</a>
     {% else %}
         {% include 'default/_single_alert_message.html.twig' with {
             type: 'warning',
