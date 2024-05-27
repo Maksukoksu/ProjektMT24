@@ -14,15 +14,6 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 interface CategoryServiceInterface
 {
     /**
-     * Get paginated list.
-     *
-     * @param int $page Page number
-     *
-     * @return PaginationInterface<string, mixed> Paginated list
-     */
-    public function getPaginatedList(int $page): PaginationInterface;
-
-    /**
      * Save entity.
      *
      * @param Category $category Category entity
@@ -35,6 +26,15 @@ interface CategoryServiceInterface
      * @param Category $category Category entity
      */
     public function delete(Category $category): void;
+
+    /**
+     * Get paginated list.
+     *
+     * @param int $page Page number
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
+     */
+    public function getPaginatedList(int $page): PaginationInterface;
 
     /**
      * Can Category be deleted?

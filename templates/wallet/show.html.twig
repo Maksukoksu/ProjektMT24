@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.wallet_details'|trans({'%id%': wallet.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Szczegóły portfela'|trans({'%id%': wallet.id|default('')}) }}</h1>
+    {% if wallet is defined and wallet|length %}
+        <dl>
+            <dt>{{ 'label.title'|trans }}</dt>
+            <dd>{{ wallet.title }}</dd>
+            <dt>{{ 'label.balance'|trans }}</dt>
+            <dd>{{ wallet.getBalance|number_format(2, ',', ' ') }} PLN</dd>
+            <dt>{{ 'label.type'|trans }}</dt>
+            <dd>{{ wallet.type }}</dd>
+        </dl>
+        {% if transactions is defined and transactions|length %}
+            <h3>{{ 'label.transactions'|trans }}</h3>
+            <form method="get" action="">
+                <div>
+                    <label for="dateFrom">{{ 'label.date_from'|trans }}</label>
+                    <input type="date" id="dateFrom" name="dateFrom" value="{{ dateFrom|default('') }}">
+                </div>
+                <div>
+                    <label for="dateTo">{{ 'label.date_to'|trans }}</label>
+                    <input type="date" id="dateTo" name="dateTo" value="{{ dateTo|default('') }}">
+                </div>
+                <div>
+                    <input type="submit" value="{{ 'action.filter'|trans }}" class="btn btn-primary"/>
+                </div>
+            </form>
+            <table>
+                <thead>
+                <tr>
+                    <th>{{ 'label.created_at'|trans }}</th>
+                    <th>{{ 'label.title'|trans }}</th>
+                    <th>{{ 'label.amount'|trans }}</th>
+                    <th>{{ 'label.balance_after_transaction'|trans }}</th>
+                    <th>{{ 'label.delete'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for transaction in transactions %}
+                    <tr>
+                        <td>{{ transaction.createdAt|format_date('long') }}</td>
+                        <td>{{ transaction.title }}</td>
+                        <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
+                        <td>{{ transaction.balanceAfterTransaction|number_format(2, ',', ' ') }} PLN</td>
+                        <td>
+                            <a href="{{ url('transaction_delete', {id: transaction.id}) }}">{{ 'Usuń'|trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <p>
+            <a href="{{ url('wallet_index') }}">{{ 'Powrót'|trans }}</a>
+        </p>
+        <p>
+            <a href="{{ url('transaction_create', {'wallet': wallet.id}) }}">{{ 'Utwórz transakcję'|trans }}</a>
+        </p>
+    {% else %}
+        <p class="text-warning">
+            {{ 'message.record_not_found'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

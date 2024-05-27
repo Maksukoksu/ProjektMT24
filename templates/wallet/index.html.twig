@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.wallet_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Lista portfeli'|trans }}</h1>
+    {% if pagination is defined and pagination.items|length %}
+        <table>
+            <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'wallet.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.type'|trans, 'wallet.type') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.balance'|trans, 'wallet.balance') }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
+                <th>{{ 'label.delete'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for wallet in pagination.items %}
+                <tr>
+                    <td>{{ wallet.title }}</td>
+                    <td>{{ wallet.type }}</td>
+                    <td>{{ wallet.balance|number_format(2, ',', ' ') }} PLN</td>
+                    <td>
+                        <a href="{{ url('wallet_show', {id: wallet.id}) }}">{{ 'Pokaż'|trans }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ url('wallet_delete', {id: wallet.id}) }}">{{ 'Usuń'|trans }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
+        <a href="{{ url('wallet_create') }}">{{ 'Stwórz'|trans }}</a>
+    {% else %}
+        {% include 'default/_single_alert_message.html.twig' with {
+            type: 'warning',
+            message: 'message.empty_list'|trans
+        } %}
+    {% endif %}
+{% endblock %}

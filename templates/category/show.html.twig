@@ -7,7 +7,7 @@
 {% block body %}
     <h1>{{ 'Informacje o kategorii'|trans({'%id%': category.id|default('')}) }}</h1>
     {% if category is defined and category|length %}
-        <dl class="dl-horizontal">
+        <dl>
             <dt>{{ 'ID'|trans }}</dt>
             <dd>{{ category.id }}</dd>
             <dt>{{ 'Stworzono :'|trans }}</dt>
@@ -15,10 +15,10 @@
             <dt>{{ 'Zaktualizowano :'|trans }}</dt>
             <dd>{{ category.updatedAt|format_date('long') }}</dd>
             <dt>{{ 'Tytuł :'|trans }}</dt>
-            <dd>{{  category.title }}</dd>
+            <dd>{{ category.title }}</dd>
         </dl>
         {% if tasks is defined and tasks|length %}
-            <table class="table table-striped">
+            <table>
                 <thead>
                 <tr>
                     <th>{{ 'label.id'|trans }}</th>
@@ -31,7 +31,7 @@
                 {% for task in tasks %}
                     <tr>
                         <td>{{ task.id }}</td>
-                        <td><a href="{{ url('task_show', {id: task.id}) }}" class="no_underline">{{ task.title }}</a></td> {# TODO title attribute #}
+                        <td><a href="{{ url('task_show', {id: task.id}) }}" class="no_underline">{{ task.title }}</a></td>
                         <td>{{ task.createdAt|format_date('long') }}</td>
                         <td>{{ task.updatedAt|format_date('long') }}</td>
                     </tr>

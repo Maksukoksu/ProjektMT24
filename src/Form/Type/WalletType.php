@@ -1,20 +1,21 @@
 <?php
 /**
- * Category type.
+ * Wallet type.
  */
 
-namespace App\Form;
+namespace App\Form\Type;
 
-use App\Entity\Category;
+use App\Entity\Wallet;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class CategoryType.
+ * Class WalletType.
  */
-class CategoryType extends AbstractType
+class WalletType extends AbstractType
 {
     /**
      * Builds the form.
@@ -35,7 +36,29 @@ class CategoryType extends AbstractType
             [
                 'label' => 'label.title',
                 'required' => true,
-                'attr' => ['max_length' => 64],
+            ]
+        );
+
+        $builder->add(
+            'type',
+            TextType::class,
+            [
+                'label' => 'label.type',
+                'required' => true,
+            ]
+        );
+
+        $builder->add(
+            'balance',
+            MoneyType::class,
+            [
+                'label' => 'label.balance',
+                'currency' => 'PLN',
+                'required' => true,
+                'scale' => 2,
+                'attr' => [
+                    'min' => 0.00,
+                ],
             ]
         );
     }
@@ -47,7 +70,7 @@ class CategoryType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Category::class]);
+        $resolver->setDefaults(['data_class' => Wallet::class]);
     }
 
     /**
@@ -60,6 +83,6 @@ class CategoryType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'category';
+        return 'wallet';
     }
 }
