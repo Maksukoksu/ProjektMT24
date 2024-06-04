@@ -48,4 +48,16 @@ interface TagServiceInterface
      * @return Tag[]
      */
     public function getAllTags(): array;
+
+    /**
+     * Find by title.
+     *
+     * @param string $title Tag title
+     *
+     * @return Tag|null Tag entity
+     */
+    public function findOneByTitle(string $title): ?Tag;
+
+    public function save(Tag $tag);
+
 }

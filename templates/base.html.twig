@@ -22,15 +22,6 @@
         </button>
     </div>
 </nav>
-{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div>
-        <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
-    </div>
-{% else %}
-    <div>
-        <a href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
-    </div>
-{% endif %}
 <main role="main" class="container-fluid">
     {% include 'default/_flash_messages.html.twig' %}
     {% block body %}{% endblock %}
@@ -47,5 +38,14 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"></script>
 {% endblock %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div>
+        <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
+    </div>
+{% else %}
+    <div>
+        <a href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
+    </div>
+{% endif %}
 </body>
 </html>

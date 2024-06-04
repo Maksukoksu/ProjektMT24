@@ -7,37 +7,46 @@ use App\Form\Type\TagType;
 use App\Repository\TagRepository;
 use App\Service\TagServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/tag")
  */
+#[Route('/tag')]
+#[IsGranted('ROLE_ADMIN')]
 class TagController extends AbstractController
 {
-    private TagServiceInterface $tagService;
+    private TagServiceInterface $TagService;
+    private TranslatorInterface $translator;
 
     /**
      * Constructor.
      *
-     * @param TagServiceInterface $tagService Tag service
+     * @param TagServiceInterface $TagService Tag service
+     * @param TranslatorInterface $translator Translator service
      */
-    public function __construct(TagServiceInterface $tagService)
+    public function __construct(TagServiceInterface $TagService, TranslatorInterface $translator)
     {
-        $this->tagService = $tagService;
+        $this->TagService = $TagService;
+        $this->translator = $translator;
     }
 
     /**
      * @Route("/", name="tag_index", methods={"GET"})
      *
-     * @param TagRepository $tagRepository
+     * @param TagRepository $TagRepository
      * @return Response
      */
-    public function index(TagRepository $tagRepository): Response
+    #[Route('/', name: 'tag_index', methods: ['GET'])]
+    public function index(TagRepository $TagRepository): Response
     {
         return $this->render('tag/index.html.twig', [
-            'tags' => $tagRepository->findAll(),
+            'tags' => $TagRepository->findAll(),
         ]);
     }
 
@@ -47,6 +56,7 @@ class TagController extends AbstractController
      * @param Request $request
      * @return Response
      */
+    #[Route('/create', name: 'tag_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
         $tag = new Tag();
@@ -54,12 +64,12 @@ class TagController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->tagService->create($tag);
+            $this->TagService->createTag($tag);
 
             return $this->redirectToRoute('tag_index');
         }
 
-        return $this->render('tag/new.html.twig', [
+        return $this->render('tag/create.html.twig', [
             'tag' => $tag,
             'form' => $form->createView(),
         ]);
@@ -71,6 +81,7 @@ class TagController extends AbstractController
      * @param Tag $tag
      * @return Response
      */
+    #[Route('/{id}', name: 'tag_show', methods: ['GET'])]
     public function show(Tag $tag): Response
     {
         return $this->render('tag/show.html.twig', [
@@ -85,13 +96,14 @@ class TagController extends AbstractController
      * @param Tag $tag
      * @return Response
      */
+    #[Route('/{id}/edit', name: 'tag_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Tag $tag): Response
     {
         $form = $this->createForm(TagType::class, $tag);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->tagService->update($tag);
+            $this->TagService->updateTag($tag);
 
             return $this->redirectToRoute('tag_index');
         }
@@ -107,11 +119,23 @@ class TagController extends AbstractController
      *
      * @param Tag $tag
      * @return Response
+     * @param Request $request
      */
-    public function confirmDelete(Tag $tag): Response
+    #[Route('/{id}/delete', name: 'tag_confirm_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET'])]
+    public function confirmDelete(Request $request, Tag $tag): Response
     {
+        $form = $this->createForm(
+            FormType::class,
+            $tag,
+            [
+                'method' => 'DELETE',
+                'action' => $this->generateUrl('tag_delete', ['id' => $tag->getId()]),
+            ]
+        );
+
         return $this->render('tag/delete.html.twig', [
             'tag' => $tag,
+            'form' => $form->createView(),
         ]);
     }
 
@@ -122,12 +146,36 @@ class TagController extends AbstractController
      * @param Tag $tag
      * @return Response
      */
+    #[Route('/{id}/delete', name: 'tag_delete', requirements: ['id' => '[1-9]\d*'], methods: ['DELETE'])]
     public function delete(Request $request, Tag $tag): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$tag->getId(), $request->request->get('_token'))) {
-            $this->tagService->delete($tag);
+        $form = $this->createForm(
+            FormType::class,
+            $tag,
+            [
+                'method' => 'DELETE',
+                'action' => $this->generateUrl('tag_delete', ['id' => $tag->getId()]),
+            ]
+        );
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->TagService->deleteTag($tag);
+
+            $this->addFlash(
+                'success',
+                $this->translator->trans('message.deleted_successfully')
+            );
+
+            return $this->redirectToRoute('tag_index');
         }
 
-        return $this->redirectToRoute('tag_index');
+        return $this->render(
+            'tag/delete.html.twig',
+            [
+                'form' => $form->createView(),
+                'tag' => $tag,
+            ]
+        );
     }
 }

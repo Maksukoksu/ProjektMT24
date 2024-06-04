@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.tag_details'|trans({'%id%': tag.id|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'Informacje o tagu'|trans({'%id%': tag.id|default('')}) }}</h1>
+    {% if tag is defined %}
+        <dl>
+            <dt>{{ 'ID'|trans }}</dt>
+            <dd>{{ tag.id }}</dd>
+            <dt>{{ 'Stworzono :'|trans }}</dt>
+            <dd>{{ tag.createdAt|format_date('long') }}</dd>
+            <dt>{{ 'Zaktualizowano :'|trans }}</dt>
+            <dd>{{ tag.updatedAt|format_date('long') }}</dd>
+            <dt>{{ 'Tytuł :'|trans }}</dt>
+            <dd>{{ tag.title }}</dd>
+        </dl>
+        {% if tasks is defined and tasks|length %}
+            <table>
+                <thead>
+                <tr>
+                    <th>{{ 'label.id'|trans }}</th>
+                    <th>{{ 'label.title'|trans }}</th>
+                    <th>{{ 'label.created_at'|trans }}</th>
+                    <th>{{ 'label.updated_at'|trans }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    <tr>
+                        <td>{{ task.id }}</td>
+                        <td><a href="{{ url('task_show', {id: task.id}) }}" class="no_underline">{{ task.title }}</a></td>
+                        <td>{{ task.createdAt|format_date('long') }}</td>
+                        <td>{{ task.updatedAt|format_date('long') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {{ 'Lista pusta'|trans }}
+        {% endif %}
+        <p>
+            <a href="{{ url('tag_index') }}" title="{{ 'action.back_to_list'|trans }}">
+                {{ 'Powrót'|trans }}
+            </a>
+        </p>
+    {% else %}
+        <p>
+            {{ 'Nie odnaleziono rekordu'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

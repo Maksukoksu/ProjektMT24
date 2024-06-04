@@ -93,4 +93,31 @@ class TagService implements TagServiceInterface
     {
         return $this->tagRepository->findAll();
     }
+
+    /**
+     * Find by title.
+     *
+     * @param string $title Tag title
+     *
+     * @return Tag|null Tag entity
+     */
+    public function findOneByTitle(string $title): ?Tag
+    {
+        return $this->tagRepository->findOneByTitle($title);
+    }
+
+    /**
+     * Save a tag.
+     *
+     * @param Tag $tag
+     * @return Tag
+     */
+    public function save(Tag $tag): Tag
+    {
+        if ($tag->getId()) {
+            return $this->updateTag($tag);
+        } else {
+            return $this->createTag($tag);
+        }
+    }
 }

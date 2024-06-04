@@ -1,8 +1,4 @@
 <?php
-/**
- * Transaction entity.
- */
-
 namespace App\Entity;
 
 use App\Repository\TransactionRepository;
@@ -11,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Tag;
 
 /**
  * Class Transaction.
@@ -82,6 +79,11 @@ class Transaction
      */
     #[ORM\Column(type: Types::FLOAT)]
     private ?float $balanceAfterTransaction;
+
+    /**
+     * Tags.
+     */
+    private array $tags = [];
 
     /**
      * Setter for balanceAfterTransaction.
@@ -225,6 +227,49 @@ class Transaction
     public function setWallet(?Wallet $wallet): self
     {
         $this->wallet = $wallet;
+
+        return $this;
+    }
+
+    /**
+     * Getter for tags.
+     *
+     * @return array<Tag> Tags
+     */
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add a tag.
+     *
+     * @param Tag $tag Tag
+     *
+     * @return Transaction
+     */
+    public function addTag(Tag $tag): self
+    {
+        if (!in_array($tag, $this->tags, true)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Remove a tag.
+     *
+     * @param Tag $tag Tag
+     *
+     * @return Transaction
+     */
+    public function removeTag(Tag $tag): self
+    {
+        if (($key = array_search($tag, $this->tags, true)) !== false) {
+            unset($this->tags[$key]);
+            $this->tags = array_values($this->tags);
+        }
 
         return $this;
     }

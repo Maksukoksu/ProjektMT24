@@ -2,12 +2,22 @@
 
 namespace App\Entity;
 
+use App\Repository\TagRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
+#[ORM\Entity(repositoryClass: TagRepository::class)]
+#[UniqueEntity(fields: ['title'])]
+#[ORM\HasLifecycleCallbacks]
+#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false)]
+#[ORM\Table(name: 'tags')]
 class Tag
 {
     /**
@@ -17,6 +27,9 @@ class Tag
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
     private $id;
 
     /**
@@ -24,28 +37,42 @@ class Tag
      *
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private \DateTimeInterface $createdAt;
 
     /**
      * @var \DateTimeInterface
      *
      * @ORM\Column(type="datetime")
      */
-    private $updatedAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'update')]
+    private \DateTimeInterface $updatedAt;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=64)
      */
-    private $slug;
+    #[ORM\Column(type: 'string', length: 64)]
+    #[Assert\Type('string')]
+    #[Assert\Length(min: 3, max: 64)]
+    #[Gedmo\Slug(fields: ['title'])]
+    private string $slug;
 
     /**
      * @var string
      *
      * @ORM\Column(type="string", length=64)
      */
-    private $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
+    private string $title;
 
     /**
      * Get the value of id
@@ -155,7 +182,7 @@ class Tag
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function updateTimestamps()
+    public function updateTimestamps(): void
     {
         if ($this->getCreatedAt() === null) {
             $this->setCreatedAt(new \DateTimeImmutable());
