@@ -7,7 +7,6 @@ namespace App\DataFixtures;
 
 use App\Entity\Category;
 use App\Entity\Wallet;
-// use App\Entity\Enum\TaskStatus;
 use App\Entity\Transaction;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
@@ -29,20 +28,20 @@ class TransactionFixtures extends AbstractBaseFixtures implements DependentFixtu
             return;
         }
 
-        $this->createMany(100, 'tasks', function (int $i) {
-            $task = new Transaction();
-            $task->setTitle($this->faker->sentence);
-            $task->setAmount($this->faker->randomDigitNotNull());
-            $task->setBalanceAfterTransaction($this->faker->randomDigitNotNull());
+        $this->createMany(100, 'transactions', function (int $i) {
+            $transaction = new Transaction();
+            $transaction->setTitle($this->faker->sentence);
+            $transaction->setAmount($this->faker->randomDigitNotNull());
+            $transaction->setBalanceAfterTransaction($this->faker->randomDigitNotNull());
 
             /** @var Category $category */
             $category = $this->getRandomReference('categories');
-            $task->setCategory($category);
+            $transaction->setCategory($category);
             /** @var Wallet $wallet */
             $wallet = $this->getRandomReference('wallet');
-            $task->setWallet($wallet);
+            $transaction->setWallet($wallet);
 
-            return $task;
+            return $transaction;
         });
 
         $this->manager->flush();

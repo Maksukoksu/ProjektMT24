@@ -82,11 +82,11 @@ class TransactionRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count tasks by category.
+     * Count transactions by category.
      *
      * @param Category $category Category
      *
-     * @return int Number of tasks in category
+     * @return int Number of transactions in category
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -103,11 +103,11 @@ class TransactionRepository extends ServiceEntityRepository
     }
 
     /**
-     * Count tasks by Wallet.
+     * Count transactions by Wallet.
      *
      * @param Wallet $wallet Wallet
      *
-     * @return int Number of tasks in wallet
+     * @return int Number of transactions in wallet
      *
      * @throws NoResultException
      * @throws NonUniqueResultException
@@ -126,22 +126,22 @@ class TransactionRepository extends ServiceEntityRepository
     /**
      * Save entity.
      *
-     * @param Transaction $task Transaction entity
+     * @param Transaction $transaction Transaction entity
      */
-    public function save(Transaction $task): void
+    public function save(Transaction $transaction): void
     {
-        $this->_em->persist($task);
+        $this->_em->persist($transaction);
         $this->_em->flush();
     }
 
     /**
      * Delete entity.
      *
-     * @param Transaction $task Transaction entity
+     * @param Transaction $transaction Transaction entity
      */
-    public function delete(Transaction $task): void
+    public function delete(Transaction $transaction): void
     {
-        $this->_em->remove($task);
+        $this->_em->remove($transaction);
         $this->_em->flush();
     }
 

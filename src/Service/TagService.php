@@ -1,97 +1,70 @@
 <?php
+/**
+ * Tag service.
+ */
 
 namespace App\Service;
 
 use App\Entity\Tag;
 use App\Repository\TagRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * Class TagService
- * @package App\Service
+ * Class TagService.
  */
 class TagService implements TagServiceInterface
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $entityManager;
-
-    /**
-     * @var TagRepository
-     */
-    private TagRepository $tagRepository;
-
-    /**
-     * TagService constructor.
+     * Items per page.
      *
-     * @param EntityManagerInterface $entityManager
-     * @param TagRepository $tagRepository
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See https://symfony.com/doc/current/best_practices.html#configuration
+     *
+     * @constant int
      */
-    public function __construct(EntityManagerInterface $entityManager, TagRepository $tagRepository)
+    private const PAGINATOR_ITEMS_PER_PAGE = 10;
+
+    /**
+     * Constructor.
+     *
+     * @param TagRepository      $tagRepository Tag repository
+     * @param PaginatorInterface $paginator     Paginator
+     */
+    public function __construct(private readonly TagRepository $tagRepository, private readonly PaginatorInterface $paginator)
     {
-        $this->entityManager = $entityManager;
-        $this->tagRepository = $tagRepository;
     }
 
     /**
-     * Create a new tag.
+     * Get paginated list.
      *
-     * @param Tag $tag
-     * @return Tag
+     * @param int $page Page number
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function createTag(Tag $tag): Tag
+    public function getPaginatedList(int $page): PaginationInterface
     {
-        $this->entityManager->persist($tag);
-        $this->entityManager->flush();
-
-        return $tag;
+        return $this->paginator->paginate(
+            $this->tagRepository->queryAll(),
+            $page,
+            self::PAGINATOR_ITEMS_PER_PAGE
+        );
     }
 
     /**
-     * Update an existing tag.
+     * Save entity.
      *
-     * @param Tag $tag
-     * @return Tag
+     * @param Tag $tag Tag entity
      */
-    public function updateTag(Tag $tag): Tag
+    public function save(Tag $tag): void
     {
-        $this->entityManager->flush();
-
-        return $tag;
+        $this->tagRepository->save($tag);
     }
 
-    /**
-     * Delete a tag.
-     *
-     * @param Tag $tag
-     * @return void
-     */
-    public function deleteTag(Tag $tag): void
+    public function delete(Tag $tag): void
     {
-        $this->entityManager->remove($tag);
-        $this->entityManager->flush();
-    }
-
-    /**
-     * Get a tag by its ID.
-     *
-     * @param int $id
-     * @return Tag|null
-     */
-    public function getTagById(int $id): ?Tag
-    {
-        return $this->tagRepository->find($id);
-    }
-
-    /**
-     * Get all tags.
-     *
-     * @return Tag[]
-     */
-    public function getAllTags(): array
-    {
-        return $this->tagRepository->findAll();
+        $this->tagRepository->delete($tag);
     }
 
     /**
@@ -104,20 +77,5 @@ class TagService implements TagServiceInterface
     public function findOneByTitle(string $title): ?Tag
     {
         return $this->tagRepository->findOneByTitle($title);
-    }
-
-    /**
-     * Save a tag.
-     *
-     * @param Tag $tag
-     * @return Tag
-     */
-    public function save(Tag $tag): Tag
-    {
-        if ($tag->getId()) {
-            return $this->updateTag($tag);
-        } else {
-            return $this->createTag($tag);
-        }
     }
 }

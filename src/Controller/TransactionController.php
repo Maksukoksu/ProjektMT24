@@ -27,7 +27,7 @@ class TransactionController extends AbstractController
     /**
      * Transaction service.
      */
-    private TransactionServiceInterface $taskService;
+    private TransactionServiceInterface $transactionService;
 
     /**
      * Translator.
@@ -42,13 +42,13 @@ class TransactionController extends AbstractController
     /**
      * Constructor.
      *
-     * @param TransactionServiceInterface $taskService      Transaction service
+     * @param TransactionServiceInterface $transactionService      Transaction service
      * @param TranslatorInterface         $translator       Translator
      * @param WalletRepository            $walletRepository Wallet Repository
      */
-    public function __construct(TransactionServiceInterface $taskService, TranslatorInterface $translator, WalletRepository $walletRepository)
+    public function __construct(TransactionServiceInterface $transactionService, TranslatorInterface $translator, WalletRepository $walletRepository)
     {
-        $this->taskService = $taskService;
+        $this->transactionService = $transactionService;
         $this->translator = $translator;
         $this->walletRepository = $walletRepository;
     }
@@ -64,7 +64,7 @@ class TransactionController extends AbstractController
     public function index(Request $request): Response
     {
         $filters = $this->getFilters($request);
-        $pagination = $this->taskService->getPaginatedList(
+        $pagination = $this->transactionService->getPaginatedList(
             $request->query->getInt('page', 1),
             $filters
         );
@@ -84,18 +84,18 @@ class TransactionController extends AbstractController
     #[Route('/create/{wallet?}', name: 'transaction_create', methods: 'GET|POST')]
     public function create(Request $request, WalletService $walletService, Wallet $wallet = null): Response
     {
-        $task = new Transaction();
+        $transaction = new Transaction();
 
         if (null !== $wallet) {
             $walletEntity = $this->walletRepository->find($wallet);
             if (null !== $walletEntity) {
-                $task->setWallet($walletEntity);
+                $transaction->setWallet($walletEntity);
             }
         }
 
         $form = $this->createForm(
             TransactionType::class,
-            $task,
+            $transaction,
             [
                 'action' => $this->generateUrl('transaction_create'),
             ]
@@ -106,7 +106,7 @@ class TransactionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Now that the form is submitted and valid, the Transaction has a Wallet associated
-            if (!$walletService->canAcceptTransaction($task->getWallet(), $task->getAmount())) {
+            if (!$walletService->canAcceptTransaction($transaction->getWallet(), $transaction->getAmount())) {
                 $this->addFlash(
                     'warning',
                     $this->translator->trans('message.transaction_not_possible')
@@ -115,7 +115,7 @@ class TransactionController extends AbstractController
                 return $this->render('transaction/create.html.twig', ['form' => $form->createView()]);
             }
 
-            $this->taskService->save($task);
+            $this->transactionService->save($transaction);
 
             $this->addFlash(
                 'success',
@@ -139,20 +139,20 @@ class TransactionController extends AbstractController
      * Edit action.
      *
      * @param Request       $request       HTTP request
-     * @param Transaction   $task          Transaction entity
+     * @param Transaction   $transaction          Transaction entity
      * @param WalletService $walletService WalletService
      *
      * @return Response HTTP response
      */
     #[Route('/{id}/edit', name: 'transaction_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
-    public function edit(Request $request, Transaction $task, WalletService $walletService): Response
+    public function edit(Request $request, Transaction $transaction, WalletService $walletService): Response
     {
         $form = $this->createForm(
             TransactionType::class,
-            $task,
+            $transaction,
             [
                 'method' => 'PUT',
-                'action' => $this->generateUrl('transaction_edit', ['id' => $task->getId()]),
+                'action' => $this->generateUrl('transaction_edit', ['id' => $transaction->getId()]),
             ]
         );
         $form->handleRequest($request);
@@ -161,16 +161,16 @@ class TransactionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // Check if the transaction can be accepted based on wallet's balance
-            if (!$walletService->canAcceptTransaction($task->getWallet(), $form->get('amount')->getData(), $task->getAmount())) {
+            if (!$walletService->canAcceptTransaction($transaction->getWallet(), $form->get('amount')->getData(), $transaction->getAmount())) {
                 $this->addFlash(
                     'warning',
                     $this->translator->trans('message.transaction_not_possible')
                 );
 
-                return $this->render('transaction/edit.html.twig', ['form' => $form->createView(), 'transaction' => $task]);
+                return $this->render('transaction/edit.html.twig', ['form' => $form->createView(), 'transaction' => $transaction]);
             }
 
-            $this->taskService->save($task, $form->get('amount')->getData());
+            $this->transactionService->save($transaction, $form->get('amount')->getData());
 
             $this->addFlash(
                 'success',
@@ -184,7 +184,7 @@ class TransactionController extends AbstractController
             'transaction/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'transaction' => $task,
+                'transaction' => $transaction,
                 'referer' => $referer,
             ]
         );
@@ -194,24 +194,24 @@ class TransactionController extends AbstractController
      * Delete action.
      *
      * @param Request       $request       HTTP request
-     * @param Transaction   $task          Transaction entity
+     * @param Transaction   $transaction          Transaction entity
      * @param WalletService $walletService Wallet Service
      *
      * @return Response HTTP response
      */
     #[Route('/{id}/delete', name: 'transaction_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
-    public function delete(Request $request, Transaction $task, WalletService $walletService): Response
+    public function delete(Request $request, Transaction $transaction, WalletService $walletService): Response
     {
-        $form = $this->createForm(FormType::class, $task, [
+        $form = $this->createForm(FormType::class, $transaction, [
             'method' => 'DELETE',
-            'action' => $this->generateUrl('transaction_delete', ['id' => $task->getId()]),
+            'action' => $this->generateUrl('transaction_delete', ['id' => $transaction->getId()]),
         ]);
         $form->handleRequest($request);
 
         $referer = $request->headers->get('referer');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (!$walletService->canAcceptTransaction($task->getWallet(), -$task->getAmount())) {
+            if (!$walletService->canAcceptTransaction($transaction->getWallet(), -$transaction->getAmount())) {
                 $this->addFlash(
                     'warning',
                     $this->translator->trans('message.transaction_not_possible')
@@ -221,8 +221,8 @@ class TransactionController extends AbstractController
             }
 
             // Reverse the transaction amount in the wallet's balance
-            $walletService->updateBalance($task->getWallet(), -$task->getAmount());
-            $this->taskService->delete($task);
+            $walletService->updateBalance($transaction->getWallet(), -$transaction->getAmount());
+            $this->transactionService->delete($transaction);
 
             $this->addFlash(
                 'success',
@@ -236,7 +236,7 @@ class TransactionController extends AbstractController
             'transaction/delete.html.twig',
             [
                 'form' => $form->createView(),
-                'transaction' => $task,
+                'transaction' => $transaction,
                 'referer' => $referer,
             ]
         );

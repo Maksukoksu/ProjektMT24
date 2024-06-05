@@ -1,206 +1,65 @@
 <?php
+/**
+ * Tag type.
+ */
 
-namespace App\Entity;
+namespace App\Form\Type;
 
-use App\Repository\TagRepository;
-use DateTimeImmutable;
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Tag;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * @ORM\Entity
- * @ORM\HasLifecycleCallbacks
+ * Class TagType.
  */
-#[ORM\Entity(repositoryClass: TagRepository::class)]
-#[UniqueEntity(fields: ['title'])]
-#[ORM\HasLifecycleCallbacks]
-#[Gedmo\SoftDeleteable(fieldName: 'deletedAt', timeAware: false)]
-#[ORM\Table(name: 'tags')]
-class TagType
+class TagType extends AbstractType
 {
     /**
-     * @var int|null
+     * Builds the form.
      *
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private $id;
-
-    /**
-     * @var \DateTimeInterface
+     * This method is called for each type in the hierarchy starting from the
+     * top most type. Type extensions can further modify the form.
      *
-     * @ORM\Column(type="datetime")
-     */
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\Type(DateTimeImmutable::class)]
-    #[Gedmo\Timestampable(on: 'create')]
-    private \DateTimeInterface $createdAt;
-
-    /**
-     * @var \DateTimeInterface
+     * @param FormBuilderInterface $builder The form builder
+     * @param array<string, mixed> $options Form options
      *
-     * @ORM\Column(type="datetime")
+     * @see FormTypeExtensionInterface::buildForm()
      */
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\Type(DateTimeImmutable::class)]
-    #[Gedmo\Timestampable(on: 'update')]
-    private \DateTimeInterface $updatedAt;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=64)
-     */
-    #[ORM\Column(type: 'string', length: 64)]
-    #[Assert\Type('string')]
-    #[Assert\Length(min: 3, max: 64)]
-    #[Gedmo\Slug(fields: ['title'])]
-    private string $slug;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string", length=64)
-     */
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\Type('string')]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 64)]
-    private string $title;
-
-    /**
-     * Get the value of id
-     *
-     * @return int|null
-     */
-    public function getId(): ?int
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        return $this->id;
+        $builder->add(
+            'title',
+            TextType::class,
+            [
+                'label' => 'label.title',
+                'required' => true,
+                'attr' => ['max_length' => 64],
+            ]
+        );
     }
 
     /**
-     * Get the value of createdAt
+     * Configures the options for this type.
      *
-     * @return \DateTimeInterface|null
+     * @param OptionsResolver $resolver The resolver for the options
      */
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        return $this->createdAt;
+        $resolver->setDefaults(['data_class' => Tag::class]);
     }
 
     /**
-     * Set the value of createdAt
+     * Returns the prefix of the template block name for this type.
      *
-     * @param \DateTimeInterface $createdAt
-     * @return self
-     */
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of updatedAt
+     * The block prefix defaults to the underscored short class name with
+     * the "Type" suffix removed (e.g. "UserProfileType" => "user_profile").
      *
-     * @return \DateTimeInterface|null
+     * @return string The prefix of the template block name
      */
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getBlockPrefix(): string
     {
-        return $this->updatedAt;
-    }
-
-    /**
-     * Set the value of updatedAt
-     *
-     * @param \DateTimeInterface $updatedAt
-     * @return self
-     */
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of slug
-     *
-     * @return string|null
-     */
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    /**
-     * Set the value of slug
-     *
-     * @param string $slug
-     * @return self
-     */
-    public function setSlug(string $slug): self
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of title
-     *
-     * @return string|null
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set the value of title
-     *
-     * @param string $title
-     * @return self
-     */
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Updates timestamps before persisting or updating the entity
-     *
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
-    public function updateTimestamps(): void
-    {
-        if ($this->getCreatedAt() === null) {
-            $this->setCreatedAt(new \DateTimeImmutable());
-        }
-        $this->setUpdatedAt(new \DateTimeImmutable());
-
-        // Generate slug based on title
-        $this->setSlug($this->generateSlug($this->getTitle()));
-    }
-
-    /**
-     * Generate slug from title
-     *
-     * @param string $title
-     * @return string
-     */
-    private function generateSlug(string $title): string
-    {
-        return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $title)));
+        return 'tag';
     }
 }

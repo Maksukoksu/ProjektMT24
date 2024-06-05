@@ -75,6 +75,7 @@ class TransactionType extends AbstractType
                 'required' => true,
             ]
         );
+
     }
 
     /**

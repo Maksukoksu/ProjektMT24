@@ -9,7 +9,7 @@
     {% if pagination is defined and pagination.items|length %}
 
         <div class="create-category-link">
-            <a href="{{ path('transaction_create') }}" class="btn btn-primary">Dodaj transakcje</a>
+            <a href="{{ path('transaction_create') }}" class="btn btn-primary">Dodaj transakcję</a>
         </div>
         <br>
         <div class="navigation text-center">
@@ -23,34 +23,41 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'transaction.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.wallet'|trans, 'wallet.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.tag'|trans, 'tag.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.amount'|trans, 'transaction.amount') }}</th>
-                <th>{{ 'label.actions'|trans }}</th>
+                <th>{{ 'label.edit'|trans }}</th>
+                <th>{{ 'label.delete'|trans }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for task in pagination.items %}
+            {% for transaction in pagination.items %}
                 <tr>
-                    <td>{{ task.createdAt|format_date('long') }}</td>
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.wallet.title }}</td>
+                    <td>{{ transaction.createdAt|format_date('long') }}</td>
+                    <td>{{ transaction.title }}</td>
+                    <td>{{ transaction.wallet.title }}</td>
                     <td>
-                        <a href="{{ url('transaction_index', {'filters.category_id' : task.category.id}) }}">{{ task.category.title }}</a>
+                        <a href="{{ url('transaction_index', {'filters.category_id' : transaction.category.id}) }}" title="{{ transaction.category.title }}" class="btn btn-outline-success">
+                            {{ transaction.category.title }}
+                        </a>
+                    </td>
+                    <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
+                    <td>
+                        <a href="{{ url('transaction_edit', {id: transaction.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-primary">
+                            {{ 'action.edit'|trans }}
+                        </a>
                     </td>
                     <td>
-                        {% for tag in task.tags %}
-                        {{ tag.title }}
-                        {% endfor %}
-                    </td>
-                    <td>{{ task.amount|number_format(2, ',', ' ') }} PLN</td>
-                    <td>
-                        <a href="{{ url('transaction_edit', {id: task.id}) }}" class="btn btn-secondary">{{ 'Edytuj'|trans }}</a>
-                        <a href="{{ url('transaction_delete', {id: task.id}) }}" class="btn btn-danger">{{ 'Usuń'|trans }}</a>
+                        <a href="{{ url('transaction_delete', {id: transaction.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-danger">
+                            {{ 'action.delete'|trans }}
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
 
     {% else %}
         {% include 'default/_single_alert_message.html.twig' with {

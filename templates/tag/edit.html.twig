@@ -1,47 +1,6 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}
-    {{ 'title.tag_list'|trans }}
-{% endblock %}
-
-{% block body %}
-    <h1>{{ 'Lista tagów'|trans }}</h1>
-    {% if tags is defined and tags|length %}
-
-        <div class="create-tag-link">
-            <a href="{{ path('tag_create') }}" class="btn btn-primary">Stwórz tag</a>
-        </div>
-        <br>
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ 'ID'|trans }}</th>
-                <th>{{ 'Tytuł'|trans }}</th>
-                <th>{{ 'label.actions'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for tag in tags %}
-                <tr>
-                    <td>{{ tag.id }}</td>
-                    <td><a href="{{ url('tag_show', {id: tag.id}) }}" class="no_underline">{{ tag.title }}</a></td>
-                    <td>
-                        <a href="{{ path('tag_show', {'id': tag.id}) }}" class="btn btn-primary">{{ 'Pokaż'|trans }}</a>
-                        <a href="{{ path('tag_edit', {'id': tag.id}) }}" class="btn btn-secondary">{{ 'Edytuj'|trans }}</a>
-                        <form method="post" action="{{ path('tag_confirm_delete', {'id': tag.id}) }}" style="display:inline-block;" onsubmit="return confirm('{{ 'Czy napewno chcesz usunąć ?'|trans }}');">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ tag.id) }}">
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button class="btn btn-danger">{{ 'Usuń'|trans }}</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>
-            {{ 'Lista pusta'|trans }}
-        </p>
-    {% endif %}
-{% endblock %}
+{% include 'default/_form.html.twig' with {
+    page_title: 'title.tag_edit'|trans({'%id%': category.id|default('')}),
+    form: form,
+    submit_label: 'action.edit'|trans,
+    back_to_list_path: 'tag_index',
+} %}

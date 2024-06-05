@@ -9,35 +9,25 @@ use App\Entity\Tag;
 
 /**
  * Class TagFixtures.
- *
- * @psalm-suppress MissingConstructor
  */
 class TagFixtures extends AbstractBaseFixtures
 {
     /**
      * Load data.
-     *
-     * @psalm-suppress PossiblyNullReference
-     * @psalm-suppress UnusedClosureParam
      */
     public function loadData(): void
     {
-        $this->createMany(20, 'tags', function (int $i) {
+        for ($i = 0; $i < 10; ++$i) {
             $tag = new Tag();
-            $tag->setTitle($this->faker->unique()->word);
+            $tag->setTitle($this->faker->word());
             $tag->setCreatedAt(
-                \DateTimeImmutable::createFromMutable(
-                    $this->faker->dateTimeBetween('-100 days', '-1 days')
-                )
+                \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
             $tag->setUpdatedAt(
-                \DateTimeImmutable::createFromMutable(
-                    $this->faker->dateTimeBetween('-100 days', '-1 days')
-                )
+                \DateTimeImmutable::createFromMutable($this->faker->dateTimeBetween('-100 days', '-1 days'))
             );
-
-            return $tag;
-        });
+            $this->manager->persist($tag);
+        }
 
         $this->manager->flush();
     }

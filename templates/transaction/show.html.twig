@@ -1,26 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.task_details'|trans({'%id%': task.id|default('')}) }}
+    {{ 'title.transaction_details'|trans({'%id%': transaction.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.task_details'|trans({'%id%': task.id|default('')}) }}</h1>
-    {% if task is defined and task|length %}
+    <h1>{{ 'title.transaction_details'|trans({'%id%': transaction.id|default('')}) }}</h1>
+    {% if transaction is defined and transaction|length %}
         <dl class="dl-horizontal">
             <dt>{{ 'label.id'|trans }}</dt>
-            <dd>{{ task.id }}</dd>
+            <dd>{{ transaction.id }}</dd>
             <dt>{{ 'label.created_at'|trans }}</dt>
-            <dd>{{ task.createdAt|format_date('long') }}</dd>
+            <dd>{{ transaction.createdAt|format_date('long') }}</dd>
             <dt>{{ 'label.updated_at'|trans }}</dt>
-            <dd>{{ task.updatedAt|format_date('long') }}</dd>
+            <dd>{{ transaction.updatedAt|format_date('long') }}</dd>
             <dt>{{ 'label.title'|trans }}</dt>
-            <dd>{{  task.title }}</dd>
+            <dd>{{  transaction.title }}</dd>
             <dt>{{ 'label.category'|trans }}</dt>
-            <dd>{{  task.category.title }}</dd>
+            <dd>{{  transaction.category.title }}</dd>
+            <dt>{{ 'label.tags'|trans }}</dt>
+            <dd>
+                {%  for tag in bug.tags %}
+                    {{ tag.title }}
+                {% endfor %}
+            </dd>
         </dl>
         <p>
-            <a href="{{ url('task_index') }}" title="{{ 'action.back_to_list'|trans }}">
+            <a href="{{ url('transaction_index') }}" title="{{ 'action.back_to_list'|trans }}">
                 {{ 'action.back_to_list'|trans }}
             </a>
         </p>

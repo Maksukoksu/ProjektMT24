@@ -1,53 +1,40 @@
 <?php
+/**
+ * Tag service interface.
+ */
 
 namespace App\Service;
 
 use App\Entity\Tag;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 
 /**
- * Interface TagServiceInterface
- * @package App\Service
+ * Interface TagServiceInterface.
  */
 interface TagServiceInterface
 {
     /**
-     * Create a new tag.
+     * Get paginated list.
      *
-     * @param Tag $tag
-     * @return Tag
+     * @param int $page Page number
+     *
+     * @return PaginationInterface<string, mixed> Paginated list
      */
-    public function createTag(Tag $tag): Tag;
+    public function getPaginatedList(int $page): PaginationInterface;
 
     /**
-     * Update an existing tag.
+     * Save entity.
      *
-     * @param Tag $tag
-     * @return Tag
+     * @param Tag $tag Tag entity
      */
-    public function updateTag(Tag $tag): Tag;
+    public function save(Tag $tag): void;
 
     /**
-     * Delete a tag.
+     * Delete entity.
      *
-     * @param Tag $tag
-     * @return void
+     * @param Tag $tag Tag entity
      */
-    public function deleteTag(Tag $tag): void;
-
-    /**
-     * Get a tag by its ID.
-     *
-     * @param int $id
-     * @return Tag|null
-     */
-    public function getTagById(int $id): ?Tag;
-
-    /**
-     * Get all tags.
-     *
-     * @return Tag[]
-     */
-    public function getAllTags(): array;
+    public function delete(Tag $tag): void;
 
     /**
      * Find by title.
@@ -57,7 +44,4 @@ interface TagServiceInterface
      * @return Tag|null Tag entity
      */
     public function findOneByTitle(string $title): ?Tag;
-
-    public function save(Tag $tag);
-
 }
