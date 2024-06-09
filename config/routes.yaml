@@ -4,3 +4,14 @@ controllers:
         namespace: App\Controller
     type: attribute
 
+# config/routes.yaml
+
+user_changePassword:
+    path: /change-password
+    controller: App\Controller\ChangePasswordController::changePassword
+    methods: [GET, POST]
+
+user_changeInfo:
+    path: /change-info
+    controller: App\Controller\ChangeInfoController::changeInfo
+    methods: [GET, POST]

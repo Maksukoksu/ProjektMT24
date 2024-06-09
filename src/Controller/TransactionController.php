@@ -256,7 +256,8 @@ class TransactionController extends AbstractController
     {
         $filters = [];
         $filters['category_id'] = $request->query->getInt('filters_category_id');
-
+        $filters['tag_id'] = $request->query->getInt('filters_tag_id');
         return $filters;
     }
 }
+

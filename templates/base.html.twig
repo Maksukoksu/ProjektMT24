@@ -42,6 +42,10 @@
     <div>
         <a href="{{ url('app_logout') }}">{{ 'action_logout'|trans }}</a>
     </div>
+    <div>
+        <a href="{{ path('user_changePassword') }}" class="btn btn-primary">{{ 'action_change_password'|trans }}</a>
+        <a href="{{ path('user_changeInfo') }}" class="btn btn-primary">{{ 'action_change_info'|trans }}</a>
+    </div>
 {% else %}
     <div>
         <a href="{{ url('app_login') }}">{{ 'action_login'|trans }}</a>
