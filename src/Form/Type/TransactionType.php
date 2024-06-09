@@ -8,6 +8,7 @@ namespace App\Form\Type;
 use App\Entity\Category;
 use App\Entity\Transaction;
 use App\Entity\Wallet;
+use App\Entity\Tag;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -73,6 +74,21 @@ class TransactionType extends AbstractType
                 },
                 'label' => 'label.wallet',
                 'required' => true,
+            ]
+        );
+        $builder->add(
+            'tags',
+            EntityType::class,
+            [
+                'class' => Tag::class,
+                'choice_label' => function ($tag): string {
+                    return $tag->getTitle();
+                },
+                'label' => 'label.tags',
+                'placeholder' => 'label.none',
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
             ]
         );
 

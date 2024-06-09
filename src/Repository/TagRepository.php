@@ -104,10 +104,6 @@ class TagRepository extends ServiceEntityRepository
      */
     public function findOneByTitle(string $title): ?Tag
     {
-        return $this->getOrCreateQueryBuilder()
-            ->andWhere('tag.title = :title')
-            ->setParameter('title', $title)
-            ->getQuery()
-            ->getOneOrNullResult();
+        return $this->findOneBy(['title' => $title]);
     }
 }

@@ -3,274 +3,282 @@ namespace App\Entity;
 
 use App\Repository\TransactionRepository;
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Entity\Tag;
 
 /**
- * Class Transaction.
- *
- * @psalm-suppress MissingConstructor
- */
+* Class Transaction.
+*
+* @psalm-suppress MissingConstructor
+*/
 #[ORM\Entity(repositoryClass: TransactionRepository::class)]
 #[ORM\Table(name: 'transactions')]
 class Transaction
 {
-    /**
-     * Primary key.
-     */
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(type: 'integer')]
-    private ?int $id = null;
+/**
+* Primary key.
+*/
+#[ORM\Id]
+#[ORM\GeneratedValue]
+#[ORM\Column(type: 'integer')]
+private ?int $id = null;
 
-    /**
-     * Created at.
-     */
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\Type(\DateTimeImmutable::class)]
-    #[Gedmo\Timestampable(on: 'create')]
-    private ?\DateTimeImmutable $createdAt;
+/**
+* Created at.
+*/
+#[ORM\Column(type: 'datetime_immutable')]
+#[Assert\Type(\DateTimeImmutable::class)]
+#[Gedmo\Timestampable(on: 'create')]
+private ?\DateTimeImmutable $createdAt;
 
-    /**
-     * Updated at.
-     */
-    #[ORM\Column(type: 'datetime_immutable')]
-    #[Assert\Type(\DateTimeImmutable::class)]
-    #[Gedmo\Timestampable(on: 'update')]
-    private ?\DateTimeImmutable $updatedAt;
+/**
+* Updated at.
+*/
+#[ORM\Column(type: 'datetime_immutable')]
+#[Assert\Type(\DateTimeImmutable::class)]
+#[Gedmo\Timestampable(on: 'update')]
+private ?\DateTimeImmutable $updatedAt;
 
-    /**
-     * Title.
-     */
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\Type('string')]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 3, max: 64)]
-    private ?string $title;
+/**
+* Title.
+*/
+#[ORM\Column(type: 'string', length: 255)]
+#[Assert\Type('string')]
+#[Assert\NotBlank]
+#[Assert\Length(min: 3, max: 64)]
+private ?string $title;
 
-    /**
-     * Category.
-     */
-    #[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
-    #[Assert\NotBlank]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Category $category = null;
+/**
+* Category.
+*/
+#[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
+#[Assert\NotBlank]
+#[ORM\JoinColumn(nullable: false)]
+private ?Category $category = null;
 
-    /**
-     * Amount.
-     */
-    #[ORM\Column(type: Types::FLOAT)]
-    #[Assert\NotBlank]
-    private ?string $amount = null;
+/**
+* Amount.
+*/
+#[ORM\Column(type: Types::FLOAT)]
+#[Assert\NotBlank]
+private ?string $amount = null;
 
-    /**
-     * Wallet.
-     */
-    #[ORM\ManyToOne(targetEntity: Wallet::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
-    #[Assert\NotBlank]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Wallet $wallet = null;
+/**
+* Wallet.
+*/
+#[ORM\ManyToOne(targetEntity: Wallet::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
+#[Assert\NotBlank]
+#[ORM\JoinColumn(nullable: false)]
+private ?Wallet $wallet = null;
 
-    /**
-     * BalanceAfterTransaction.
-     */
-    #[ORM\Column(type: Types::FLOAT)]
-    private ?float $balanceAfterTransaction;
+/**
+* BalanceAfterTransaction.
+*/
+#[ORM\Column(type: Types::FLOAT)]
+private ?float $balanceAfterTransaction;
 
-    /**
-     * Tags.
-     */
-    private array $tags = [];
+/**
+* Tags.
+*
+* @var Collection<int, Tag>
+*/
+#[Assert\Valid]
+#[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+#[ORM\JoinTable(name: 'transactions_tags')]
+private Collection $tags;
 
-    /**
-     * Setter for balanceAfterTransaction.
-     *
-     * @param float|null $balanceAfterTransaction BalanceAfterTransaction
-     *
-     * @return Transaction BalanceAfterTransaction
-     */
-    public function setBalanceAfterTransaction(?float $balanceAfterTransaction): self
-    {
-        $this->balanceAfterTransaction = $balanceAfterTransaction;
+/**
+* Constructor.
+*/
+public function __construct()
+{
+$this->tags = new ArrayCollection();
+}
 
-        return $this;
-    }
+/**
+* Getter for Id.
+*
+* @return int|null Id
+*/
+public function getId(): ?int
+{
+return $this->id;
+}
 
-    /**
-     * Getter for balanceAfterTransaction.
-     *
-     * @return float|null BalanceAfterTransaction
-     */
-    public function getBalanceAfterTransaction(): ?float
-    {
-        return $this->balanceAfterTransaction;
-    }
+/**
+* Getter for created at.
+*
+* @return \DateTimeImmutable|null Created at
+*/
+public function getCreatedAt(): ?\DateTimeImmutable
+{
+return $this->createdAt;
+}
 
-    /**
-     * Getter for Id.
-     *
-     * @return int|null Id
-     */
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+/**
+* Getter for updated at.
+*
+* @return \DateTimeImmutable|null Updated at
+*/
+public function getUpdatedAt(): ?\DateTimeImmutable
+{
+return $this->updatedAt;
+}
 
-    /**
-     * Getter for created at.
-     *
-     * @return \DateTimeImmutable|null Created at
-     */
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->createdAt;
-    }
+/**
+* Getter for title.
+*
+* @return string|null Title
+*/
+public function getTitle(): ?string
+{
+return $this->title;
+}
 
-    /**
-     * Getter for updated at.
-     *
-     * @return \DateTimeImmutable|null Updated at
-     */
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
+/**
+* Setter for title.
+*
+* @param string|null $title Title
+*
+* @return Transaction
+*/
+public function setTitle(?string $title): self
+{
+$this->title = $title;
+return $this;
+}
 
-    /**
-     * Getter for title.
-     *
-     * @return string|null Title
-     */
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
+/**
+* Getter for category.
+*
+* @return Category|null Category
+*/
+public function getCategory(): ?Category
+{
+return $this->category;
+}
 
-    /**
-     * Setter for title.
-     *
-     * @param string|null $title Title
-     */
-    public function setTitle(?string $title): void
-    {
-        $this->title = $title;
-    }
+/**
+* Setter for category.
+*
+* @param Category|null $category Category
+*
+* @return Transaction
+*/
+public function setCategory(?Category $category): self
+{
+$this->category = $category;
+return $this;
+}
 
-    /**
-     * Getter for category.
-     *
-     * @return Category|null Category
-     */
-    public function getCategory(): ?Category
-    {
-        return $this->category;
-    }
+/**
+* Getter for amount.
+*
+* @return string|null Amount
+*/
+public function getAmount(): ?string
+{
+return $this->amount;
+}
 
-    /**
-     * Setter for category.
-     *
-     * @param Category|null $category Category
-     *
-     * @return Transaction Category
-     */
-    public function setCategory(?Category $category): self
-    {
-        $this->category = $category;
+/**
+* Setter for amount.
+*
+* @param string|null $amount Amount
+*
+* @return Transaction
+*/
+public function setAmount(?string $amount): self
+{
+$this->amount = $amount;
+return $this;
+}
 
-        return $this;
-    }
+/**
+* Getter for wallet.
+*
+* @return Wallet|null Wallet
+*/
+public function getWallet(): ?Wallet
+{
+return $this->wallet;
+}
 
-    /**
-     * Getter for amount.
-     *
-     * @return string|null Amount
-     */
-    public function getAmount(): ?string
-    {
-        return $this->amount;
-    }
+/**
+* Setter for wallet.
+*
+* @param Wallet|null $wallet Wallet
+*
+* @return Transaction
+*/
+public function setWallet(?Wallet $wallet): self
+{
+$this->wallet = $wallet;
+return $this;
+}
 
-    /**
-     * Setter for amount.
-     *
-     * @param string|null $amount Amount
-     *
-     * @return Transaction Amount
-     */
-    public function setAmount(?string $amount): self
-    {
-        $this->amount = $amount;
+/**
+* Getter for balanceAfterTransaction.
+*
+* @return float|null BalanceAfterTransaction
+*/
+public function getBalanceAfterTransaction(): ?float
+{
+return $this->balanceAfterTransaction;
+}
 
-        return $this;
-    }
+/**
+* Setter for balanceAfterTransaction.
+*
+* @param float|null $balanceAfterTransaction BalanceAfterTransaction
+*
+* @return Transaction
+*/
+public function setBalanceAfterTransaction(?float $balanceAfterTransaction): self
+{
+$this->balanceAfterTransaction = $balanceAfterTransaction;
+return $this;
+}
 
-    /**
-     * Getter for wallet.
-     *
-     * @return Wallet|null Wallet
-     */
-    public function getWallet(): ?Wallet
-    {
-        return $this->wallet;
-    }
+/**
+* Getter for tags.
+*
+* @return Collection<int, Tag> Tags collection
+*/
+public function getTags(): Collection
+{
+return $this->tags;
+}
 
-    /**
-     * Setter for wallet.
-     *
-     * @param Wallet|null $wallet Wallet
-     *
-     * @return Transaction Wallet
-     */
-    public function setWallet(?Wallet $wallet): self
-    {
-        $this->wallet = $wallet;
+/**
+* Add tag.
+*
+* @param Tag $tag Tag entity
+*
+* @return Transaction
+*/
+public function addTag(Tag $tag): self
+{
+if (!$this->tags->contains($tag)) {
+$this->tags[] = $tag;
+}
+return $this;
+}
 
-        return $this;
-    }
-
-    /**
-     * Getter for tags.
-     *
-     * @return array<Tag> Tags
-     */
-    public function getTags(): array
-    {
-        return $this->tags;
-    }
-
-    /**
-     * Add a tag.
-     *
-     * @param Tag $tag Tag
-     *
-     * @return Transaction
-     */
-    public function addTag(Tag $tag): self
-    {
-        if (!in_array($tag, $this->tags, true)) {
-            $this->tags[] = $tag;
-        }
-
-        return $this;
-    }
-
-    /**
-     * Remove a tag.
-     *
-     * @param Tag $tag Tag
-     *
-     * @return Transaction
-     */
-    public function removeTag(Tag $tag): self
-    {
-        if (($key = array_search($tag, $this->tags, true)) !== false) {
-            unset($this->tags[$key]);
-            $this->tags = array_values($this->tags);
-        }
-
-        return $this;
-    }
+/**
+* Remove tag.
+*
+* @param Tag $tag Tag entity
+*
+* @return Transaction
+*/
+public function removeTag(Tag $tag): self
+{
+$this->tags->removeElement($tag);
+return $this;
+}
 }

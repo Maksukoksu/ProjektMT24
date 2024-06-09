@@ -23,6 +23,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'transaction.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.wallet'|trans, 'wallet.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.tags'|trans, 'tags.title') }}</th> <!-- Nowa kolumna dla tagów -->
                 <th>{{ knp_pagination_sortable(pagination, 'label.amount'|trans, 'transaction.amount') }}</th>
                 <th>{{ 'label.edit'|trans }}</th>
                 <th>{{ 'label.delete'|trans }}</th>
@@ -38,6 +39,14 @@
                         <a href="{{ url('transaction_index', {'filters.category_id' : transaction.category.id}) }}" title="{{ transaction.category.title }}" class="btn btn-outline-success">
                             {{ transaction.category.title }}
                         </a>
+                    </td>
+                    <td> <!-- Wyświetlanie tagów -->
+                        {% for tag in transaction.tags %}
+                            <a href="{{ url('transaction_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.title }}" class="btn btn-outline-info">
+                                {{ tag.title }}
+                            </a>
+                            {% if not loop.last %}, {% endif %}
+                        {% endfor %}
                     </td>
                     <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
                     <td>

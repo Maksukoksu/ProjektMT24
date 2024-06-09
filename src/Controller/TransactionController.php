@@ -69,7 +69,9 @@ class TransactionController extends AbstractController
             $filters
         );
 
-        return $this->render('transaction/index.html.twig', ['pagination' => $pagination]);
+        return $this->render('transaction/index.html.twig', [
+            'pagination' => $pagination,
+        ]);
     }
 
     /**
@@ -105,7 +107,6 @@ class TransactionController extends AbstractController
         $referer = $request->headers->get('referer');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Now that the form is submitted and valid, the Transaction has a Wallet associated
             if (!$walletService->canAcceptTransaction($transaction->getWallet(), $transaction->getAmount())) {
                 $this->addFlash(
                     'warning',
@@ -135,11 +136,12 @@ class TransactionController extends AbstractController
         );
     }
 
+
     /**
      * Edit action.
      *
      * @param Request       $request       HTTP request
-     * @param Transaction   $transaction          Transaction entity
+     * @param Transaction   $transaction   Transaction entity
      * @param WalletService $walletService WalletService
      *
      * @return Response HTTP response
@@ -160,7 +162,6 @@ class TransactionController extends AbstractController
         $referer = $request->headers->get('referer');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Check if the transaction can be accepted based on wallet's balance
             if (!$walletService->canAcceptTransaction($transaction->getWallet(), $form->get('amount')->getData(), $transaction->getAmount())) {
                 $this->addFlash(
                     'warning',
