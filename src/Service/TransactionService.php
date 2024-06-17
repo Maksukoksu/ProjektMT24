@@ -16,52 +16,21 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class TransactionService implements TransactionServiceInterface
 {
-    /**
-     * Transaction repository.
-     */
     private TransactionRepository $taskRepository;
-
-    /**
-     * Paginator.
-     */
     private PaginatorInterface $paginator;
-
-    /**
-     * Wallet repository.
-     */
     private WalletService $walletService;
-
-    /**
-     * Category service.
-     */
     private CategoryServiceInterface $categoryService;
+    private TagService $tagService;
 
-    /**
-     * Constructor.
-     *
-     * @param TransactionRepository    $taskRepository  Transaction repository
-     * @param PaginatorInterface       $paginator       Paginator
-     * @param WalletService            $walletService   Wallet service
-     * @param CategoryServiceInterface $categoryService Category service
-     */
-    public function __construct(TransactionRepository $taskRepository, PaginatorInterface $paginator, WalletService $walletService, CategoryServiceInterface $categoryService)
+    public function __construct(TransactionRepository $taskRepository, PaginatorInterface $paginator, WalletService $walletService, CategoryServiceInterface $categoryService, TagService $tagService)
     {
         $this->taskRepository = $taskRepository;
         $this->paginator = $paginator;
         $this->walletService = $walletService;
         $this->categoryService = $categoryService;
+        $this->tagService = $tagService;
     }
 
-    /**
-     * Get paginated list.
-     *
-     * @param int                $page    Page number
-     * @param array<string, int> $filters Filters array
-     *
-     * @return PaginationInterface<string, mixed> Paginated list
-     *
-     * @throws NonUniqueResultException
-     */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface
     {
         $filters = $this->prepareFilters($filters);
@@ -73,14 +42,9 @@ class TransactionService implements TransactionServiceInterface
         );
     }
 
-    /**
-     * Save entity.
-     *
-     * @param Transaction $task                      Transaction entity
-     * @param float|null  $originalTransactionAmount Original Transaction Amount
-     */
     public function save(Transaction $task, float $originalTransactionAmount = null): void
     {
+        // Update the wallet balance
         $this->walletService->updateBalance($task->getWallet(), $task->getAmount());
         $balance = $task->getWallet()->getBalance();
         if (null !== $originalTransactionAmount) {
@@ -88,28 +52,16 @@ class TransactionService implements TransactionServiceInterface
         } else {
             $task->setBalanceAfterTransaction($balance + $task->getAmount());
         }
+
+        // Save the transaction
         $this->taskRepository->save($task);
     }
 
-    /**
-     * Delete entity.
-     *
-     * @param Transaction $task Transaction entity
-     */
     public function delete(Transaction $task): void
     {
         $this->taskRepository->delete($task);
     }
 
-    /**
-     * Prepare filters for the tasks list.
-     *
-     * @param array<string, int> $filters Raw filters from request
-     *
-     * @return array<string, object> Result array of filters
-     *
-     * @throws NonUniqueResultException
-     */
     private function prepareFilters(array $filters): array
     {
         $resultFilters = [];
@@ -117,6 +69,13 @@ class TransactionService implements TransactionServiceInterface
             $category = $this->categoryService->findOneById($filters['category_id']);
             if (null !== $category) {
                 $resultFilters['category'] = $category;
+            }
+        }
+
+        if (!empty($filters['tag_id'])) {
+            $tag = $this->tagService->findOneById($filters['tag_id']);
+            if (null !== $tag) {
+                $resultFilters['tag'] = $tag;
             }
         }
 

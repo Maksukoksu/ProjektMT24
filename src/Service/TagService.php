@@ -62,6 +62,11 @@ class TagService implements TagServiceInterface
         $this->tagRepository->save($tag);
     }
 
+    /**
+     * Delete entity.
+     *
+     * @param Tag $tag Tag entity
+     */
     public function delete(Tag $tag): void
     {
         $this->tagRepository->delete($tag);
@@ -77,5 +82,17 @@ class TagService implements TagServiceInterface
     public function findOneByTitle(string $title): ?Tag
     {
         return $this->tagRepository->findOneByTitle($title);
+    }
+
+    /**
+     * Find by ID.
+     *
+     * @param int $id Tag ID
+     *
+     * @return Tag|null Tag entity
+     */
+    public function findOneById(int $id): ?Tag
+    {
+        return $this->tagRepository->find($id);
     }
 }

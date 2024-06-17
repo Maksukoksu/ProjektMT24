@@ -44,4 +44,13 @@ interface TagServiceInterface
      * @return Tag|null Tag entity
      */
     public function findOneByTitle(string $title): ?Tag;
+
+    /**
+     * Find by ID.
+     *
+     * @param int $id Tag ID
+     *
+     * @return Tag|null Tag entity
+     */
+    public function findOneById(int $id): ?Tag;
 }
