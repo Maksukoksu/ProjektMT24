@@ -26,6 +26,7 @@ security:
         ROLE_ADMIN: [ROLE_USER]
 
     access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/register, roles: PUBLIC_ACCESS }  # Dodane dla rejestracji
         - { path: ^/, roles: ROLE_USER }

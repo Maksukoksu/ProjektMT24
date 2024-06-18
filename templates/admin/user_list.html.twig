@@ -1,0 +1,26 @@
+{# templates/admin/user_list.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Lista Użytkowników</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles|join(', ') }}</td>
+                <td>
+                    <a href="{{ path('admin_user_edit', {'id': user.id}) }}">Edytuj</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
