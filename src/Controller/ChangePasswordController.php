@@ -81,5 +81,4 @@ class ChangePasswordController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 }

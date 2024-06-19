@@ -91,7 +91,6 @@ class TransactionType extends AbstractType
                 'multiple' => true,
             ]
         );
-
     }
 
     /**

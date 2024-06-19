@@ -22,122 +22,122 @@ class Transaction
 /**
 * Primary key.
 */
-#[ORM\Id]
-#[ORM\GeneratedValue]
-#[ORM\Column(type: 'integer')]
-private ?int $id = null;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private ?int $id = null;
 
 /**
 * Created at.
 */
-#[ORM\Column(type: 'datetime_immutable')]
-#[Assert\Type(\DateTimeImmutable::class)]
-#[Gedmo\Timestampable(on: 'create')]
-private ?\DateTimeImmutable $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(\DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'create')]
+    private ?\DateTimeImmutable $createdAt;
 
 /**
 * Updated at.
 */
-#[ORM\Column(type: 'datetime_immutable')]
-#[Assert\Type(\DateTimeImmutable::class)]
-#[Gedmo\Timestampable(on: 'update')]
-private ?\DateTimeImmutable $updatedAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    #[Assert\Type(\DateTimeImmutable::class)]
+    #[Gedmo\Timestampable(on: 'update')]
+    private ?\DateTimeImmutable $updatedAt;
 
 /**
 * Title.
 */
-#[ORM\Column(type: 'string', length: 255)]
-#[Assert\Type('string')]
-#[Assert\NotBlank]
-#[Assert\Length(min: 3, max: 64)]
-private ?string $title;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Type('string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 64)]
+    private ?string $title;
 
 /**
 * Category.
 */
-#[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
-#[Assert\NotBlank]
-#[ORM\JoinColumn(nullable: false)]
-private ?Category $category = null;
+    #[ORM\ManyToOne(targetEntity: Category::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
+    #[Assert\NotBlank]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
 
 /**
 * Amount.
 */
-#[ORM\Column(type: Types::FLOAT)]
-#[Assert\NotBlank]
-private ?string $amount = null;
+    #[ORM\Column(type: Types::FLOAT)]
+    #[Assert\NotBlank]
+    private ?string $amount = null;
 
 /**
 * Wallet.
 */
-#[ORM\ManyToOne(targetEntity: Wallet::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
-#[Assert\NotBlank]
-#[ORM\JoinColumn(nullable: false)]
-private ?Wallet $wallet = null;
+    #[ORM\ManyToOne(targetEntity: Wallet::class, fetch: 'EXTRA_LAZY', inversedBy: 'transactions')]
+    #[Assert\NotBlank]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Wallet $wallet = null;
 
 /**
 * BalanceAfterTransaction.
 */
-#[ORM\Column(type: Types::FLOAT)]
-private ?float $balanceAfterTransaction;
+    #[ORM\Column(type: Types::FLOAT)]
+    private ?float $balanceAfterTransaction;
 
 /**
 * Tags.
 *
 * @var Collection<int, Tag>
 */
-#[Assert\Valid]
-#[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
-#[ORM\JoinTable(name: 'transactions_tags')]
-private Collection $tags;
+    #[Assert\Valid]
+    #[ORM\ManyToMany(targetEntity: Tag::class, fetch: 'EXTRA_LAZY', orphanRemoval: true)]
+    #[ORM\JoinTable(name: 'transactions_tags')]
+    private Collection $tags;
 
 /**
 * Constructor.
 */
-public function __construct()
-{
-$this->tags = new ArrayCollection();
-}
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
 /**
 * Getter for Id.
 *
 * @return int|null Id
 */
-public function getId(): ?int
-{
-return $this->id;
-}
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
 /**
 * Getter for created at.
 *
 * @return \DateTimeImmutable|null Created at
 */
-public function getCreatedAt(): ?\DateTimeImmutable
-{
-return $this->createdAt;
-}
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
 
 /**
 * Getter for updated at.
 *
 * @return \DateTimeImmutable|null Updated at
 */
-public function getUpdatedAt(): ?\DateTimeImmutable
-{
-return $this->updatedAt;
-}
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
 
 /**
 * Getter for title.
 *
 * @return string|null Title
 */
-public function getTitle(): ?string
-{
-return $this->title;
-}
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
 
 /**
 * Setter for title.
@@ -146,21 +146,22 @@ return $this->title;
 *
 * @return Transaction
 */
-public function setTitle(?string $title): self
-{
-$this->title = $title;
-return $this;
-}
+    public function setTitle(?string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
 
 /**
 * Getter for category.
 *
 * @return Category|null Category
 */
-public function getCategory(): ?Category
-{
-return $this->category;
-}
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
 
 /**
 * Setter for category.
@@ -169,21 +170,22 @@ return $this->category;
 *
 * @return Transaction
 */
-public function setCategory(?Category $category): self
-{
-$this->category = $category;
-return $this;
-}
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
 
 /**
 * Getter for amount.
 *
 * @return string|null Amount
 */
-public function getAmount(): ?string
-{
-return $this->amount;
-}
+    public function getAmount(): ?string
+    {
+        return $this->amount;
+    }
 
 /**
 * Setter for amount.
@@ -192,21 +194,22 @@ return $this->amount;
 *
 * @return Transaction
 */
-public function setAmount(?string $amount): self
-{
-$this->amount = $amount;
-return $this;
-}
+    public function setAmount(?string $amount): self
+    {
+        $this->amount = $amount;
+
+        return $this;
+    }
 
 /**
 * Getter for wallet.
 *
 * @return Wallet|null Wallet
 */
-public function getWallet(): ?Wallet
-{
-return $this->wallet;
-}
+    public function getWallet(): ?Wallet
+    {
+        return $this->wallet;
+    }
 
 /**
 * Setter for wallet.
@@ -215,21 +218,22 @@ return $this->wallet;
 *
 * @return Transaction
 */
-public function setWallet(?Wallet $wallet): self
-{
-$this->wallet = $wallet;
-return $this;
-}
+    public function setWallet(?Wallet $wallet): self
+    {
+        $this->wallet = $wallet;
+
+        return $this;
+    }
 
 /**
 * Getter for balanceAfterTransaction.
 *
 * @return float|null BalanceAfterTransaction
 */
-public function getBalanceAfterTransaction(): ?float
-{
-return $this->balanceAfterTransaction;
-}
+    public function getBalanceAfterTransaction(): ?float
+    {
+        return $this->balanceAfterTransaction;
+    }
 
 /**
 * Setter for balanceAfterTransaction.
@@ -238,21 +242,22 @@ return $this->balanceAfterTransaction;
 *
 * @return Transaction
 */
-public function setBalanceAfterTransaction(?float $balanceAfterTransaction): self
-{
-$this->balanceAfterTransaction = $balanceAfterTransaction;
-return $this;
-}
+    public function setBalanceAfterTransaction(?float $balanceAfterTransaction): self
+    {
+        $this->balanceAfterTransaction = $balanceAfterTransaction;
+
+        return $this;
+    }
 
 /**
 * Getter for tags.
 *
 * @return Collection<int, Tag> Tags collection
 */
-public function getTags(): Collection
-{
-return $this->tags;
-}
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
 
 /**
 * Add tag.
@@ -261,13 +266,14 @@ return $this->tags;
 *
 * @return Transaction
 */
-public function addTag(Tag $tag): self
-{
-if (!$this->tags->contains($tag)) {
-$this->tags[] = $tag;
-}
-return $this;
-}
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
 
 /**
 * Remove tag.
@@ -276,9 +282,10 @@ return $this;
 *
 * @return Transaction
 */
-public function removeTag(Tag $tag): self
-{
-$this->tags->removeElement($tag);
-return $this;
-}
+    public function removeTag(Tag $tag): self
+    {
+        $this->tags->removeElement($tag);
+
+        return $this;
+    }
 }

@@ -13,22 +13,22 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class RegistrationFormType extends AbstractType
 {
-public function buildForm(FormBuilderInterface $builder, array $options)
-{
-$builder
-->add('email', EmailType::class)
-->add('plainPassword', RepeatedType::class, [
-'type' => PasswordType::class,
-'first_options' => ['label' => 'Password'],
-'second_options' => ['label' => 'Repeat Password'],
-])
-;
-}
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+        ->add('email', EmailType::class)
+        ->add('plainPassword', RepeatedType::class, [
+            'type' => PasswordType::class,
+            'first_options' => ['label' => 'Password'],
+            'second_options' => ['label' => 'Repeat Password'],
+        ])
+        ;
+    }
 
-public function configureOptions(OptionsResolver $resolver)
-{
-$resolver->setDefaults([
-'data_class' => User::class,
-]);
-}
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'data_class' => User::class,
+        ]);
+    }
 }

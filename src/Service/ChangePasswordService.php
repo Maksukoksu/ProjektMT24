@@ -47,7 +47,7 @@ class ChangePasswordService implements ChangePasswordServiceInterface
     /**
      * Change Password.
      *
-     * @param User   $user    User
+     * @param User   $user        User
      * @param string $oldPassword Old password
      * @param string $newPassword New password
      */

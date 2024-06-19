@@ -31,8 +31,8 @@ class ChangeInfoService implements ChangeInfoServiceInterface
     /**
      * Change Information.
      *
-     * @param User  $user   User
-     * @param array $data   Data with new user information
+     * @param User  $user User
+     * @param array $data Data with new user information
      */
     public function changeInfo(User $user, array $data): void
     {
