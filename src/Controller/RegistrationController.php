@@ -11,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -20,10 +19,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class RegistrationController extends AbstractController
 {
-    private UserPasswordHasherInterface $passwordHasher;
-    private UserRepository $userRepository;
-    private ValidatorInterface $validator;
-
     /**
      * RegistrationController constructor.
      *
@@ -31,11 +26,8 @@ class RegistrationController extends AbstractController
      * @param UserRepository              $userRepository User repository
      * @param ValidatorInterface          $validator      Validator
      */
-    public function __construct(UserPasswordHasherInterface $passwordHasher, UserRepository $userRepository, ValidatorInterface $validator)
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher, private readonly UserRepository $userRepository, private readonly ValidatorInterface $validator)
     {
-        $this->passwordHasher = $passwordHasher;
-        $this->userRepository = $userRepository;
-        $this->validator = $validator;
     }
 
     /**
@@ -45,7 +37,7 @@ class RegistrationController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
         if ($request->isMethod('POST')) {

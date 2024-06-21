@@ -7,7 +7,6 @@ namespace App\Service;
 
 use App\Entity\Transaction;
 use App\Repository\TransactionRepository;
-use Doctrine\ORM\NonUniqueResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -18,12 +17,6 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class TransactionService implements TransactionServiceInterface
 {
-    private TransactionRepository $taskRepository;
-    private PaginatorInterface $paginator;
-    private WalletService $walletService;
-    private CategoryServiceInterface $categoryService;
-    private TagService $tagService;
-
     /**
      * Constructor.
      *
@@ -33,12 +26,8 @@ class TransactionService implements TransactionServiceInterface
      * @param CategoryServiceInterface $categoryService The category service
      * @param TagService               $tagService      The tag service
      */
-    public function __construct(TransactionRepository $taskRepository, PaginatorInterface $paginator, WalletService $walletService, CategoryServiceInterface $categoryService, TagService $tagService) {
-        $this->taskRepository = $taskRepository;
-        $this->paginator = $paginator;
-        $this->walletService = $walletService;
-        $this->categoryService = $categoryService;
-        $this->tagService = $tagService;
+    public function __construct(private readonly TransactionRepository $taskRepository, private readonly PaginatorInterface $paginator, private readonly WalletService $walletService, private readonly CategoryServiceInterface $categoryService, private readonly TagService $tagService)
+    {
     }
 
     /**
@@ -66,7 +55,7 @@ class TransactionService implements TransactionServiceInterface
      * @param Transaction $task                      The transaction entity
      * @param float|null  $originalTransactionAmount The original transaction amount
      */
-    public function save(Transaction $task, float $originalTransactionAmount = null): void
+    public function save(Transaction $task, ?float $originalTransactionAmount = null): void
     {
         // Update the wallet balance
         $this->walletService->updateBalance($task->getWallet(), $task->getAmount());
@@ -110,7 +99,7 @@ class TransactionService implements TransactionServiceInterface
 
         if (!empty($filters['tag_id'])) {
             $tag = $this->tagService->findOneById($filters['tag_id']);
-            if (null !== $tag) {
+            if ($tag instanceof \App\Entity\Tag) {
                 $resultFilters['tag'] = $tag;
             }
         }

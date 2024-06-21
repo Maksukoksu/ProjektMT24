@@ -1,52 +1,5 @@
-   1) src/Controller/Admin/UserController.php (no_superfluous_phpdoc_tags, phpdoc_summary, phpdoc_trim, no_blank_lines_after_phpdoc, no_extra_blank_lines)
-   2) src/Controller/TransactionController.php (class_attributes_separation, nullable_type_declaration_for_default_null_value)
-   3) src/Entity/Category.php (fully_qualified_strict_types, global_namespace_import, no_unused_imports)
-   4) src/Entity/Transaction.php (align_multiline_comment, phpdoc_indent, fully_qualified_strict_types, no_superfluous_phpdoc_tags, global_namespace_import, phpdoc_trim, no_unused_imports, blank_lines_before_namespace)
-   5) src/Form/Type/RegistrationFormType.php (phpdoc_summary, no_unused_imports, no_blank_lines_after_phpdoc)
-   6) src/Form/Type/UserType.php (class_attributes_separation, array_indentation, phpdoc_summary)
-   7) src/Repository/CategoryRepository.php (nullable_type_declaration_for_default_null_value)
-   8) src/Repository/TransactionRepository.php (visibility_required, phpdoc_summary, no_extra_blank_lines)
-   9) src/Repository/WalletRepository.php (nullable_type_declaration_for_default_null_value)
-  10) src/Service/TransactionService.php (nullable_type_declaration_for_default_null_value, braces_position, no_unused_imports)
-  11) src/Service/WalletService.php (nullable_type_declaration_for_default_null_value)
-  12) src/Service/WalletServiceInterface.php (nullable_type_declaration_for_default_null_value)
 
-Found 12 of 51 files that can be fixed in 2.491 seconds, 18.00 MB memory used
-
-FILE: /home/wwwroot/app/src/Controller/Admin/UserController.php
---------------------------------------------------------------------------
-FOUND 2 ERRORS AFFECTING 2 LINES
---------------------------------------------------------------------------
- 32 | ERROR | [x] There must be no blank lines after the function comment
- 57 | ERROR | [x] There must be no blank lines after the function comment
---------------------------------------------------------------------------
-PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
---------------------------------------------------------------------------
-
-
-FILE: /home/wwwroot/app/src/Entity/Tag.php
-----------------------------------------------------------------------
-FOUND 5 ERRORS AFFECTING 5 LINES
-----------------------------------------------------------------------
-  91 | ERROR | Missing @return tag in function comment
- 113 | ERROR | Missing @return tag in function comment
- 135 | ERROR | Missing @return tag in function comment
- 143 | ERROR | Missing doc comment for function getSlug()
- 148 | ERROR | Missing doc comment for function setSlug()
-----------------------------------------------------------------------
-
-
-FILE: /home/wwwroot/app/src/Service/TransactionService.php
-----------------------------------------------------------------------
-FOUND 1 ERROR AFFECTING 1 LINE
-----------------------------------------------------------------------
- 36 | ERROR | [x] Opening brace should be on a new line
-----------------------------------------------------------------------
-PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
-----------------------------------------------------------------------
-
-Time: 4.54 secs; Memory: 10MB
-
+Found 0 of 51 files that can be fixed in 2.288 seconds, 18.00 MB memory used
  ----------- ------------ ---------------------------------- ---------------------------------- 
   State       Domain       Id                                 Message Preview (en)              
  ----------- ------------ ---------------------------------- ---------------------------------- 
@@ -61,28 +14,32 @@ Time: 4.54 secs; Memory: 10MB
    missing    messages     message.transaction_not_possible   message.transaction_not_possible  
    missing    messages     message.wallet_contains_tasks      message.wallet_contains_tasks     
    missing    messages     message.password_incorrect         message.password_incorrect        
-   missing    messages     action_change_password             action_change_password            
-   missing    messages     action_change_info                 action_change_info                
-   missing    messages     action_login                       action_login                      
-   missing    messages     action_logout                      action_logout                     
-   missing    messages     title.category_create              title.category_create             
-   missing    messages     action.save                        action.save                       
-   missing    messages     title.category_delete              title.category_delete             
-   missing    messages     action.delete                      action.delete                     
-   missing    messages     title.category_edit                title.category_edit               
-   missing    messages     action.edit                        action.edit                       
-   missing    messages     title.category_list                title.category_list               
+   missing    messages     Edycja Danych                      Edycja Danych                     
+   missing    messages     Zapisz                             Zapisz                            
+   missing    messages     użytkownicy                        użytkownicy                       
+   missing    messages     Email                              Email                             
+   missing    messages     Rola                               Rola                              
+   missing    messages     Akcje                              Akcje                             
+   missing    messages     Edytuj                             Edytuj                            
+   missing    messages     Zmiana hasła                       Zmiana hasła                      
+   missing    messages     Zmiana adresu email                Zmiana adresu email               
+   missing    messages     Lista Użytkowników                 Lista Użytkowników                
+   missing    messages     Logowanie                          Logowanie                         
+   missing    messages     Wyloguj                            Wyloguj                           
+   missing    messages     Wallet                             Wallet                            
+   missing    messages     Stwórz kategorię                   Stwórz kategorię                  
+   missing    messages     Usuwanie                           Usuwanie                          
+   missing    messages     Usuń                               Usuń                              
+   missing    messages     Edycja                             Edycja                            
+   missing    messages     Kategorie                          Kategorie                         
    missing    messages     Lista kategorii                    Lista kategorii                   
    missing    messages     ID                                 ID                                
    missing    messages     Tytuł                              Tytuł                             
    missing    messages     Data Utworzenia                    Data Utworzenia                   
    missing    messages     Data Aktualizacji                  Data Aktualizacji                 
    missing    messages     Pokaż                              Pokaż                             
-   missing    messages     Edytuj                             Edytuj                            
-   missing    messages     Czy napewno chcesz usunąć ?        Czy napewno chcesz usunąć ?       
-   missing    messages     Usuń                               Usuń                              
    missing    messages     Lista pusta                        Lista pusta                       
-   missing    messages     title.category_details             title.category_details            
+   missing    messages     Szczegóły kategorii                Szczegóły kategorii               
    missing    messages     Informacje o kategorii             Informacje o kategorii            
    missing    messages     Stworzono :                        Stworzono :                       
    missing    messages     Zaktualizowano :                   Zaktualizowano :                  
@@ -92,28 +49,31 @@ Time: 4.54 secs; Memory: 10MB
    missing    messages     action.back_to_list                action.back_to_list               
    missing    messages     Powrót                             Powrót                            
    missing    messages     Nie odnaleziono rekordu            Nie odnaleziono rekordu           
-   missing    messages     message.form_error                 message.form_error                
-   missing    messages     title.tag_create                   title.tag_create                  
-   missing    messages     title.tag_delete                   title.tag_delete                  
-   missing    messages     title.tag_edit                     title.tag_edit                    
-   missing    messages     title.tag_list                     title.tag_list                    
+   missing    messages     Błąd                               Błąd                              
+   missing    messages     Rejestracja                        Rejestracja                       
+   missing    messages     Hasło                              Hasło                             
+   missing    messages     Potwierdź hasło                    Potwierdź hasło                   
+   missing    messages     Zatwierdź                          Zatwierdź                         
+   missing    messages     Zaloguj się                        Zaloguj się                       
+   missing    messages     Zaloguj                            Zaloguj                           
+   missing    messages     Stwórz tag                         Stwórz tag                        
+   missing    messages     Tagi                               Tagi                              
    missing    messages     Lista tagów                        Lista tagów                       
-   missing    messages     title.tag_details                  title.tag_details                 
+   missing    messages     Szczegóły tagu                     Szczegóły tagu                    
+   missing    messages     Informacje o tagu                  Informacje o tagu                 
    missing    messages     title.transaction_create           title.transaction_create          
-   missing    messages     title.transaction_delete           title.transaction_delete          
-   missing    messages     title.transaction_edit             title.transaction_edit            
-   missing    messages     title.transaction_list             title.transaction_list            
+   missing    messages     action.save                        action.save                       
+   missing    messages     Transakcje                         Transakcje                        
    missing    messages     Lista transakcji                   Lista transakcji                  
-   missing    messages     label.wallet                       label.wallet                      
-   missing    messages     label.category                     label.category                    
-   missing    messages     label.amount                       label.amount                      
-   missing    messages     label.edit                         label.edit                        
-   missing    messages     label.delete                       label.delete                      
+   missing    messages     Dodaj transakcje                   Dodaj transakcje                  
+   missing    messages     Stworzono                          Stworzono                         
+   missing    messages     Portfel                            Portfel                           
+   missing    messages     Kategoria                          Kategoria                         
+   missing    messages     Wartość                            Wartość                           
+   missing    messages     action.edit                        action.edit                       
+   missing    messages     action.delete                      action.delete                     
    missing    messages     title.transaction_details          title.transaction_details         
-   missing    messages     title.change_info                  title.change_info                 
-   missing    messages     action.change_info                 action.change_info                
-   missing    messages     title.change_password              title.change_password             
-   missing    messages     action.change_password             action.change_password            
+   missing    messages     label.category                     label.category                    
    missing    messages     title.wallet_create                title.wallet_create               
    missing    messages     title.wallet_delete                title.wallet_delete               
    missing    messages     title.wallet_list                  title.wallet_list                 
@@ -126,7 +86,9 @@ Time: 4.54 secs; Memory: 10MB
    missing    messages     label.date_from                    label.date_from                   
    missing    messages     label.date_to                      label.date_to                     
    missing    messages     action.filter                      action.filter                     
+   missing    messages     label.amount                       label.amount                      
    missing    messages     label.balance_after_transaction    label.balance_after_transaction   
+   missing    messages     label.delete                       label.delete                      
    missing    messages     Utwórz transakcję                  Utwórz transakcję                 
  ----------- ------------ ---------------------------------- ---------------------------------- 
 
@@ -144,29 +106,32 @@ Time: 4.54 secs; Memory: 10MB
    missing    messages     message.transaction_not_possible   message.transaction_not_possible   message.transaction_not_possible  
    missing    messages     message.wallet_contains_tasks      message.wallet_contains_tasks      message.wallet_contains_tasks     
    missing    messages     message.password_incorrect         message.password_incorrect         message.password_incorrect        
-   missing    messages     action_change_password             action_change_password             action_change_password            
-   missing    messages     action_change_info                 action_change_info                 action_change_info                
-   missing    messages     action_login                       action_login                       action_login                      
-   missing    messages     action_logout                      action_logout                      action_logout                     
-   missing    messages     title.category_create              title.category_create              title.category_create             
-   missing    messages     action.save                        action.save                        action.save                       
-   missing    messages     title.category_delete              title.category_delete              title.category_delete             
-   missing    messages     action.delete                      action.delete                      action.delete                     
-   missing    messages     title.category_edit                title.category_edit                title.category_edit               
-   missing    messages     action.edit                        action.edit                        action.edit                       
-   missing    messages     title.category_list                title.category_list                title.category_list               
+   missing    messages     Edycja Danych                      Edycja Danych                      Edycja Danych                     
+   missing    messages     Zapisz                             Zapisz                             Zapisz                            
+   missing    messages     użytkownicy                        użytkownicy                        użytkownicy                       
+   missing    messages     Email                              Email                              Email                             
+   missing    messages     Rola                               Rola                               Rola                              
+   missing    messages     Akcje                              Akcje                              Akcje                             
+   missing    messages     Edytuj                             Edytuj                             Edytuj                            
+   missing    messages     Zmiana hasła                       Zmiana hasła                       Zmiana hasła                      
+   missing    messages     Zmiana adresu email                Zmiana adresu email                Zmiana adresu email               
+   missing    messages     Lista Użytkowników                 Lista Użytkowników                 Lista Użytkowników                
+   missing    messages     Logowanie                          Logowanie                          Logowanie                         
+   missing    messages     Wyloguj                            Wyloguj                            Wyloguj                           
+   missing    messages     Wallet                             Wallet                             Wallet                            
+   missing    messages     Stwórz kategorię                   Stwórz kategorię                   Stwórz kategorię                  
+   missing    messages     Usuwanie                           Usuwanie                           Usuwanie                          
+   missing    messages     Usuń                               Usuń                               Usuń                              
+   missing    messages     Edycja                             Edycja                             Edycja                            
+   missing    messages     Kategorie                          Kategorie                          Kategorie                         
    missing    messages     Lista kategorii                    Lista kategorii                    Lista kategorii                   
    missing    messages     ID                                 ID                                 ID                                
    missing    messages     Tytuł                              Tytuł                              Tytuł                             
    missing    messages     Data Utworzenia                    Data Utworzenia                    Data Utworzenia                   
    missing    messages     Data Aktualizacji                  Data Aktualizacji                  Data Aktualizacji                 
-   missing    messages     label.actions                      label.actions                      Actions                           
    missing    messages     Pokaż                              Pokaż                              Pokaż                             
-   missing    messages     Edytuj                             Edytuj                             Edytuj                            
-   missing    messages     Czy napewno chcesz usunąć ?        Czy napewno chcesz usunąć ?        Czy napewno chcesz usunąć ?       
-   missing    messages     Usuń                               Usuń                               Usuń                              
    missing    messages     Lista pusta                        Lista pusta                        Lista pusta                       
-   missing    messages     title.category_details             title.category_details             title.category_details            
+   missing    messages     Szczegóły kategorii                Szczegóły kategorii                Szczegóły kategorii               
    missing    messages     Informacje o kategorii             Informacje o kategorii             Informacje o kategorii            
    missing    messages     Stworzono :                        Stworzono :                        Stworzono :                       
    missing    messages     Zaktualizowano :                   Zaktualizowano :                   Zaktualizowano :                  
@@ -178,49 +143,55 @@ Time: 4.54 secs; Memory: 10MB
    missing    messages     action.back_to_list                action.back_to_list                action.back_to_list               
    missing    messages     Powrót                             Powrót                             Powrót                            
    missing    messages     Nie odnaleziono rekordu            Nie odnaleziono rekordu            Nie odnaleziono rekordu           
-   missing    messages     message.form_error                 message.form_error                 message.form_error                
-   missing    messages     title.tag_create                   title.tag_create                   title.tag_create                  
-   missing    messages     title.tag_delete                   title.tag_delete                   title.tag_delete                  
-   missing    messages     title.tag_edit                     title.tag_edit                     title.tag_edit                    
-   missing    messages     title.tag_list                     title.tag_list                     title.tag_list                    
+   missing    messages     Błąd                               Błąd                               Błąd                              
+   missing    messages     Rejestracja                        Rejestracja                        Rejestracja                       
+   missing    messages     Hasło                              Hasło                              Hasło                             
+   missing    messages     Potwierdź hasło                    Potwierdź hasło                    Potwierdź hasło                   
+   missing    messages     Zatwierdź                          Zatwierdź                          Zatwierdź                         
+   missing    messages     Zaloguj się                        Zaloguj się                        Zaloguj się                       
+   missing    messages     Zaloguj                            Zaloguj                            Zaloguj                           
+   missing    messages     Stwórz tag                         Stwórz tag                         Stwórz tag                        
+   missing    messages     Tagi                               Tagi                               Tagi                              
    missing    messages     Lista tagów                        Lista tagów                        Lista tagów                       
-   missing    messages     title.tag_details                  title.tag_details                  title.tag_details                 
+   missing    messages     Szczegóły tagu                     Szczegóły tagu                     Szczegóły tagu                    
+   missing    messages     Informacje o tagu                  Informacje o tagu                  Informacje o tagu                 
    missing    messages     message.record_not_found           message.record_not_found           Record not found.                 
    missing    messages     title.transaction_create           title.transaction_create           title.transaction_create          
-   missing    messages     title.transaction_delete           title.transaction_delete           title.transaction_delete          
-   missing    messages     title.transaction_edit             title.transaction_edit             title.transaction_edit            
-   missing    messages     title.transaction_list             title.transaction_list             title.transaction_list            
+   missing    messages     action.save                        action.save                        action.save                       
+   missing    messages     Transakcje                         Transakcje                         Transakcje                        
    missing    messages     Lista transakcji                   Lista transakcji                   Lista transakcji                  
-   missing    messages     label.wallet                       label.wallet                       label.wallet                      
-   missing    messages     label.category                     label.category                     label.category                    
-   missing    messages     label.tags                         label.tags                         Tags                              
-   missing    messages     label.amount                       label.amount                       label.amount                      
-   missing    messages     label.edit                         label.edit                         label.edit                        
-   missing    messages     label.delete                       label.delete                       label.delete                      
+   missing    messages     Dodaj transakcje                   Dodaj transakcje                   Dodaj transakcje                  
+   missing    messages     Stworzono                          Stworzono                          Stworzono                         
+   missing    messages     Portfel                            Portfel                            Portfel                           
+   missing    messages     Kategoria                          Kategoria                          Kategoria                         
+   missing    messages     Wartość                            Wartość                            Wartość                           
+   missing    messages     action.edit                        action.edit                        action.edit                       
+   missing    messages     action.delete                      action.delete                      action.delete                     
    missing    messages     message.empty_list                 message.empty_list                 List is empty.                    
    missing    messages     title.transaction_details          title.transaction_details          title.transaction_details         
-   missing    messages     title.change_info                  title.change_info                  title.change_info                 
-   missing    messages     action.change_info                 action.change_info                 action.change_info                
-   missing    messages     title.change_password              title.change_password              title.change_password             
-   missing    messages     action.change_password             action.change_password             action.change_password            
+   missing    messages     label.category                     label.category                     label.category                    
+   missing    messages     label.tags                         label.tags                         Tags                              
    missing    messages     title.wallet_create                title.wallet_create                title.wallet_create               
    missing    messages     title.wallet_delete                title.wallet_delete                title.wallet_delete               
    missing    messages     title.wallet_list                  title.wallet_list                  title.wallet_list                 
    missing    messages     Lista portfeli                     Lista portfeli                     Lista portfeli                    
    missing    messages     label.type                         label.type                         label.type                        
    missing    messages     label.balance                      label.balance                      label.balance                     
+   missing    messages     label.actions                      label.actions                      Actions                           
    missing    messages     title.wallet_details               title.wallet_details               title.wallet_details              
    missing    messages     Twój portfel                       Twój portfel                       Twój portfel                      
    missing    messages     label.transactions                 label.transactions                 label.transactions                
    missing    messages     label.date_from                    label.date_from                    label.date_from                   
    missing    messages     label.date_to                      label.date_to                      label.date_to                     
    missing    messages     action.filter                      action.filter                      action.filter                     
+   missing    messages     label.amount                       label.amount                       label.amount                      
    missing    messages     label.balance_after_transaction    label.balance_after_transaction    label.balance_after_transaction   
+   missing    messages     label.delete                       label.delete                       label.delete                      
    missing    messages     Utwórz transakcję                  Utwórz transakcję                  Utwórz transakcję                 
  ----------- ------------ ---------------------------------- ---------------------------------- ---------------------------------- 
 
 [notice] Migrating up to DoctrineMigrations\Version20240609222908
-[notice] finished in 617.7ms, used 24M memory, 1 migrations executed, 11 sql queries
+[notice] finished in 672.3ms, used 24M memory, 1 migrations executed, 11 sql queries
 
  [OK] Successfully migrated to version: DoctrineMigrations\Version20240609222908                                        
 

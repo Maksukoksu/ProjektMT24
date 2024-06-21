@@ -14,18 +14,12 @@ use Doctrine\ORM\EntityManagerInterface;
 class ChangeInfoService implements ChangeInfoServiceInterface
 {
     /**
-     * Entity manager.
-     */
-    private EntityManagerInterface $entityManager;
-
-    /**
      * Constructor.
      *
      * @param EntityManagerInterface $entityManager Entity Manager Interface
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private readonly EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     /**

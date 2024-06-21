@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.category_details'|trans({'%id%': category.id|default('')}) }}
+    {{ 'Szczegóły kategorii'|trans({'%id%': category.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
@@ -38,11 +38,9 @@
                 {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            {{ 'Lista pusta'|trans }}
         {% endif %}
         <p>
-            <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}">
+            <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-primary">
                 {{ 'Powrót'|trans }}
             </a>
         </p>

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.category_list'|trans }}
+    {{ 'Kategorie'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
     {% if pagination is defined and pagination.items|length %}
 
         <div class="create-category-link">
-            <a href="{{ path('category_create') }}" class="btn btn-primary">Stwórz kategorię</a>
+            <a href="{{ path('category_create') }}" class="btn btn-primary">{{ 'Stwórz kategorię'|trans }}</a>
         </div>
         <br>
         <div class="navigation text-center">
@@ -23,7 +23,7 @@
                 <th>{{ knp_pagination_sortable(pagination, 'Tytuł'|trans, 'category.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Data Utworzenia'|trans, 'category.createdAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'Data Aktualizacji'|trans, 'category.updatedAt') }}</th>
-                <th>{{ 'label.actions'|trans }}</th>
+                <th>{{ 'Akcje'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                     <td>
                         <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-primary">{{ 'Pokaż'|trans }}</a>
                         <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-secondary">{{ 'Edytuj'|trans }}</a>
-                        <form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display:inline-block;" onsubmit="return confirm('{{ 'Czy napewno chcesz usunąć ?'|trans }}');">
+                        <form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display:inline-block;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                             <input type="hidden" name="_method" value="DELETE">
                             <button class="btn btn-danger">{{ 'Usuń'|trans }}</button>

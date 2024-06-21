@@ -11,7 +11,6 @@ use App\Service\ChangeInfoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -21,25 +20,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ChangeInfoController extends AbstractController
 {
     /**
-     * Change info service.
-     */
-    private ChangeInfoService $changeInfoService;
-
-    /**
-     * Translator.
-     */
-    private TranslatorInterface $translator;
-
-    /**
      * Constructor.
      *
      * @param ChangeInfoService   $changeInfoService Change Info Service
      * @param TranslatorInterface $translator        Translator
      */
-    public function __construct(ChangeInfoService $changeInfoService, TranslatorInterface $translator)
+    public function __construct(private readonly ChangeInfoService $changeInfoService, private readonly TranslatorInterface $translator)
     {
-        $this->changeInfoService = $changeInfoService;
-        $this->translator = $translator;
     }
 
     /**
@@ -49,7 +36,7 @@ class ChangeInfoController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/change-email', name: 'user_change_email', methods: 'GET|POST')]
+    #[\Symfony\Component\Routing\Attribute\Route('/change-email', name: 'user_change_email', methods: 'GET|POST')]
     public function changeEmail(Request $request): Response
     {
         $user = $this->getUser();
@@ -84,7 +71,7 @@ class ChangeInfoController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/change-info', name: 'user_change_info', methods: 'GET|POST')]
+    #[\Symfony\Component\Routing\Attribute\Route('/change-info', name: 'user_change_info', methods: 'GET|POST')]
     public function changeInfo(Request $request): Response
     {
         $user = $this->getUser();

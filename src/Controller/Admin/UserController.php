@@ -3,7 +3,6 @@
  * Admin User controller.
  */
 
-
 namespace App\Controller\Admin;
 
 use App\Entity\User;
@@ -13,24 +12,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * Class UserController
+ * Class UserController.
  */
 class UserController extends AbstractController
 {
     /**
      * List all users.
      *
-     * @Route("/admin/users", name="admin_user_list")
+     * @param UserRepository $userRepository The user repository
      *
-     * @param UserRepository $userRepository
-     *
-     * @return Response
+     * @return Response The response object
      */
-
     #[Route('/admin/users', name: 'admin_user_list')]
     public function list(UserRepository $userRepository): Response
     {
@@ -46,16 +42,13 @@ class UserController extends AbstractController
     /**
      * Edit a user.
      *
-     * @Route("/admin/user/edit/{id}", name="admin_user_edit")
+     * @param User                        $user           The user entity
+     * @param Request                     $request        The HTTP request
+     * @param EntityManagerInterface      $entityManager  The entity manager
+     * @param UserPasswordHasherInterface $passwordHasher The password hasher
      *
-     * @param User                        $user
-     * @param Request                     $request
-     * @param EntityManagerInterface      $entityManager
-     * @param UserPasswordHasherInterface $passwordHasher
-     *
-     * @return Response
+     * @return Response The response object
      */
-
     #[Route('/admin/user/edit/{id}', name: 'admin_user_edit')]
     public function edit(User $user, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {

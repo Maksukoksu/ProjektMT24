@@ -15,30 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class TransactionController.
  */
-#[Route('/transaction')]
+#[\Symfony\Component\Routing\Attribute\Route('/transaction')]
 class TransactionController extends AbstractController
 {
-    /**
-     * Transaction service.
-     */
-    private TransactionServiceInterface $transactionService;
-
-    /**
-     * Translator.
-     */
-    private TranslatorInterface $translator;
-
-    /**
-     * Wallet Repository.
-     */
-    private WalletRepository $walletRepository;
-
     /**
      * Constructor.
      *
@@ -46,11 +30,8 @@ class TransactionController extends AbstractController
      * @param TranslatorInterface         $translator         Translator
      * @param WalletRepository            $walletRepository   Wallet Repository
      */
-    public function __construct(TransactionServiceInterface $transactionService, TranslatorInterface $translator, WalletRepository $walletRepository)
+    public function __construct(private readonly TransactionServiceInterface $transactionService, private readonly TranslatorInterface $translator, private readonly WalletRepository $walletRepository)
     {
-        $this->transactionService = $transactionService;
-        $this->translator = $translator;
-        $this->walletRepository = $walletRepository;
     }
 
     /**
@@ -60,7 +41,7 @@ class TransactionController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(name: 'transaction_index', methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route(name: 'transaction_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $filters = $this->getFilters($request);
@@ -83,12 +64,12 @@ class TransactionController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/create/{wallet?}', name: 'transaction_create', methods: 'GET|POST')]
-    public function create(Request $request, WalletService $walletService, Wallet $wallet = null): Response
+    #[\Symfony\Component\Routing\Attribute\Route('/create/{wallet?}', name: 'transaction_create', methods: 'GET|POST')]
+    public function create(Request $request, WalletService $walletService, ?Wallet $wallet = null): Response
     {
         $transaction = new Transaction();
 
-        if (null !== $wallet) {
+        if ($wallet instanceof Wallet) {
             $walletEntity = $this->walletRepository->find($wallet);
             if (null !== $walletEntity) {
                 $transaction->setWallet($walletEntity);
@@ -131,11 +112,10 @@ class TransactionController extends AbstractController
             [
                 'form' => $form->createView(),
                 'referer' => $referer,
-                'wallet_id' => null !== $wallet ? $wallet : null,
+                'wallet_id' => $wallet ?? null,
             ]
         );
     }
-
 
     /**
      * Edit action.
@@ -146,7 +126,7 @@ class TransactionController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/edit', name: 'transaction_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/edit', name: 'transaction_edit', requirements: ['id' => '[1-9]\d*'], methods: 'GET|PUT')]
     public function edit(Request $request, Transaction $transaction, WalletService $walletService): Response
     {
         $form = $this->createForm(
@@ -200,7 +180,7 @@ class TransactionController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'transaction_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'transaction_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Transaction $transaction, WalletService $walletService): Response
     {
         $form = $this->createForm(FormType::class, $transaction, [

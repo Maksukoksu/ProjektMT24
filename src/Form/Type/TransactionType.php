@@ -48,9 +48,7 @@ class TransactionType extends AbstractType
             EntityType::class,
             [
                 'class' => Category::class,
-                'choice_label' => function ($category): string {
-                    return $category->getTitle();
-                },
+                'choice_label' => fn ($category): string => $category->getTitle(),
                 'label' => 'label.category',
                 'required' => true,
             ]
@@ -69,9 +67,7 @@ class TransactionType extends AbstractType
             EntityType::class,
             [
                 'class' => Wallet::class,
-                'choice_label' => function ($wallet): string {
-                    return $wallet->getTitle();
-                },
+                'choice_label' => fn ($wallet): string => $wallet->getTitle(),
                 'label' => 'label.wallet',
                 'required' => true,
             ]
@@ -81,9 +77,7 @@ class TransactionType extends AbstractType
             EntityType::class,
             [
                 'class' => Tag::class,
-                'choice_label' => function ($tag): string {
-                    return $tag->getTitle();
-                },
+                'choice_label' => fn ($tag): string => $tag->getTitle(),
                 'label' => 'label.tags',
                 'placeholder' => 'label.none',
                 'required' => false,

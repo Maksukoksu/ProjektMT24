@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}{{ 'Wallet'|trans }}{% endblock %}</title>
     {% block stylesheets %}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
               rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
@@ -32,19 +32,19 @@
             <ul class="navbar-nav ms-auto">
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_changePassword') }}">{{ 'action_change_password'|trans }}</a>
+                        <a class="nav-link" href="{{ path('user_changePassword') }}">{{ 'Zmiana hasła'|trans }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_changeInfo') }}">{{ 'action_change_info'|trans }}</a>
+                        <a class="nav-link" href="{{ path('user_changeInfo') }}">{{ 'Zmiana adresu email'|trans }}</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="{{ path('admin_user_list') }}">Manage Users</a>
+                            <a class="nav-link btn btn-primary" href="{{ path('admin_user_list') }}">{{ 'Lista Użytkowników'|trans }}</a>
                         </li>
                     {% endif %}
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">{{ 'action_login'|trans }}</a>
+                        <a class="nav-link" href="{{ path('app_login') }}">{{ 'Logowanie'|trans }}</a>
                     </li>
                 {% endif %}
             </ul>
@@ -57,7 +57,7 @@
 </main>
 <div class="logout-container">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="{{ path('app_logout') }}" class="btn btn-danger">{{ 'action_logout'|trans }}</a>
+        <a href="{{ path('app_logout') }}" class="btn btn-danger">{{ 'Wyloguj'|trans }}</a>
     {% endif %}
 </div>
 {% block javascripts %}

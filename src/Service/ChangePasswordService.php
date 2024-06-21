@@ -16,32 +16,14 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ChangePasswordService implements ChangePasswordServiceInterface
 {
     /**
-     * Entity manager.
-     */
-    private EntityManagerInterface $entityManager;
-
-    /**
-     * User Password Hasher Interface.
-     */
-    private UserPasswordHasherInterface $passwordHasher;
-
-    /**
-     * Translator.
-     */
-    private TranslatorInterface $translator;
-
-    /**
      * Constructor.
      *
      * @param EntityManagerInterface      $entityManager  Entity Manager Interface
      * @param UserPasswordHasherInterface $passwordHasher User Password Hasher Interface
      * @param TranslatorInterface         $translator     Translator Interface
      */
-    public function __construct(EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, TranslatorInterface $translator)
+    public function __construct(private readonly EntityManagerInterface $entityManager, private readonly UserPasswordHasherInterface $passwordHasher, private readonly TranslatorInterface $translator)
     {
-        $this->entityManager = $entityManager;
-        $this->passwordHasher = $passwordHasher;
-        $this->translator = $translator;
     }
 
     /**

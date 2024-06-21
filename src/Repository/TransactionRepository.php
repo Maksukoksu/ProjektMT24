@@ -3,7 +3,6 @@
  * Transaction repository.
  */
 
-
 namespace App\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -11,13 +10,13 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Transaction;
 
 /**
- * Class TransactionRepository
+ * Class TransactionRepository.
  *
  * This class handles the data layer for the Transaction entity.
  */
 class TransactionRepository extends ServiceEntityRepository
 {
-    const PAGINATOR_ITEMS_PER_PAGE = 10; // Define the constant
+    public const PAGINATOR_ITEMS_PER_PAGE = 10; // Define the constant
 
     /**
      * Constructor.

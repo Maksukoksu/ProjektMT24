@@ -18,8 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
  */
 class UserFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $passwordHasher;
-    private Generator $faker;
+    private readonly Generator $faker;
     private ObjectManager $manager;
 
     /**
@@ -27,9 +26,8 @@ class UserFixtures extends Fixture
      *
      * @param UserPasswordHasherInterface $passwordHasher Password hasher
      */
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher)
     {
-        $this->passwordHasher = $passwordHasher;
         $this->faker = Factory::create();
     }
 

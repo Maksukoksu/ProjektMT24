@@ -15,13 +15,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class UserType
+ * Class UserType.
  *
  * This class defines the form type for user entity.
  */
 class UserType extends AbstractType
 {
-
     /**
      * Build the user form.
      *
@@ -39,8 +38,8 @@ class UserType extends AbstractType
         ])
         ->add('roles', ChoiceType::class, [
             'choices' => [
-            'Użytkownik' => 'ROLE_USER',
-            'Administrator' => 'ROLE_ADMIN',
+                'Użytkownik' => 'ROLE_USER',
+                'Administrator' => 'ROLE_ADMIN',
             ],
             'multiple' => true,
             'expanded' => true,

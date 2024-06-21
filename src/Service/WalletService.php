@@ -19,32 +19,14 @@ use Knp\Component\Pager\PaginatorInterface;
 class WalletService implements WalletServiceInterface
 {
     /**
-     * Paginator.
-     */
-    private PaginatorInterface $paginator;
-
-    /**
-     * Wallet repository.
-     */
-    private WalletRepository $walletRepository;
-
-    /**
-     * Transaction repository.
-     */
-    private TransactionRepository $taskRepository;
-
-    /**
      * Constructor.
      *
      * @param WalletRepository      $walletRepository Wallet repository
      * @param PaginatorInterface    $paginator        Paginator
      * @param TransactionRepository $taskRepository   Transaction repository
      */
-    public function __construct(WalletRepository $walletRepository, PaginatorInterface $paginator, TransactionRepository $taskRepository)
+    public function __construct(private readonly WalletRepository $walletRepository, private readonly PaginatorInterface $paginator, private readonly TransactionRepository $taskRepository)
     {
-        $this->walletRepository = $walletRepository;
-        $this->paginator = $paginator;
-        $this->taskRepository = $taskRepository;
     }
 
     /**
@@ -75,7 +57,7 @@ class WalletService implements WalletServiceInterface
         try {
             $result = $this->taskRepository->countByWallet($wallet);
 
-            return !($result > 0);
+            return $result <= 0;
         } catch (NoResultException|NonUniqueResultException) {
             return false;
         }
@@ -90,7 +72,7 @@ class WalletService implements WalletServiceInterface
      *
      * @return bool Result
      */
-    public function canAcceptTransaction(Wallet $wallet, float $transactionAmount, float $originalTransactionAmount = null): bool
+    public function canAcceptTransaction(Wallet $wallet, float $transactionAmount, ?float $originalTransactionAmount = null): bool
     {
         $balance = $wallet->getBalance();
 

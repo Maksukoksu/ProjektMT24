@@ -1,25 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.tag_details'|trans({'%id%': tag.id|default('')}) }}
+    {{ 'Szczegóły tagu'|trans({'%id%': tag.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title.tag_details'|trans({'%id%': tag.id|default('')}) }}</h1>
+    <h1>{{ 'Informacje o tagu'|trans({'%id%': tag.id|default('')}) }}</h1>
     {% if tag is defined and tag|length %}
         <dl class="dl-horizontal">
-            <dt>{{ 'label.id'|trans }}</dt>
+            <dt>{{ 'ID'|trans }}</dt>
             <dd>{{ tag.id }}</dd>
-            <dt>{{ 'label.created_at'|trans }}</dt>
+            <dt>{{ 'Stworzono :'|trans }}</dt>
             <dd>{{ tag.createdAt|date('Y/m/d') }}</dd>
-            <dt>{{ 'label.updated_at'|trans }}</dt>
+            <dt>{{ 'Zaktualizowano :'|trans }}</dt>
             <dd>{{ tag.updatedAt|date('Y/m/d') }}</dd>
-            <dt>{{ 'label.title'|trans }}</dt>
+            <dt>{{ 'Tytuł :'|trans }}</dt>
             <dd>{{  tag.title }}</dd>
         </dl>
         <p>
-            <a href="{{ url('tag_index') }}" title="{{ 'action.back_to_list'|trans }}">
-                {{ 'action.back_to_list'|trans }}
+            <a href="{{ url('tag_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-primary">
+                {{ 'Powrót'|trans }}
             </a>
         </p>
     {% else %}

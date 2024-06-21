@@ -54,5 +54,5 @@ interface WalletServiceInterface
      *
      * @return bool Result
      */
-    public function canAcceptTransaction(Wallet $wallet, float $transactionAmount, float $originalTransactionAmount = null): bool;
+    public function canAcceptTransaction(Wallet $wallet, float $transactionAmount, ?float $originalTransactionAmount = null): bool;
 }

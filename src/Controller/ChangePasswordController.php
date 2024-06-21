@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -22,25 +21,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ChangePasswordController extends AbstractController
 {
     /**
-     * Change Password Service.
-     */
-    private ChangePasswordService $changePasswordService;
-
-    /**
-     * Translator.
-     */
-    private TranslatorInterface $translator;
-
-    /**
      * Constructor.
      *
      * @param ChangePasswordService $changePasswordService Change Password Service
      * @param TranslatorInterface   $translator            Translator
      */
-    public function __construct(ChangePasswordService $changePasswordService, TranslatorInterface $translator)
+    public function __construct(private readonly ChangePasswordService $changePasswordService, private readonly TranslatorInterface $translator)
     {
-        $this->changePasswordService = $changePasswordService;
-        $this->translator = $translator;
     }
 
     /**
@@ -51,7 +38,7 @@ class ChangePasswordController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/change-password', name: 'user_change_password', methods: 'GET|POST')]
+    #[\Symfony\Component\Routing\Attribute\Route('/change-password', name: 'user_change_password', methods: 'GET|POST')]
     public function changePassword(Request $request, ChangePasswordService $changePasswordService): Response
     {
         $user = $this->getUser();

@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.transaction_list'|trans }}
+    {{ 'Transakcje'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
     {% if pagination is defined and pagination.items|length %}
 
         <div class="create-category-link">
-            <a href="{{ path('transaction_create') }}" class="btn btn-primary">Dodaj transakcję</a>
+            <a href="{{ path('transaction_create') }}" class="btn btn-primary">{{ 'Dodaj transakcje'|trans }}</a>
         </div>
         <br>
         <div class="navigation text-center">
@@ -19,14 +19,13 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'transaction.createdAt') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'transaction.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.wallet'|trans, 'wallet.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.category'|trans, 'category.title') }}</th>
-                <th>{{ 'label.tags'|trans }}</th> <!-- Nowa kolumna dla tagów -->
-                <th>{{ knp_pagination_sortable(pagination, 'label.amount'|trans, 'transaction.amount') }}</th>
-                <th>{{ 'label.edit'|trans }}</th>
-                <th>{{ 'label.delete'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Stworzono'|trans, 'transaction.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Tytuł'|trans, 'transaction.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Portfel'|trans, 'wallet.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Kategoria'|trans, 'category.title') }}</th>
+                <th>{{ 'Tagi'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Wartość'|trans, 'transaction.amount') }}</th>
+                <th>{{ 'Akcje'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -50,12 +49,10 @@
                     <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
                     <td>
                         <a href="{{ url('transaction_edit', {id: transaction.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-primary">
-                            {{ 'action.edit'|trans }}
+                            {{ 'Edytuj'|trans }}
                         </a>
-                    </td>
-                    <td>
                         <a href="{{ url('transaction_delete', {id: transaction.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-danger">
-                            {{ 'action.delete'|trans }}
+                            {{ 'Usuń'|trans }}
                         </a>
                     </td>
                 </tr>
