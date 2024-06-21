@@ -1,4 +1,8 @@
 <?php
+/**
+ * Admin User controller.
+ */
+
 
 namespace App\Controller\Admin;
 
@@ -12,8 +16,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * Class UserController
+ */
 class UserController extends AbstractController
 {
+    /**
+     * List all users.
+     *
+     * @Route("/admin/users", name="admin_user_list")
+     *
+     * @param UserRepository $userRepository
+     *
+     * @return Response
+     */
+
     #[Route('/admin/users', name: 'admin_user_list')]
     public function list(UserRepository $userRepository): Response
     {
@@ -25,6 +42,19 @@ class UserController extends AbstractController
             'users' => $users,
         ]);
     }
+
+    /**
+     * Edit a user.
+     *
+     * @Route("/admin/user/edit/{id}", name="admin_user_edit")
+     *
+     * @param User                        $user
+     * @param Request                     $request
+     * @param EntityManagerInterface      $entityManager
+     * @param UserPasswordHasherInterface $passwordHasher
+     *
+     * @return Response
+     */
 
     #[Route('/admin/user/edit/{id}', name: 'admin_user_edit')]
     public function edit(User $user, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response

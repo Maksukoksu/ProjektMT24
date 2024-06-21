@@ -1,4 +1,7 @@
 <?php
+/**
+ * Transaction entity.
+ */
 namespace App\Entity;
 
 use App\Repository\TransactionRepository;

@@ -13,6 +13,8 @@ use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * Class TransactionService.
+ *
+ * This service handles the business logic related to transactions.
  */
 class TransactionService implements TransactionServiceInterface
 {
@@ -22,8 +24,16 @@ class TransactionService implements TransactionServiceInterface
     private CategoryServiceInterface $categoryService;
     private TagService $tagService;
 
-    public function __construct(TransactionRepository $taskRepository, PaginatorInterface $paginator, WalletService $walletService, CategoryServiceInterface $categoryService, TagService $tagService)
-    {
+    /**
+     * Constructor.
+     *
+     * @param TransactionRepository    $taskRepository  The transaction repository
+     * @param PaginatorInterface       $paginator       The paginator service
+     * @param WalletService            $walletService   The wallet service
+     * @param CategoryServiceInterface $categoryService The category service
+     * @param TagService               $tagService      The tag service
+     */
+    public function __construct(TransactionRepository $taskRepository, PaginatorInterface $paginator, WalletService $walletService, CategoryServiceInterface $categoryService, TagService $tagService) {
         $this->taskRepository = $taskRepository;
         $this->paginator = $paginator;
         $this->walletService = $walletService;
@@ -31,6 +41,14 @@ class TransactionService implements TransactionServiceInterface
         $this->tagService = $tagService;
     }
 
+    /**
+     * Get paginated list of transactions.
+     *
+     * @param int   $page    The current page number
+     * @param array $filters The filters to apply
+     *
+     * @return PaginationInterface The paginated list of transactions
+     */
     public function getPaginatedList(int $page, array $filters = []): PaginationInterface
     {
         $filters = $this->prepareFilters($filters);
@@ -42,6 +60,12 @@ class TransactionService implements TransactionServiceInterface
         );
     }
 
+    /**
+     * Save a transaction.
+     *
+     * @param Transaction $task                      The transaction entity
+     * @param float|null  $originalTransactionAmount The original transaction amount
+     */
     public function save(Transaction $task, float $originalTransactionAmount = null): void
     {
         // Update the wallet balance
@@ -57,11 +81,23 @@ class TransactionService implements TransactionServiceInterface
         $this->taskRepository->save($task);
     }
 
+    /**
+     * Delete a transaction.
+     *
+     * @param Transaction $task The transaction entity
+     */
     public function delete(Transaction $task): void
     {
         $this->taskRepository->delete($task);
     }
 
+    /**
+     * Prepare filters for querying transactions.
+     *
+     * @param array $filters The filters to prepare
+     *
+     * @return array The prepared filters
+     */
     private function prepareFilters(array $filters): array
     {
         $resultFilters = [];

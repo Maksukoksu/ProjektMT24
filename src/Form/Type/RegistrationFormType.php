@@ -1,4 +1,7 @@
 <?php
+/**
+ * Registration Form Type.
+ */
 
 namespace App\Form\Type;
 
@@ -11,8 +14,20 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+/**
+ * Class RegistrationFormType
+ *
+ * This class defines the form type for user registration.
+ */
+
 class RegistrationFormType extends AbstractType
 {
+    /**
+     * Build the registration form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options Additional options for the form
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -25,6 +40,11 @@ class RegistrationFormType extends AbstractType
         ;
     }
 
+    /**
+     * Configure the options for the registration form.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

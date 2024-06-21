@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Tag repository.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Tag;
@@ -57,18 +61,6 @@ class TagRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get or create new query builder.
-     *
-     * @param QueryBuilder|null $queryBuilder Query builder
-     *
-     * @return QueryBuilder Query builder
-     */
-    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
-    {
-        return $queryBuilder ?? $this->createQueryBuilder('tag');
-    }
-
-    /**
      * Save entity.
      *
      * @param Tag $tag Tag entity
@@ -105,5 +97,17 @@ class TagRepository extends ServiceEntityRepository
     public function findOneByTitle(string $title): ?Tag
     {
         return $this->findOneBy(['title' => $title]);
+    }
+
+    /**
+     * Get or create new query builder.
+     *
+     * @param QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(?QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('tag');
     }
 }

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * User type.
+ */
+
 namespace App\Form\Type;
 
 use App\Entity\User;
@@ -10,8 +14,20 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class UserType
+ *
+ * This class defines the form type for user entity.
+ */
 class UserType extends AbstractType
 {
+
+    /**
+     * Build the user form.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options Additional options for the form
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -31,6 +47,11 @@ class UserType extends AbstractType
         ]);
     }
 
+    /**
+     * Configure the options for the user form.
+     *
+     * @param OptionsResolver $resolver The options resolver
+     */
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

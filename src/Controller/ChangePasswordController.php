@@ -46,7 +46,8 @@ class ChangePasswordController extends AbstractController
     /**
      * ChangePassword action.
      *
-     * @param Request $request HTTP Request
+     * @param Request               $request               HTTP Request
+     * @param ChangePasswordService $changePasswordService Service to handle password changes
      *
      * @return Response HTTP response
      */

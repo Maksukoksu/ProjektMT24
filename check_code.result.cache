@@ -1,35 +1,27 @@
-   1) src/Controller/TransactionController.php (class_attributes_separation, nullable_type_declaration_for_default_null_value)
-   2) src/Entity/Category.php (fully_qualified_strict_types, global_namespace_import, no_unused_imports)
-   3) src/Entity/Transaction.php (align_multiline_comment, phpdoc_indent, fully_qualified_strict_types, no_superfluous_phpdoc_tags, blank_line_after_opening_tag, global_namespace_import, phpdoc_trim, no_unused_imports)
-   4) src/Form/Type/RegistrationFormType.php (no_unused_imports)
-   5) src/Form/Type/UserType.php (array_indentation)
-   6) src/Repository/CategoryRepository.php (nullable_type_declaration_for_default_null_value)
-   7) src/Repository/TransactionRepository.php (visibility_required)
-   8) src/Repository/WalletRepository.php (nullable_type_declaration_for_default_null_value)
-   9) src/Service/TransactionService.php (nullable_type_declaration_for_default_null_value, no_unused_imports)
-  10) src/Service/WalletService.php (nullable_type_declaration_for_default_null_value)
-  11) src/Service/WalletServiceInterface.php (nullable_type_declaration_for_default_null_value)
+   1) src/Controller/Admin/UserController.php (no_superfluous_phpdoc_tags, phpdoc_summary, phpdoc_trim, no_blank_lines_after_phpdoc, no_extra_blank_lines)
+   2) src/Controller/TransactionController.php (class_attributes_separation, nullable_type_declaration_for_default_null_value)
+   3) src/Entity/Category.php (fully_qualified_strict_types, global_namespace_import, no_unused_imports)
+   4) src/Entity/Transaction.php (align_multiline_comment, phpdoc_indent, fully_qualified_strict_types, no_superfluous_phpdoc_tags, global_namespace_import, phpdoc_trim, no_unused_imports, blank_lines_before_namespace)
+   5) src/Form/Type/RegistrationFormType.php (phpdoc_summary, no_unused_imports, no_blank_lines_after_phpdoc)
+   6) src/Form/Type/UserType.php (class_attributes_separation, array_indentation, phpdoc_summary)
+   7) src/Repository/CategoryRepository.php (nullable_type_declaration_for_default_null_value)
+   8) src/Repository/TransactionRepository.php (visibility_required, phpdoc_summary, no_extra_blank_lines)
+   9) src/Repository/WalletRepository.php (nullable_type_declaration_for_default_null_value)
+  10) src/Service/TransactionService.php (nullable_type_declaration_for_default_null_value, braces_position, no_unused_imports)
+  11) src/Service/WalletService.php (nullable_type_declaration_for_default_null_value)
+  12) src/Service/WalletServiceInterface.php (nullable_type_declaration_for_default_null_value)
 
-Found 11 of 51 files that can be fixed in 3.171 seconds, 18.00 MB memory used
+Found 12 of 51 files that can be fixed in 2.491 seconds, 18.00 MB memory used
 
 FILE: /home/wwwroot/app/src/Controller/Admin/UserController.php
-------------------------------------------------------------------------
-FOUND 3 ERRORS AND 1 WARNING AFFECTING 4 LINES
-------------------------------------------------------------------------
-  3 | WARNING | The license block has to be present at the top
-    |         |                 of every PHP file, before the namespace
- 15 | ERROR   | Missing doc comment for class UserController
- 18 | ERROR   | Missing doc comment for function list()
- 30 | ERROR   | Missing doc comment for function edit()
-------------------------------------------------------------------------
-
-
-FILE: /home/wwwroot/app/src/Controller/ChangePasswordController.php
--------------------------------------------------------------------------
-FOUND 1 ERROR AFFECTING 1 LINE
--------------------------------------------------------------------------
- 46 | ERROR | Doc comment for parameter "$changePasswordService" missing
--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+--------------------------------------------------------------------------
+ 32 | ERROR | [x] There must be no blank lines after the function comment
+ 57 | ERROR | [x] There must be no blank lines after the function comment
+--------------------------------------------------------------------------
+PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+--------------------------------------------------------------------------
 
 
 FILE: /home/wwwroot/app/src/Entity/Tag.php
@@ -44,73 +36,16 @@ FOUND 5 ERRORS AFFECTING 5 LINES
 ----------------------------------------------------------------------
 
 
-FILE: /home/wwwroot/app/src/Entity/Transaction.php
------------------------------------------------------------------------
-FOUND 0 ERRORS AND 1 WARNING AFFECTING 1 LINE
------------------------------------------------------------------------
- 2 | WARNING | The license block has to be present at the top
-   |         |                 of every PHP file, before the namespace
------------------------------------------------------------------------
-
-
-FILE: /home/wwwroot/app/src/Form/Type/RegistrationFormType.php
-------------------------------------------------------------------------
-FOUND 3 ERRORS AND 1 WARNING AFFECTING 4 LINES
-------------------------------------------------------------------------
-  3 | WARNING | The license block has to be present at the top
-    |         |                 of every PHP file, before the namespace
- 14 | ERROR   | Missing doc comment for class RegistrationFormType
- 16 | ERROR   | Missing doc comment for function buildForm()
- 28 | ERROR   | Missing doc comment for function configureOptions()
-------------------------------------------------------------------------
-
-
-FILE: /home/wwwroot/app/src/Form/Type/UserType.php
-------------------------------------------------------------------------
-FOUND 3 ERRORS AND 1 WARNING AFFECTING 4 LINES
-------------------------------------------------------------------------
-  3 | WARNING | The license block has to be present at the top
-    |         |                 of every PHP file, before the namespace
- 13 | ERROR   | Missing doc comment for class UserType
- 15 | ERROR   | Missing doc comment for function buildForm()
- 34 | ERROR   | Missing doc comment for function configureOptions()
-------------------------------------------------------------------------
-
-
-FILE: /home/wwwroot/app/src/Repository/TagRepository.php
------------------------------------------------------------------------------------
-FOUND 1 ERROR AND 1 WARNING AFFECTING 2 LINES
------------------------------------------------------------------------------------
-  3 | WARNING | The license block has to be present at the top
-    |         |                 of every PHP file, before the namespace
- 76 | ERROR   | Declare public methods first,then protected ones and finally
-    |         | private ones
------------------------------------------------------------------------------------
-
-
-FILE: /home/wwwroot/app/src/Repository/TransactionRepository.php
-------------------------------------------------------------------------
-FOUND 2 ERRORS AND 1 WARNING AFFECTING 3 LINES
-------------------------------------------------------------------------
-  3 | WARNING | The license block has to be present at the top
-    |         |                 of every PHP file, before the namespace
-  9 | ERROR   | Missing doc comment for class TransactionRepository
- 13 | ERROR   | Missing doc comment for function __construct()
-------------------------------------------------------------------------
-
-
 FILE: /home/wwwroot/app/src/Service/TransactionService.php
 ----------------------------------------------------------------------
-FOUND 5 ERRORS AFFECTING 5 LINES
+FOUND 1 ERROR AFFECTING 1 LINE
 ----------------------------------------------------------------------
- 25 | ERROR | Missing doc comment for function __construct()
- 34 | ERROR | Missing doc comment for function getPaginatedList()
- 45 | ERROR | Missing doc comment for function save()
- 60 | ERROR | Missing doc comment for function delete()
- 65 | ERROR | Missing doc comment for function prepareFilters()
+ 36 | ERROR | [x] Opening brace should be on a new line
+----------------------------------------------------------------------
+PHPCBF CAN FIX THE 1 MARKED SNIFF VIOLATIONS AUTOMATICALLY
 ----------------------------------------------------------------------
 
-Time: 4.57 secs; Memory: 10MB
+Time: 4.54 secs; Memory: 10MB
 
  ----------- ------------ ---------------------------------- ---------------------------------- 
   State       Domain       Id                                 Message Preview (en)              
@@ -126,10 +61,10 @@ Time: 4.57 secs; Memory: 10MB
    missing    messages     message.transaction_not_possible   message.transaction_not_possible  
    missing    messages     message.wallet_contains_tasks      message.wallet_contains_tasks     
    missing    messages     message.password_incorrect         message.password_incorrect        
-   missing    messages     action_logout                      action_logout                     
    missing    messages     action_change_password             action_change_password            
    missing    messages     action_change_info                 action_change_info                
    missing    messages     action_login                       action_login                      
+   missing    messages     action_logout                      action_logout                     
    missing    messages     title.category_create              title.category_create             
    missing    messages     action.save                        action.save                       
    missing    messages     title.category_delete              title.category_delete             
@@ -209,10 +144,10 @@ Time: 4.57 secs; Memory: 10MB
    missing    messages     message.transaction_not_possible   message.transaction_not_possible   message.transaction_not_possible  
    missing    messages     message.wallet_contains_tasks      message.wallet_contains_tasks      message.wallet_contains_tasks     
    missing    messages     message.password_incorrect         message.password_incorrect         message.password_incorrect        
-   missing    messages     action_logout                      action_logout                      action_logout                     
    missing    messages     action_change_password             action_change_password             action_change_password            
    missing    messages     action_change_info                 action_change_info                 action_change_info                
    missing    messages     action_login                       action_login                       action_login                      
+   missing    messages     action_logout                      action_logout                      action_logout                     
    missing    messages     title.category_create              title.category_create              title.category_create             
    missing    messages     action.save                        action.save                        action.save                       
    missing    messages     title.category_delete              title.category_delete              title.category_delete             
@@ -285,9 +220,9 @@ Time: 4.57 secs; Memory: 10MB
  ----------- ------------ ---------------------------------- ---------------------------------- ---------------------------------- 
 
 [notice] Migrating up to DoctrineMigrations\Version20240609222908
-[notice] finished in 635.3ms, used 24M memory, 1 migrations executed, 11 sql queries
+[notice] finished in 617.7ms, used 24M memory, 1 migrations executed, 11 sql queries
 
- [OK] Successfully migrated to version: DoctrineMigrations\Version20240609222908   
+ [OK] Successfully migrated to version: DoctrineMigrations\Version20240609222908                                        
 
 
    > purging database
