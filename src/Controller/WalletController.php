@@ -14,12 +14,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class WalletController.
  */
-#[\Symfony\Component\Routing\Attribute\Route('/wallet')]
+#[Route('/wallet')]
 class WalletController extends AbstractController
 {
     /**
@@ -39,7 +40,7 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route(name: 'wallet_index', methods: 'GET')]
+    #[Route(name: 'wallet_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $pagination = $this->walletService->getPaginatedList(
@@ -58,7 +59,7 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/{id}', name: 'wallet_show', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'wallet_show', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
     public function show(Request $request, Wallet $wallet, TransactionRepository $transactionRepository): Response
     {
         $filterForm = $this->createForm(TransactionFilterType::class);
@@ -87,7 +88,7 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/create', name: 'wallet_create', methods: 'GET|POST')]
+    #[Route('/create', name: 'wallet_create', methods: 'GET|POST')]
     public function create(Request $request): Response
     {
         $wallet = new Wallet();
@@ -124,7 +125,7 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'wallet_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[Route('/{id}/delete', name: 'wallet_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Wallet $wallet): Response
     {
         if (!$this->walletService->canBeDeleted($wallet)) {

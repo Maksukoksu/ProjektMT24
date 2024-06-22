@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.wallet_list'|trans }}
+    {{ 'Portfele'|trans }}
 {% endblock %}
 
 {% block body %}
@@ -9,7 +9,7 @@
     {% if pagination is defined and pagination.items|length %}
 
         <div class="create-wallet-link">
-            <a href="{{ url('wallet_create') }}" class="btn btn-primary">Dodaj portfel</a>
+            <a href="{{ url('wallet_create') }}" class="btn btn-primary">{{ 'Dodaj portfel'|trans }}</a>
         </div>
         <br>
         <div class="navigation text-center">
@@ -19,9 +19,9 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'wallet.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.type'|trans, 'wallet.type') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label.balance'|trans, 'wallet.balance') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Nazwa'|trans, 'wallet.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Rodzaj'|trans, 'wallet.type') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'Saldo'|trans, 'wallet.balance') }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>

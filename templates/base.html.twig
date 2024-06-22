@@ -10,43 +10,30 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
               rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-        <style>
-            .logout-container {
-                position: fixed;
-                bottom: 20px;
-                width: 100%;
-                text-align: center;
-            }
-        </style>
     {% endblock %}
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Wallet</a>
+        <a class="navbar-brand" href="#">{{ 'MyWallet'|trans }}</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_changePassword') }}">{{ 'Zmiana hasła'|trans }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_changeInfo') }}">{{ 'Zmiana adresu email'|trans }}</a>
-                    </li>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item">
-                            <a class="nav-link btn btn-primary" href="{{ path('admin_user_list') }}">{{ 'Lista Użytkowników'|trans }}</a>
-                        </li>
-                    {% endif %}
-                {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}">{{ 'Logowanie'|trans }}</a>
-                    </li>
-                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('wallet_index') }}">{{ 'Portfele'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('category_index') }}">{{ 'Kategorie'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('transaction_index') }}">{{ 'Transakcje'|trans }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('tag_index') }}">{{ 'Tagi'|trans }}</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -58,6 +45,16 @@
 <div class="logout-container">
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
         <a href="{{ path('app_logout') }}" class="btn btn-danger">{{ 'Wyloguj'|trans }}</a>
+    {% endif %}
+</div>
+<br>
+<div class="settings-container">
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a class="btn btn-secondary" href="{{ path('user_changePassword') }}">{{ 'Zmiana hasła'|trans }}</a>
+        <a class="btn btn-secondary" href="{{ path('user_changeInfo') }}">{{ 'Zmiana adresu email'|trans }}</a>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a class="btn btn-primary" href="{{ path('admin_user_list') }}">{{ 'Lista Użytkowników'|trans }}</a>
+        {% endif %}
     {% endif %}
 </div>
 {% block javascripts %}

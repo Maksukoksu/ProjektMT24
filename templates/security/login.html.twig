@@ -20,14 +20,9 @@
         <label for="inputPassword">{{ 'Hasło'|trans }}</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button class="btn btn-lg btn-primary" type="submit">{{ 'Zaloguj'|trans }}</button>
-
-        <div class="mt-3">
-            <a class="btn btn-secondary" href="{{ path('app_register') }}">{{ 'Rejestracja'|trans }}</a>
-        </div>
+        <button class="btn btn-secondary" type="submit">{{ 'Zaloguj'|trans }}</button>
+        <a class="btn btn-secondary" href="{{ path('app_register') }}">{{ 'Rejestracja'|trans }}</a>
     </form>
 {% endblock %}

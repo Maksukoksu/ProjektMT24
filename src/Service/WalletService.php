@@ -86,7 +86,7 @@ class WalletService implements WalletServiceInterface
             return ($balance - abs($transactionAmount)) >= 0;
         }
 
-        // Jesli pobrane dane sa okej, transakja prechodzi
+        // Jesli pobrane dane się zgadzają, transakja prechodzi
         return true;
     }
 
