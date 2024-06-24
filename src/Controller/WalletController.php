@@ -14,13 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Class WalletController.
  */
-#[Route('/wallet')]
+#[\Symfony\Component\Routing\Attribute\Route('/wallet')]
 class WalletController extends AbstractController
 {
     /**
@@ -40,7 +39,7 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route(name: 'wallet_index', methods: 'GET')]
+    #[\Symfony\Component\Routing\Attribute\Route(name: 'wallet_index', methods: 'GET')]
     public function index(Request $request): Response
     {
         $pagination = $this->walletService->getPaginatedList(
@@ -59,20 +58,21 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}', name: 'wallet_show', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}', name: 'wallet_show', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
     public function show(Request $request, Wallet $wallet, TransactionRepository $transactionRepository): Response
     {
         $filterForm = $this->createForm(TransactionFilterType::class);
         $filterForm->handleRequest($request);
 
+        $dateFrom = null;
+        $dateTo = null;
+
         if ($filterForm->isSubmitted() && $filterForm->isValid()) {
             $dateFrom = $filterForm->get('dateFrom')->getData();
             $dateTo = $filterForm->get('dateTo')->getData();
-
-            $transactions = $transactionRepository->findTransactionsForWalletByDateRange($wallet, $dateFrom, $dateTo);
-        } else {
-            $transactions = $wallet->getTransactions();
         }
+
+        $transactions = $transactionRepository->findTransactionsForWalletByDateRange($wallet, $dateFrom, $dateTo);
 
         return $this->render('wallet/show.html.twig', [
             'wallet' => $wallet,
@@ -88,7 +88,7 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/create', name: 'wallet_create', methods: 'GET|POST')]
+    #[\Symfony\Component\Routing\Attribute\Route('/create', name: 'wallet_create', methods: 'GET|POST')]
     public function create(Request $request): Response
     {
         $wallet = new Wallet();
@@ -125,7 +125,7 @@ class WalletController extends AbstractController
      *
      * @return Response HTTP response
      */
-    #[Route('/{id}/delete', name: 'wallet_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
+    #[\Symfony\Component\Routing\Attribute\Route('/{id}/delete', name: 'wallet_delete', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'DELETE'])]
     public function delete(Request $request, Wallet $wallet): Response
     {
         if (!$this->walletService->canBeDeleted($wallet)) {

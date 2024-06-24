@@ -2,26 +2,28 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ 'użytkownicy'|trans }}</h1>
+    <h1>{{ 'Użytkownicy'|trans }}</h1>
     <table>
         <thead>
         <tr>
             <th>{{ 'Email'|trans }}</th>
-            <th>{{ 'Rola'|trans }}</th>
+            <th>{{ 'Role'|trans }}</th>
             <th>{{ 'Akcje'|trans }}</th>
         </tr>
         </thead>
         <tbody>
         {% for user in users %}
-            <tr>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles|join(', ') }}</td>
-                <td>
-                    <form action="{{ path('admin_user_edit', {'id': user.id}) }}" method="get">
-                        <button type="submit" class="btn btn-primary">{{ 'Edytuj'|trans }}</button>
-                    </form>
-                </td>
-            </tr>
+            {% if user.id != app.user.id %}
+                <tr>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>
+                        <form action="{{ path('admin_user_edit', {'id': user.id}) }}" method="get">
+                            <button type="submit" class="btn btn-primary">{{ 'Edytuj'|trans }}</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

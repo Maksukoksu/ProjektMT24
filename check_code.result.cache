@@ -1,203 +1,79 @@
 
-Found 0 of 51 files that can be fixed in 2.289 seconds, 18.00 MB memory used
- ----------- ------------ ---------------------------------- ---------------------------------- 
-  State       Domain       Id                                 Message Preview (en)              
- ----------- ------------ ---------------------------------- ---------------------------------- 
-   missing    validators   balance.min_value                  balance.min_value                 
-   missing    messages     message.created_successfully       message.created_successfully      
-   missing    messages     message.edited_successfully        message.edited_successfully       
-   missing    messages     message.category_contains_tasks    message.category_contains_tasks   
-   missing    messages     message.deleted_successfully       message.deleted_successfully      
-   missing    messages     message.email_changed              message.email_changed             
-   missing    messages     message.info_changed               message.info_changed              
-   missing    messages     message.password_changed           message.password_changed          
-   missing    messages     message.transaction_not_possible   message.transaction_not_possible  
-   missing    messages     message.wallet_contains_tasks      message.wallet_contains_tasks     
-   missing    messages     message.password_incorrect         message.password_incorrect        
-   missing    messages     Edycja Danych                      Edycja Danych                     
-   missing    messages     Zapisz                             Zapisz                            
-   missing    messages     użytkownicy                        użytkownicy                       
-   missing    messages     Email                              Email                             
-   missing    messages     Rola                               Rola                              
-   missing    messages     Akcje                              Akcje                             
-   missing    messages     Edytuj                             Edytuj                            
-   missing    messages     MyWallet                           MyWallet                          
-   missing    messages     Portfele                           Portfele                          
-   missing    messages     Kategorie                          Kategorie                         
-   missing    messages     Transakcje                         Transakcje                        
-   missing    messages     Tagi                               Tagi                              
-   missing    messages     Wyloguj                            Wyloguj                           
-   missing    messages     Zmiana hasła                       Zmiana hasła                      
-   missing    messages     Zmiana adresu email                Zmiana adresu email               
-   missing    messages     Lista Użytkowników                 Lista Użytkowników                
-   missing    messages     Wallet                             Wallet                            
-   missing    messages     Stwórz kategorię                   Stwórz kategorię                  
-   missing    messages     Usuwanie                           Usuwanie                          
-   missing    messages     Usuń                               Usuń                              
-   missing    messages     Edycja                             Edycja                            
-   missing    messages     Lista kategorii                    Lista kategorii                   
-   missing    messages     ID                                 ID                                
-   missing    messages     Tytuł                              Tytuł                             
-   missing    messages     Data Utworzenia                    Data Utworzenia                   
-   missing    messages     Data Aktualizacji                  Data Aktualizacji                 
-   missing    messages     Pokaż                              Pokaż                             
-   missing    messages     Lista pusta                        Lista pusta                       
-   missing    messages     Szczegóły kategorii                Szczegóły kategorii               
-   missing    messages     Informacje o kategorii             Informacje o kategorii            
-   missing    messages     Stworzono :                        Stworzono :                       
-   missing    messages     Zaktualizowano :                   Zaktualizowano :                  
-   missing    messages     Tytuł :                            Tytuł :                           
-   missing    messages     label.created_at                   label.created_at                  
-   missing    messages     label.updated_at                   label.updated_at                  
-   missing    messages     action.back_to_list                action.back_to_list               
-   missing    messages     Powrót                             Powrót                            
-   missing    messages     Nie odnaleziono rekordu            Nie odnaleziono rekordu           
-   missing    messages     Błąd                               Błąd                              
-   missing    messages     Rejestracja                        Rejestracja                       
-   missing    messages     Hasło                              Hasło                             
-   missing    messages     Potwierdź hasło                    Potwierdź hasło                   
-   missing    messages     Zatwierdź                          Zatwierdź                         
-   missing    messages     Zaloguj się                        Zaloguj się                       
-   missing    messages     Zaloguj                            Zaloguj                           
-   missing    messages     Stwórz tag                         Stwórz tag                        
-   missing    messages     Lista tagów                        Lista tagów                       
-   missing    messages     Szczegóły tagu                     Szczegóły tagu                    
-   missing    messages     Informacje o tagu                  Informacje o tagu                 
-   missing    messages     title.transaction_create           title.transaction_create          
-   missing    messages     action.save                        action.save                       
-   missing    messages     Lista transakcji                   Lista transakcji                  
-   missing    messages     Dodaj transakcje                   Dodaj transakcje                  
-   missing    messages     Stworzono                          Stworzono                         
-   missing    messages     Portfel                            Portfel                           
-   missing    messages     Kategoria                          Kategoria                         
-   missing    messages     Wartość                            Wartość                           
-   missing    messages     action.edit                        action.edit                       
-   missing    messages     action.delete                      action.delete                     
-   missing    messages     title.transaction_details          title.transaction_details         
-   missing    messages     label.category                     label.category                    
-   missing    messages     Nowy portfel                       Nowy portfel                      
-   missing    messages     Lista portfeli                     Lista portfeli                    
-   missing    messages     Dodaj portfel                      Dodaj portfel                     
-   missing    messages     Nazwa                              Nazwa                             
-   missing    messages     Rodzaj                             Rodzaj                            
-   missing    messages     Saldo                              Saldo                             
-   missing    messages     Szczegóły portfela                 Szczegóły portfela                
-   missing    messages     Twój portfel                       Twój portfel                      
-   missing    messages     label.balance                      label.balance                     
-   missing    messages     label.type                         label.type                        
-   missing    messages     label.transactions                 label.transactions                
-   missing    messages     label.date_from                    label.date_from                   
-   missing    messages     label.date_to                      label.date_to                     
-   missing    messages     action.filter                      action.filter                     
-   missing    messages     label.amount                       label.amount                      
-   missing    messages     label.balance_after_transaction    label.balance_after_transaction   
-   missing    messages     label.delete                       label.delete                      
-   missing    messages     Utwórz transakcję                  Utwórz transakcję                 
- ----------- ------------ ---------------------------------- ---------------------------------- 
+Found 0 of 51 files that can be fixed in 1.846 seconds, 18.00 MB memory used
+ ----------- ------------ ------------------- ---------------------- 
+  State       Domain       Id                  Message Preview (en)  
+ ----------- ------------ ------------------- ---------------------- 
+   missing    validators   balance.min_value   balance.min_value     
+   missing    messages     Edit Data           Edit Data             
+   missing    messages     Save                Save                  
+   missing    messages     Users               Users                 
+   missing    messages     Role                Role                  
+   missing    messages     Actions             Actions               
+   missing    messages     Edit                Edit                  
+ ----------- ------------ ------------------- ---------------------- 
 
- ----------- ------------ ---------------------------------- ---------------------------------- ---------------------------------- 
-  State       Domain       Id                                 Message Preview (pl)               Fallback Message Preview (en)     
- ----------- ------------ ---------------------------------- ---------------------------------- ---------------------------------- 
-   missing    validators   balance.min_value                  balance.min_value                  balance.min_value                 
-   missing    messages     message.created_successfully       message.created_successfully       message.created_successfully      
-   missing    messages     message.edited_successfully        message.edited_successfully        message.edited_successfully       
-   missing    messages     message.category_contains_tasks    message.category_contains_tasks    message.category_contains_tasks   
-   missing    messages     message.deleted_successfully       message.deleted_successfully       message.deleted_successfully      
-   missing    messages     message.email_changed              message.email_changed              message.email_changed             
-   missing    messages     message.info_changed               message.info_changed               message.info_changed              
-   missing    messages     message.password_changed           message.password_changed           message.password_changed          
-   missing    messages     message.transaction_not_possible   message.transaction_not_possible   message.transaction_not_possible  
-   missing    messages     message.wallet_contains_tasks      message.wallet_contains_tasks      message.wallet_contains_tasks     
-   missing    messages     message.password_incorrect         message.password_incorrect         message.password_incorrect        
-   missing    messages     Edycja Danych                      Edycja Danych                      Edycja Danych                     
-   missing    messages     Zapisz                             Zapisz                             Zapisz                            
-   missing    messages     użytkownicy                        użytkownicy                        użytkownicy                       
-   missing    messages     Email                              Email                              Email                             
-   missing    messages     Rola                               Rola                               Rola                              
-   missing    messages     Akcje                              Akcje                              Akcje                             
-   missing    messages     Edytuj                             Edytuj                             Edytuj                            
-   missing    messages     MyWallet                           MyWallet                           MyWallet                          
-   missing    messages     Portfele                           Portfele                           Portfele                          
-   missing    messages     Kategorie                          Kategorie                          Kategorie                         
-   missing    messages     Transakcje                         Transakcje                         Transakcje                        
-   missing    messages     Tagi                               Tagi                               Tagi                              
-   missing    messages     Wyloguj                            Wyloguj                            Wyloguj                           
-   missing    messages     Zmiana hasła                       Zmiana hasła                       Zmiana hasła                      
-   missing    messages     Zmiana adresu email                Zmiana adresu email                Zmiana adresu email               
-   missing    messages     Lista Użytkowników                 Lista Użytkowników                 Lista Użytkowników                
-   missing    messages     Wallet                             Wallet                             Wallet                            
-   missing    messages     Stwórz kategorię                   Stwórz kategorię                   Stwórz kategorię                  
-   missing    messages     Usuwanie                           Usuwanie                           Usuwanie                          
-   missing    messages     Usuń                               Usuń                               Usuń                              
-   missing    messages     Edycja                             Edycja                             Edycja                            
-   missing    messages     Lista kategorii                    Lista kategorii                    Lista kategorii                   
-   missing    messages     ID                                 ID                                 ID                                
-   missing    messages     Tytuł                              Tytuł                              Tytuł                             
-   missing    messages     Data Utworzenia                    Data Utworzenia                    Data Utworzenia                   
-   missing    messages     Data Aktualizacji                  Data Aktualizacji                  Data Aktualizacji                 
-   missing    messages     Pokaż                              Pokaż                              Pokaż                             
-   missing    messages     Lista pusta                        Lista pusta                        Lista pusta                       
-   missing    messages     Szczegóły kategorii                Szczegóły kategorii                Szczegóły kategorii               
-   missing    messages     Informacje o kategorii             Informacje o kategorii             Informacje o kategorii            
-   missing    messages     Stworzono :                        Stworzono :                        Stworzono :                       
-   missing    messages     Zaktualizowano :                   Zaktualizowano :                   Zaktualizowano :                  
-   missing    messages     Tytuł :                            Tytuł :                            Tytuł :                           
-   missing    messages     label.id                           label.id                           Id                                
-   missing    messages     label.title                        label.title                        Title                             
-   missing    messages     label.created_at                   label.created_at                   label.created_at                  
-   missing    messages     label.updated_at                   label.updated_at                   label.updated_at                  
-   missing    messages     action.back_to_list                action.back_to_list                action.back_to_list               
-   missing    messages     Powrót                             Powrót                             Powrót                            
-   missing    messages     Nie odnaleziono rekordu            Nie odnaleziono rekordu            Nie odnaleziono rekordu           
-   missing    messages     Błąd                               Błąd                               Błąd                              
-   missing    messages     Rejestracja                        Rejestracja                        Rejestracja                       
-   missing    messages     Hasło                              Hasło                              Hasło                             
-   missing    messages     Potwierdź hasło                    Potwierdź hasło                    Potwierdź hasło                   
-   missing    messages     Zatwierdź                          Zatwierdź                          Zatwierdź                         
-   missing    messages     Zaloguj się                        Zaloguj się                        Zaloguj się                       
-   missing    messages     Zaloguj                            Zaloguj                            Zaloguj                           
-   missing    messages     Stwórz tag                         Stwórz tag                         Stwórz tag                        
-   missing    messages     Lista tagów                        Lista tagów                        Lista tagów                       
-   missing    messages     Szczegóły tagu                     Szczegóły tagu                     Szczegóły tagu                    
-   missing    messages     Informacje o tagu                  Informacje o tagu                  Informacje o tagu                 
-   missing    messages     message.record_not_found           message.record_not_found           Record not found.                 
-   missing    messages     title.transaction_create           title.transaction_create           title.transaction_create          
-   missing    messages     action.save                        action.save                        action.save                       
-   missing    messages     Lista transakcji                   Lista transakcji                   Lista transakcji                  
-   missing    messages     Dodaj transakcje                   Dodaj transakcje                   Dodaj transakcje                  
-   missing    messages     Stworzono                          Stworzono                          Stworzono                         
-   missing    messages     Portfel                            Portfel                            Portfel                           
-   missing    messages     Kategoria                          Kategoria                          Kategoria                         
-   missing    messages     Wartość                            Wartość                            Wartość                           
-   missing    messages     action.edit                        action.edit                        action.edit                       
-   missing    messages     action.delete                      action.delete                      action.delete                     
-   missing    messages     message.empty_list                 message.empty_list                 List is empty.                    
-   missing    messages     title.transaction_details          title.transaction_details          title.transaction_details         
-   missing    messages     label.category                     label.category                     label.category                    
-   missing    messages     label.tags                         label.tags                         Tags                              
-   missing    messages     Nowy portfel                       Nowy portfel                       Nowy portfel                      
-   missing    messages     Lista portfeli                     Lista portfeli                     Lista portfeli                    
-   missing    messages     Dodaj portfel                      Dodaj portfel                      Dodaj portfel                     
-   missing    messages     Nazwa                              Nazwa                              Nazwa                             
-   missing    messages     Rodzaj                             Rodzaj                             Rodzaj                            
-   missing    messages     Saldo                              Saldo                              Saldo                             
-   missing    messages     label.actions                      label.actions                      Actions                           
-   missing    messages     Szczegóły portfela                 Szczegóły portfela                 Szczegóły portfela                
-   missing    messages     Twój portfel                       Twój portfel                       Twój portfel                      
-   missing    messages     label.balance                      label.balance                      label.balance                     
-   missing    messages     label.type                         label.type                         label.type                        
-   missing    messages     label.transactions                 label.transactions                 label.transactions                
-   missing    messages     label.date_from                    label.date_from                    label.date_from                   
-   missing    messages     label.date_to                      label.date_to                      label.date_to                     
-   missing    messages     action.filter                      action.filter                      action.filter                     
-   missing    messages     label.amount                       label.amount                       label.amount                      
-   missing    messages     label.balance_after_transaction    label.balance_after_transaction    label.balance_after_transaction   
-   missing    messages     label.delete                       label.delete                       label.delete                      
-   missing    messages     Utwórz transakcję                  Utwórz transakcję                  Utwórz transakcję                 
- ----------- ------------ ---------------------------------- ---------------------------------- ---------------------------------- 
+ ---------------------- ------------ ------------------------- ------------------------- ------------------------------- 
+  State                  Domain       Id                        Message Preview (pl)      Fallback Message Preview (en)  
+ ---------------------- ------------ ------------------------- ------------------------- ------------------------------- 
+   missing               validators   balance.min_value         balance.min_value         balance.min_value              
+   missing               messages     Portfele                  Portfele                  Wallets                        
+   missing               messages     Kategorie                 Kategorie                 Categories                     
+   missing               messages     Transakcje                Transakcje                Transactions                   
+   missing               messages     Tagi                      Tagi                      Tags                           
+   missing               messages     Wyloguj                   Wyloguj                   Logout                         
+   missing               messages     Zmiana hasła              Zmiana hasła              Change Password                
+   missing               messages     Zmiana adresu email       Zmiana adresu email       Change Email Address           
+   missing               messages     Lista Użytkowników        Lista Użytkowników        User List                      
+   missing   fallback    messages     Wallet                    Wallet                    Wallet                         
+   missing               messages     Stwórz kategorię          Stwórz kategorię          Create Category                
+   missing               messages     Zapisz                    Zapisz                    Save                           
+   missing               messages     Usuwanie                  Usuwanie                  Deleting                       
+   missing               messages     Usuń                      Usuń                      Delete                         
+   missing               messages     Edycja                    Edycja                    Edit                           
+   missing               messages     Lista kategorii           Lista kategorii           Category List                  
+   missing   fallback    messages     ID                        ID                        ID                             
+   missing               messages     Tytuł                     Tytuł                     Title                          
+   missing               messages     Data Utworzenia           Data Utworzenia           Creation Date                  
+   missing               messages     Data Aktualizacji         Data Aktualizacji         Update Date                    
+   missing               messages     Akcje                     Akcje                     Actions                        
+   missing               messages     Pokaż                     Pokaż                     Show                           
+   missing               messages     Edytuj                    Edytuj                    Edit                           
+   missing               messages     Lista pusta               Lista pusta               Empty list                     
+   missing               messages     Szczegóły kategorii       Szczegóły kategorii       Category Details               
+   missing               messages     Informacje o kategorii    Informacje o kategorii    Category Information           
+   missing               messages     Stworzono                 Stworzono                 Created                        
+   missing               messages     Zaktualizowano            Zaktualizowano            Updated                        
+   missing               messages     Powrót                    Powrót                    Back                           
+   missing               messages     Nie odnaleziono rekordu   Nie odnaleziono rekordu   Record not found               
+   missing               messages     Błąd                      Błąd                      Error                          
+   missing               messages     Rejestracja               Rejestracja               Registration                   
+   missing               messages     Hasło                     Hasło                     Password                       
+   missing               messages     Potwierdź hasło           Potwierdź hasło           Confirm Password               
+   missing               messages     Zatwierdź                 Zatwierdź                 Confirm                        
+   missing               messages     Zaloguj                   Zaloguj                   Log in                         
+   missing               messages     Stwórz tag                Stwórz tag                Create tag                     
+   missing               messages     Lista tagów               Lista tagów               Tag list                       
+   missing               messages     Szczegóły tagu            Szczegóły tagu            Details of tag                 
+   missing               messages     Informacje o tagu         Informacje o tagu         Info about tag                 
+   missing               messages     Lista transakcji          Lista transakcji          Transaction List               
+   missing               messages     Dodaj transakcje          Dodaj transakcje          Add transactions               
+   missing               messages     Portfel                   Portfel                   Wallet                         
+   missing               messages     Kategoria                 Kategoria                 Category                       
+   missing               messages     Wartość                   Wartość                   Value                          
+   missing               messages     Szczegóły transakcji      Szczegóły transakcji      Transaction details            
+   missing               messages     Nowy portfel              Nowy portfel              New wallet                     
+   missing               messages     Lista portfeli            Lista portfeli            Wallet list                    
+   missing               messages     Dodaj portfel             Dodaj portfel             Add wallet                     
+   missing               messages     Nazwa                     Nazwa                     Name                           
+   missing               messages     Rodzaj                    Rodzaj                    Kind                           
+   missing               messages     Saldo                     Saldo                     Balance                        
+   missing               messages     Szczegóły portfela        Szczegóły portfela        Wallet details                 
+   missing               messages     Twój portfel              Twój portfel              Your wallet                    
+   missing               messages     Utwórz transakcję         Utwórz transakcję         Create transaction             
+ ---------------------- ------------ ------------------------- ------------------------- ------------------------------- 
 
 [notice] Migrating up to DoctrineMigrations\Version20240609222908
-[notice] finished in 781.8ms, used 24M memory, 1 migrations executed, 11 sql queries
+[notice] finished in 554.5ms, used 24M memory, 1 migrations executed, 11 sql queries
 
  [OK] Successfully migrated to version: DoctrineMigrations\Version20240609222908                                        
 

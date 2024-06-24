@@ -58,10 +58,10 @@
         <source>label.updated_at</source>
         <target>Updated at</target>
       </trans-unit>
-    <trans-unit id="title.task_details">
+      <trans-unit id="title.task_details">
         <source>title.task_details</source>
         <target>Transaction details #%id%</target>
-    </trans-unit>
+      </trans-unit>
       <trans-unit id="label.category">
         <source>label.category</source>
         <target>Category</target>
@@ -202,7 +202,7 @@
            <source>action_categories</source>
            <target>Categories</target>
        </trans-unit>
-        <trans-unit id="label.log_in">
+       <trans-unit id="label.log_in">
            <source>label.log_in</source>
            <target>Log in</target>
        </trans-unit>
@@ -234,53 +234,9 @@
            <source>label.new_password</source>
            <target>New password</target>
        </trans-unit>
-       <trans-unit id="message.password_incorrect">
-           <source>message.password_incorrect</source>
-           <target>Old password incorrect</target>
-       </trans-unit>
        <trans-unit id="message.password_changed">
            <source>message.password_changed</source>
            <target>Password changed successfully</target>
-       </trans-unit>
-       <trans-unit id="title.change_info">
-           <source>title.change_info</source>
-           <target>Change your information</target>
-       </trans-unit>
-       <trans-unit id="action.change_info">
-           <source>action.change_info</source>
-           <target>Change</target>
-       </trans-unit>
-       <trans-unit id="message.email_changed">
-           <source>message.email_changed</source>
-           <target>Email changed successfully</target>
-       </trans-unit>
-       <trans-unit id="action.change_email">
-           <source>action.change_email</source>
-           <target>Change email</target>
-       </trans-unit>
-       <trans-unit id="label.email">
-           <source>label.email</source>
-           <target>Email</target>
-       </trans-unit>
-       <trans-unit id="label.dateFrom">
-           <source>label.dateFrom</source>
-           <target>From</target>
-       </trans-unit>
-       <trans-unit id="label.dateTo">
-           <source>label.dateTo</source>
-           <target>To</target>
-       </trans-unit>
-       <trans-unit id="action.filter">
-           <source>action.filter</source>
-           <target>Filter</target>
-       </trans-unit>
-       <trans-unit id="label.balance_after_transaction">
-           <source>label.balance_after_transaction</source>
-           <target>Balance after transaction</target>
-       </trans-unit>
-       <trans-unit id="title.category_details">
-           <source>title.category_details</source>
-           <target>Category details #%id%</target>
        </trans-unit>
     </body>
   </file>

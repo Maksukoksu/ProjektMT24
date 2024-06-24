@@ -68,7 +68,7 @@ class Transaction
      */
     #[ORM\Column(type: Types::FLOAT)]
     #[Assert\NotBlank]
-    private ?string $amount = null;
+    private ?float $amount = null;
 
     /**
      * Wallet.

@@ -18,32 +18,37 @@ use Knp\Component\Pager\PaginatorInterface;
 class TransactionService implements TransactionServiceInterface
 {
     /**
-     * Constructor.
+     * Constructs the WalletController.
      *
-     * @param TransactionRepository    $taskRepository  The transaction repository
-     * @param PaginatorInterface       $paginator       The paginator service
-     * @param WalletService            $walletService   The wallet service
-     * @param CategoryServiceInterface $categoryService The category service
-     * @param TagService               $tagService      The tag service
+     * @param TransactionRepository    $transactionRepository The repository for transactions
+     * @param PaginatorInterface       $paginator             The paginator service
+     * @param WalletService            $walletService         The service for managing wallets
+     * @param CategoryServiceInterface $categoryService       The service for managing categories
+     * @param TagService               $tagService            The service for managing tags
      */
-    public function __construct(private readonly TransactionRepository $taskRepository, private readonly PaginatorInterface $paginator, private readonly WalletService $walletService, private readonly CategoryServiceInterface $categoryService, private readonly TagService $tagService)
+    public function __construct(private readonly TransactionRepository $transactionRepository, private readonly PaginatorInterface $paginator, private readonly WalletService $walletService, private readonly CategoryServiceInterface $categoryService, private readonly TagService $tagService)
     {
     }
 
     /**
      * Get paginated list of transactions.
      *
-     * @param int   $page    The current page number
-     * @param array $filters The filters to apply
+     * @param int    $page      The current page number
+     * @param array  $filters   The filters to apply
+     * @param string $sortField The field to sort by
+     * @param string $sortDir   The sort direction
      *
      * @return PaginationInterface The paginated list of transactions
      */
-    public function getPaginatedList(int $page, array $filters = []): PaginationInterface
+    public function getPaginatedList(int $page, array $filters = [], string $sortField = 'transaction.createdAt', string $sortDir = 'desc'): PaginationInterface
     {
         $filters = $this->prepareFilters($filters);
 
+        $queryBuilder = $this->transactionRepository->queryNotAll($filters)
+            ->orderBy($sortField, $sortDir);
+
         return $this->paginator->paginate(
-            $this->taskRepository->queryNotAll($filters),
+            $queryBuilder,
             $page,
             TransactionRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -52,32 +57,32 @@ class TransactionService implements TransactionServiceInterface
     /**
      * Save a transaction.
      *
-     * @param Transaction $task                      The transaction entity
+     * @param Transaction $transaction               The transaction entity
      * @param float|null  $originalTransactionAmount The original transaction amount
      */
-    public function save(Transaction $task, ?float $originalTransactionAmount = null): void
+    public function save(Transaction $transaction, ?float $originalTransactionAmount = null): void
     {
         // Update the wallet balance
-        $this->walletService->updateBalance($task->getWallet(), $task->getAmount());
-        $balance = $task->getWallet()->getBalance();
+        $this->walletService->updateBalance($transaction->getWallet(), $transaction->getAmount());
+        $balance = $transaction->getWallet()->getBalance();
         if (null !== $originalTransactionAmount) {
-            $task->setBalanceAfterTransaction($balance);
+            $transaction->setBalanceAfterTransaction($balance);
         } else {
-            $task->setBalanceAfterTransaction($balance + $task->getAmount());
+            $transaction->setBalanceAfterTransaction($balance + $transaction->getAmount());
         }
 
         // Save the transaction
-        $this->taskRepository->save($task);
+        $this->transactionRepository->save($transaction);
     }
 
     /**
      * Delete a transaction.
      *
-     * @param Transaction $task The transaction entity
+     * @param Transaction $transaction The transaction entity
      */
-    public function delete(Transaction $task): void
+    public function delete(Transaction $transaction): void
     {
-        $this->taskRepository->delete($task);
+        $this->transactionRepository->delete($transaction);
     }
 
     /**

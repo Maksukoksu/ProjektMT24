@@ -10,11 +10,11 @@
         <dl>
             <dt>{{ 'ID'|trans }}</dt>
             <dd>{{ category.id }}</dd>
-            <dt>{{ 'Stworzono :'|trans }}</dt>
+            <dt>{{ 'Stworzono'|trans }}</dt>
             <dd>{{ category.createdAt|format_date('long') }}</dd>
-            <dt>{{ 'Zaktualizowano :'|trans }}</dt>
+            <dt>{{ 'Zaktualizowano'|trans }}</dt>
             <dd>{{ category.updatedAt|format_date('long') }}</dd>
-            <dt>{{ 'Tytuł :'|trans }}</dt>
+            <dt>{{ 'Tytuł'|trans }}</dt>
             <dd>{{ category.title }}</dd>
         </dl>
         {% if tasks is defined and tasks|length %}

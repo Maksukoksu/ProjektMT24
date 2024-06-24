@@ -17,19 +17,19 @@
         </dl>
         {% if transactions is defined and transactions|length %}
             <h3>{{ 'label.transactions'|trans }}</h3>
-            <form method="get" action="">
-                <div>
-                    <label for="dateFrom">{{ 'label.date_from'|trans }}</label>
-                    <input type="date" id="dateFrom" name="dateFrom" value="{{ dateFrom|default('') }}">
-                </div>
-                <div>
-                    <label for="dateTo">{{ 'label.date_to'|trans }}</label>
-                    <input type="date" id="dateTo" name="dateTo" value="{{ dateTo|default('') }}">
-                </div>
-                <div>
-                    <input type="submit" value="{{ 'action.filter'|trans }}" class="btn btn-primary"/>
-                </div>
-            </form>
+            {{ form_start(filterForm, {'method': 'GET'}) }}
+            <div>
+                {{ form_label(filterForm.dateFrom, 'label.date_from'|trans) }}
+                {{ form_widget(filterForm.dateFrom, {'attr': {'class': 'js-datepicker'}}) }}
+            </div>
+            <div>
+                {{ form_label(filterForm.dateTo, 'label.date_to'|trans) }}
+                {{ form_widget(filterForm.dateTo, {'attr': {'class': 'js-datepicker'}}) }}
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">{{ 'action.filter'|trans }}</button>
+            </div>
+            {{ form_end(filterForm) }}
             <table>
                 <thead>
                 <tr>
@@ -48,7 +48,7 @@
                         <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
                         <td>{{ transaction.balanceAfterTransaction|number_format(2, ',', ' ') }} PLN</td>
                         <td>
-                            <a href="{{ url('transaction_delete', {id: transaction.id}) }}">{{ 'Usuń'|trans }}</a>
+                            <a href="{{ url('transaction_delete', {id: transaction.id}) }}" class="btn btn-danger">{{ 'Usuń'|trans }}</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -56,10 +56,10 @@
             </table>
         {% endif %}
         <p>
-            <a href="{{ url('wallet_index') }}">{{ 'Powrót'|trans }}</a>
+            <a href="{{ path('wallet_index') }}" class="btn btn-primary">{{ 'Powrót'|trans }}</a>
         </p>
         <p>
-            <a href="{{ url('transaction_create', {'wallet': wallet.id}) }}">{{ 'Utwórz transakcję'|trans }}</a>
+            <a href="{{ path('transaction_create', {'wallet': wallet.id}) }}" class="btn btn-secondary">{{ 'Utwórz transakcję'|trans }}</a>
         </p>
     {% else %}
         <p class="text-warning">

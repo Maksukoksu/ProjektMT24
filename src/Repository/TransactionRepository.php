@@ -8,6 +8,8 @@ namespace App\Repository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Transaction;
+use App\Entity\Wallet;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Class TransactionRepository.
@@ -16,7 +18,7 @@ use App\Entity\Transaction;
  */
 class TransactionRepository extends ServiceEntityRepository
 {
-    public const PAGINATOR_ITEMS_PER_PAGE = 10; // Define the constant
+    public const PAGINATOR_ITEMS_PER_PAGE = 10;
 
     /**
      * Constructor.
@@ -55,12 +57,13 @@ class TransactionRepository extends ServiceEntityRepository
      *
      * @param array<string, mixed> $filters Filters array
      *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
+     * @return QueryBuilder Query builder
      */
-    public function queryNotAll(array $filters = []): \Doctrine\ORM\QueryBuilder
+    public function queryNotAll(array $filters = []): QueryBuilder
     {
         $qb = $this->createQueryBuilder('transaction')
-            ->select('transaction');
+            ->join('transaction.wallet', 'wallet')  // Join with wallet
+            ->addSelect('wallet');  // Add wallet to the select
 
         if (!empty($filters['category'])) {
             $qb->andWhere('transaction.category = :category')
@@ -74,5 +77,33 @@ class TransactionRepository extends ServiceEntityRepository
         }
 
         return $qb;
+    }
+
+    /**
+     * Find transactions for a specific wallet within a date range.
+     *
+     * @param Wallet         $wallet   Wallet entity
+     * @param \DateTime|null $dateFrom Start date of the range
+     * @param \DateTime|null $dateTo   End date of the range
+     *
+     * @return Transaction[] List of transactions
+     */
+    public function findTransactionsForWalletByDateRange(Wallet $wallet, ?\DateTime $dateFrom, ?\DateTime $dateTo): array
+    {
+        $qb = $this->createQueryBuilder('transaction')
+            ->where('transaction.wallet = :wallet')
+            ->setParameter('wallet', $wallet);
+
+        if ($dateFrom instanceof \DateTime) {
+            $qb->andWhere('transaction.createdAt >= :dateFrom')
+                ->setParameter('dateFrom', $dateFrom->format('Y-m-d'));
+        }
+
+        if ($dateTo instanceof \DateTime) {
+            $qb->andWhere('transaction.createdAt <= :dateTo')
+                ->setParameter('dateTo', $dateTo->format('Y-m-d'));
+        }
+
+        return $qb->getQuery()->getResult();
     }
 }

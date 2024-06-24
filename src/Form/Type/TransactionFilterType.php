@@ -32,11 +32,13 @@ class TransactionFilterType extends AbstractType
             ->add('dateFrom', DateType::class, [
                 'required' => false,
                 'widget' => 'single_text',
+                'html5' => true,
                 'label' => 'label.dateFrom',
             ])
             ->add('dateTo', DateType::class, [
                 'required' => false,
                 'widget' => 'single_text',
+                'html5' => true,
                 'label' => 'label.dateTo',
             ]);
     }

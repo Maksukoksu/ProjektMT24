@@ -2,11 +2,11 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ 'Edycja Danych'|trans }}</h1>
+    <h1>{{ 'Edytuj Dane'|trans }}</h1>
     {{ form_start(form) }}
     {{ form_row(form.email) }}
     {{ form_row(form.plainPassword) }}
     {{ form_row(form.roles) }}
-    <button class="btn">{{ 'Zapisz'|trans }}</button>
+    <button class="btn btn-dark">{{ 'Zapisz'|trans }}</button>
     {{ form_end(form) }}
 {% endblock %}

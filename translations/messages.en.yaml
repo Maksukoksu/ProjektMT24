@@ -1,60 +1,69 @@
-validators:
-  balance.min_value: "Balance must be at least the minimum value."
-messages:
-  message.created_successfully: "Message created successfully."
-  message.edited_successfully: "Message edited successfully."
-  message.category_contains_tasks: "Category contains tasks."
-  message.deleted_successfully: "Message deleted successfully."
-  message.email_changed: "Email changed successfully."
-  message.info_changed: "Information changed successfully."
-  message.password_changed: "Password changed successfully."
-  message.transaction_not_possible: "Transaction not possible."
-  message.wallet_contains_tasks: "Wallet contains tasks."
-  message.password_incorrect: "Password incorrect."
-  action_change_password: "Change Password"
-  action_change_info: "Change Info"
-  action_login: "Login"
-  action_logout: "Logout"
-  title.category_create: "Create Category"
-  action.save: "Save"
-  title.category_delete: "Delete Category"
-  action.delete: "Delete"
-  title.category_edit: "Edit Category"
-  action.edit: "Edit"
-  title.category_list: "Category List"
-  ID: "ID"
-  title.category_details: "Category Details"
-  label.created_at: "Created at"
-  label.updated_at: "Updated at"
-  action.back_to_list: "Back to list"
-  message.form_error: "Form error"
-  title.tag_create: "Create Tag"
-  title.tag_delete: "Delete Tag"
-  title.tag_edit: "Edit Tag"
-  title.tag_list: "Tag List"
-  title.tag_details: "Tag Details"
-  title.transaction_create: "Create Transaction"
-  title.transaction_delete: "Delete Transaction"
-  title.transaction_edit: "Edit Transaction"
-  title.transaction_list: "Transaction List"
-  label.wallet: "Wallet"
-  label.category: "Category"
-  label.amount: "Amount"
-  label.edit: "Edit"
-  label.delete: "Delete"
-  title.transaction_details: "Transaction Details"
-  title.change_info: "Change Info"
-  action.change_info: "Change Info"
-  title.change_password: "Change Password"
-  action.change_password: "Change Password"
-  title.wallet_create: "Create Wallet"
-  title.wallet_delete: "Delete Wallet"
-  title.wallet_list: "Wallet List"
-  label.type: "Type"
-  label.balance: "Balance"
-  title.wallet_details: "Wallet Details"
-  label.transactions: "Transactions"
-  label.date_from: "Date From"
-  label.date_to: "Date To"
-  action.filter: "Filter"
-  label.balance_after_transaction: "Balance After Transaction"
+balance.min_value: Minimum balance value
+message.info_changed: Information changed
+title.transaction_details: Transaction details
+title.transaction_create: Transaction create
+Usuń: Delete
+Powrót: Back
+Utwórz transakcję: Create transaction
+Edycja Danych: Edit Data
+Zapisz: Save
+użytkownicy: users
+Email: Email
+Rola: Role
+Akcje: Actions
+Edytuj: Edit
+MyWallet: MyWallet
+Portfele: Wallets
+Kategorie: Categories
+Transakcje: Transactions
+Tagi: Tags
+Wyloguj: Logout
+Zmiana hasła: Change Password
+Zmiana adresu email: Change Email Address
+Lista Użytkowników: User List
+Wallet: Wallet
+Stwórz kategorię: Create Category
+Usuwanie: Deleting
+Usun: Delete
+Edycja: Edit
+Lista kategorii: Category List
+ID: ID
+Tytuł: Title
+Data Utworzenia: Creation Date
+Data Aktualizacji: Update Date
+Pokaż: Show
+Lista pusta: Empty list
+Szczegóły kategorii: Category Details
+Informacje o kategorii: Category Information
+Lista transakcji: Transaction List
+Dodaj transakcje: Add transactions
+Stworzono: Created
+Portfel: Wallet
+Kategoria: Category
+Wartość: Value
+Szczegóły transakcji: Transaction details
+Nowy portfel: New wallet
+Lista portfeli: Wallet list
+Dodaj portfel: Add wallet
+Nazwa: Name
+Rodzaj: Kind
+Saldo: Balance
+Szczegóły portfela: Wallet details
+Twój portfel: Your wallet
+Od: From
+Do: To
+Filtruj: Filter
+Saldo po transakcji: Balance after transaction
+Nie odnaleziono rekordu: Record not found
+Błąd: Error
+Rejestracja: Registration
+Hasło: Password
+Potwierdź hasło: Confirm Password
+Zatwierdź: Confirm
+Zaloguj: Log in
+Stwórz tag: Create tag
+Lista tagów: Tag list
+Szczegóły tagu: Details of tag
+Informacje o tagu: Info about tag
+Użytkownicy: Users
+Zaktualizowano: Updated
