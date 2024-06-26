@@ -2,13 +2,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ 'Użytkownicy'|trans }}</h1>
+    <h1>{{ 'title.users'|trans }}</h1>
     <table>
         <thead>
         <tr>
-            <th>{{ 'Email'|trans }}</th>
-            <th>{{ 'Role'|trans }}</th>
-            <th>{{ 'Akcje'|trans }}</th>
+            <th>{{ 'label.email'|trans }}</th>
+            <th>{{ 'label.roles'|trans }}</th>
+            <th>{{ 'label.actions'|trans }}</th>
         </tr>
         </thead>
         <tbody>
@@ -19,7 +19,7 @@
                     <td>{{ user.roles|join(', ') }}</td>
                     <td>
                         <form action="{{ path('admin_user_edit', {'id': user.id}) }}" method="get">
-                            <button type="submit" class="btn btn-primary">{{ 'Edytuj'|trans }}</button>
+                            <button type="submit" class="btn btn-primary">{{ 'action.edit'|trans }}</button>
                         </form>
                     </td>
                 </tr>

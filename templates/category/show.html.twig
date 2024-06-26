@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Szczegóły kategorii'|trans({'%id%': category.id|default('')}) }}
+    {{ 'title.details'|trans({'%id%': category.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Informacje o kategorii'|trans({'%id%': category.id|default('')}) }}</h1>
+    <h1>{{ 'header.info'|trans({'%id%': category.id|default('')}) }}</h1>
     {% if category is defined and category|length %}
         <dl>
-            <dt>{{ 'ID'|trans }}</dt>
+            <dt>{{ 'title.id'|trans }}</dt>
             <dd>{{ category.id }}</dd>
-            <dt>{{ 'Stworzono'|trans }}</dt>
+            <dt>{{ 'label.created_at'|trans }}</dt>
             <dd>{{ category.createdAt|format_date('long') }}</dd>
-            <dt>{{ 'Zaktualizowano'|trans }}</dt>
+            <dt>{{ 'label.edited_at'|trans }}</dt>
             <dd>{{ category.updatedAt|format_date('long') }}</dd>
-            <dt>{{ 'Tytuł'|trans }}</dt>
+            <dt>{{ 'label.title'|trans }}</dt>
             <dd>{{ category.title }}</dd>
         </dl>
         {% if tasks is defined and tasks|length %}
@@ -24,7 +24,7 @@
                     <th>{{ 'label.id'|trans }}</th>
                     <th>{{ 'label.title'|trans }}</th>
                     <th>{{ 'label.created_at'|trans }}</th>
-                    <th>{{ 'label.updated_at'|trans }}</th>
+                    <th>{{ 'label.edited_at'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,12 +41,12 @@
         {% endif %}
         <p>
             <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-primary">
-                {{ 'Powrót'|trans }}
+                {{ 'action.return'|trans }}
             </a>
         </p>
     {% else %}
         <p>
-            {{ 'Nie odnaleziono rekordu'|trans }}
+            {{ 'message.record_not_found'|trans }}
         </p>
     {% endif %}
 {% endblock %}

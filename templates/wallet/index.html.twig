@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Portfele'|trans }}
+    {{ 'title.wallets'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Lista portfeli'|trans }}</h1>
+    <h1>{{ 'title.wallets'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="create-wallet-link">
-            <a href="{{ url('wallet_create') }}" class="btn btn-primary">{{ 'Dodaj portfel'|trans }}</a>
+            <a href="{{ url('wallet_create') }}" class="btn btn-primary">{{ 'action.create'|trans }}</a>
         </div>
         <br>
         <div class="navigation text-center">
@@ -19,9 +19,9 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'Nazwa'|trans, 'wallet.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Rodzaj'|trans, 'wallet.type') }}</th>
-                <th>{{ 'Saldo'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'wallet.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.type'|trans, 'wallet.type') }}</th>
+                <th>{{ 'label.balance'|trans }}</th>
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
@@ -32,8 +32,8 @@
                     <td>{{ wallet.type }}</td>
                     <td>{{ wallet.balance|number_format(2, ',', ' ') }} PLN</td>
                     <td>
-                        <a href="{{ url('wallet_show', {id: wallet.id}) }}" class="btn btn-primary">{{ 'Pokaż'|trans }}</a>
-                        <a href="{{ url('wallet_delete', {id: wallet.id}) }}" class="btn btn-danger">{{ 'Usuń'|trans }}</a>
+                        <a href="{{ url('wallet_show', {id: wallet.id}) }}" class="btn btn-primary">{{ 'action.show'|trans }}</a>
+                        <a href="{{ url('wallet_delete', {id: wallet.id}) }}" class="btn btn-danger">{{ 'action.delete'|trans }}</a>
                 </tr>
             {% endfor %}
             </tbody>

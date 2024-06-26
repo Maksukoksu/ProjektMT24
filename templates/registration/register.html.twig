@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>{{ 'Rejestracja'|trans }}</h1>
+    <h1>{{ 'header.registration'|trans }}</h1>
 
     {% for message in app.flashes('error') %}
         <div class="alert alert-danger">{{ message }}</div>
@@ -12,19 +12,19 @@
 
     <form action="{{ path('app_register') }}" method="POST">
         <div class="form-group">
-            <label for="email">{{ 'Email'|trans }}</label>
+            <label for="email">{{ 'label.email'|trans }}</label>
             <input type="email" id="email" name="email" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="plainPassword">{{ 'Hasło'|trans }}</label>
+            <label for="plainPassword">{{ 'label.password'|trans }}</label>
             <input type="password" id="plainPassword" name="plainPassword" class="form-control" required>
         </div>
         <div class="form-group">
-            <label for="confirmPassword">{{ 'Potwierdź hasło'|trans }}</label>
+            <label for="confirmPassword">{{ 'label.password_confirm'|trans }}</label>
             <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
         </div>
         <br>
         <br>
-        <button type="submit" class="btn btn-primary">{{ 'Zatwierdź'|trans }}</button>
+        <button type="submit" class="btn btn-primary">{{ 'action.confrim'|trans }}</button>
     </form>
 {% endblock %}

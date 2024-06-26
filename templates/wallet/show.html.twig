@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Szczegóły portfela'|trans({'%id%': wallet.id|default('')}) }}
+    {{ 'title.details'|trans({'%id%': wallet.id|default('')}) }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Twój portfel'|trans({'%id%': wallet.id|default('')}) }}</h1>
+    <h1>{{ 'header.your_wallet'|trans({'%id%': wallet.id|default('')}) }}</h1>
     {% if wallet is defined and wallet|length %}
         <dl>
             <dt>{{ 'label.title'|trans }}</dt>
@@ -48,7 +48,7 @@
                         <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
                         <td>{{ transaction.balanceAfterTransaction|number_format(2, ',', ' ') }} PLN</td>
                         <td>
-                            <a href="{{ url('transaction_delete', {id: transaction.id}) }}" class="btn btn-danger">{{ 'Usuń'|trans }}</a>
+                            <a href="{{ url('transaction_delete', {id: transaction.id}) }}" class="btn btn-danger">{{ 'action_delete'|trans }}</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -56,10 +56,10 @@
             </table>
         {% endif %}
         <p>
-            <a href="{{ path('wallet_index') }}" class="btn btn-primary">{{ 'Powrót'|trans }}</a>
+            <a href="{{ path('wallet_index') }}" class="btn btn-primary">{{ 'action.return'|trans }}</a>
         </p>
         <p>
-            <a href="{{ path('transaction_create', {'wallet': wallet.id}) }}" class="btn btn-secondary">{{ 'Utwórz transakcję'|trans }}</a>
+            <a href="{{ path('transaction_create', {'wallet': wallet.id}) }}" class="btn btn-secondary">{{ 'action.add_transaction'|trans }}</a>
         </p>
     {% else %}
         <p class="text-warning">

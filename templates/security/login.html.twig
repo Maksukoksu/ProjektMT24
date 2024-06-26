@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Zaloguj się!{% endblock %}
+{% block title %}{{ 'title.log_in'|trans }}{% endblock %}
 
 {% block body %}
     <form method="post">
@@ -14,15 +14,15 @@
             </div>
         {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">{{ 'Zaloguj'|trans }}</h1>
-        <label for="inputEmail">{{ 'Email'|trans }}</label>
+        <h1 class="h3 mb-3 font-weight-normal">{{ 'action.log_in'|trans }}</h1>
+        <label for="inputEmail">{{ 'label.email'|trans }}</label>
         <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-        <label for="inputPassword">{{ 'Hasło'|trans }}</label>
+        <label for="inputPassword">{{ 'label.password'|trans }}</label>
         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-        <button class="btn btn-secondary" type="submit">{{ 'Zaloguj'|trans }}</button>
-        <a class="btn btn-secondary" href="{{ path('app_register') }}">{{ 'Rejestracja'|trans }}</a>
+        <button class="btn btn-secondary" type="submit">{{ 'action.log_in'|trans }}</button>
+        <a class="btn btn-secondary" href="{{ path('app_register') }}">{{ 'action.register'|trans }}</a>
     </form>
 {% endblock %}

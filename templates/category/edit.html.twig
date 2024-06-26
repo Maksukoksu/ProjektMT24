@@ -1,7 +1,7 @@
 {% include 'default/_form.html.twig' with {
-    page_title: 'Edycja'|trans({'%id%': category.id|default('')}),
+    page_title: 'title.edit'|trans({'%id%': category.id|default('')}),
     form: form,
-    submit_label: 'Zapisz'|trans,
+    submit_label: 'action.save'|trans,
     referer: referer|default('category_index'),
     back_to_list_path: 'category_index',
 } %}

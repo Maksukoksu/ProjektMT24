@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'Transakcje'|trans }}
+    {{ 'title.transactions'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'Lista transakcji'|trans }}</h1>
+    <h1>{{ 'header.transaction_list'|trans }}</h1>
     {% if pagination is defined and pagination.items|length %}
 
         <div class="create-category-link">
-            <a href="{{ path('transaction_create') }}" class="btn btn-primary">{{ 'Dodaj transakcje'|trans }}</a>
+            <a href="{{ path('transaction_create') }}" class="btn btn-primary">{{ 'action.add_transaction'|trans }}</a>
         </div>
         <br>
         <div class="navigation text-center">
@@ -19,13 +19,13 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'Stworzono'|trans, 'transaction.createdAt') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Tytuł'|trans, 'transaction.title') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Portfel'|trans, 'wallet.title') }}</th>
-                <th>{{ 'Kategoria'|trans }}</th> <!-- Usunięto sortowanie po tytule kategorii -->
-                <th>{{ 'Tagi'|trans }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'Wartość'|trans, 'transaction.amount') }}</th>
-                <th>{{ 'Akcje'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 'transaction.createdAt') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'transaction.title') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.wallet'|trans, 'wallet.title') }}</th>
+                <th>{{ 'label.category'|trans }}</th>
+                <th>{{ 'label.tag'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label.value'|trans, 'transaction.amount') }}</th>
+                <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
@@ -34,12 +34,12 @@
                     <td>{{ transaction.createdAt|format_date('long') }}</td>
                     <td>{{ transaction.title }}</td>
                     <td>{{ transaction.wallet.title }}</td>
-                    <td> <!-- Wyświetlanie kategorii -->
+                    <td>
                         <a href="{{ url('transaction_index', {'filters.category_id' : transaction.category.id}) }}" title="{{ transaction.category.title }}" class="btn btn-outline-success">
                             {{ transaction.category.title }}
                         </a>
                     </td>
-                    <td> <!-- Wyświetlanie tagów -->
+                    <td>
                         {% for tag in transaction.tags %}
                         <a href="{{ url('transaction_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.title }}" class="btn btn-outline-info">
                             {{ tag.title }}
@@ -49,10 +49,10 @@
                     <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
                     <td>
                         <a href="{{ url('transaction_edit', {id: transaction.id}) }}" title="{{ 'action.edit'|trans }}" class="btn btn-primary">
-                            {{ 'Edytuj'|trans }}
+                            {{ 'action.edit'|trans }}
                         </a>
                         <a href="{{ url('transaction_delete', {id: transaction.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-danger">
-                            {{ 'Usuń'|trans }}
+                            {{ 'action.delete'|trans }}
                         </a>
                     </td>
                 </tr>
