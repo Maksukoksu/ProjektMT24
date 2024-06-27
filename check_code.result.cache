@@ -1,7 +1,19 @@
 
-Found 0 of 51 files that can be fixed in 2.178 seconds, 18.00 MB memory used
+Found 0 of 53 files that can be fixed in 1.871 seconds, 18.00 MB memory used
+ ----------- ---------- ---------------------------- ---------------------------- 
+  State       Domain     Id                           Message Preview (en)        
+ ----------- ---------- ---------------------------- ---------------------------- 
+   missing    messages   header.transaction_details   header.transaction_details  
+ ----------- ---------- ---------------------------- ---------------------------- 
+
+ ----------- ---------- ---------------------------- ---------------------------- ------------------------------- 
+  State       Domain     Id                           Message Preview (pl)         Fallback Message Preview (en)  
+ ----------- ---------- ---------------------------- ---------------------------- ------------------------------- 
+   missing    messages   header.transaction_details   header.transaction_details   header.transaction_details     
+ ----------- ---------- ---------------------------- ---------------------------- ------------------------------- 
+
 [notice] Migrating up to DoctrineMigrations\Version20240609222908
-[notice] finished in 577.9ms, used 24M memory, 1 migrations executed, 11 sql queries
+[notice] finished in 596.1ms, used 24M memory, 1 migrations executed, 11 sql queries
 
  [OK] Successfully migrated to version: DoctrineMigrations\Version20240609222908                                        
 

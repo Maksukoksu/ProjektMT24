@@ -19,11 +19,11 @@
             <h3>{{ 'label.transactions'|trans }}</h3>
             {{ form_start(filterForm, {'method': 'GET'}) }}
             <div>
-                {{ form_label(filterForm.dateFrom, 'label.date_from'|trans) }}
+                {{ form_label(filterForm.dateFrom, 'label.date_from') }}
                 {{ form_widget(filterForm.dateFrom, {'attr': {'class': 'js-datepicker'}}) }}
             </div>
             <div>
-                {{ form_label(filterForm.dateTo, 'label.date_to'|trans) }}
+                {{ form_label(filterForm.dateTo, 'label.date_to') }}
                 {{ form_widget(filterForm.dateTo, {'attr': {'class': 'js-datepicker'}}) }}
             </div>
             <div>
@@ -37,7 +37,7 @@
                     <th>{{ 'label.title'|trans }}</th>
                     <th>{{ 'label.amount'|trans }}</th>
                     <th>{{ 'label.balance_after_transaction'|trans }}</th>
-                    <th>{{ 'label.delete'|trans }}</th>
+                    <th>{{ 'label.actions'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@
                         <td>{{ transaction.amount|number_format(2, ',', ' ') }} PLN</td>
                         <td>{{ transaction.balanceAfterTransaction|number_format(2, ',', ' ') }} PLN</td>
                         <td>
-                            <a href="{{ url('transaction_delete', {id: transaction.id}) }}" class="btn btn-danger">{{ 'action_delete'|trans }}</a>
+                            <a href="{{ url('transaction_delete', {id: transaction.id}) }}" class="btn btn-danger">{{ 'action.delete'|trans }}</a>
                         </td>
                     </tr>
                 {% endfor %}

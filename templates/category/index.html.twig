@@ -35,7 +35,7 @@
                     <td>{{ category.updatedAt|format_date('long') }}</td>
                     <td>
                         <a href="{{ path('category_show', {'id': category.id}) }}" class="btn btn-primary">{{ 'action.show'|trans }}</a>
-                        <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-secondary">{{ 'action_edit'|trans }}</a>
+                        <a href="{{ path('category_edit', {'id': category.id}) }}" class="btn btn-secondary">{{ 'action.edit'|trans }}</a>
                         <form method="post" action="{{ path('category_delete', {'id': category.id}) }}" style="display:inline-block;">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category.id) }}">
                             <input type="hidden" name="_method" value="DELETE">

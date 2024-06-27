@@ -1,76 +1,68 @@
 <?php
+
 /**
- * Registration Controller.
+ * Registration controller.
  */
 
 namespace App\Controller;
 
-use App\Entity\User;
-use App\Repository\UserRepository;
+use App\Form\Type\RegistrationFormType;
+use App\Service\RegistrationServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Class RegistrationController.
+ *
+ * Handles user registration actions.
  */
 class RegistrationController extends AbstractController
 {
     /**
      * RegistrationController constructor.
      *
-     * @param UserPasswordHasherInterface $passwordHasher Password hasher
-     * @param UserRepository              $userRepository User repository
-     * @param ValidatorInterface          $validator      Validator
+     * @param RegistrationServiceInterface $registrationService The registration service
      */
-    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher, private readonly UserRepository $userRepository, private readonly ValidatorInterface $validator)
+    public function __construct(private readonly RegistrationServiceInterface $registrationService)
     {
     }
 
     /**
      * Register action.
      *
-     * @param Request $request HTTP request
+     * @param Request $request The HTTP request
      *
-     * @return Response HTTP response
+     * @return Response The HTTP response
      */
     #[\Symfony\Component\Routing\Attribute\Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
-        if ($request->isMethod('POST')) {
-            $email = $request->request->get('email');
-            $plainPassword = $request->request->get('plainPassword');
-            $confirmPassword = $request->request->get('confirmPassword');
+        $form = $this->createForm(RegistrationFormType::class);
+        $form->handleRequest($request);
 
-            // Walidacja danych wejściowych
-            $emailConstraint = new Assert\Email();
-            $passwordConstraint = new Assert\Length(['min' => 6]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $email = $data['email'];
+            $plainPassword = $data['plainPassword'];
+            $confirmPassword = $form->get('confirmPassword')->getData();
 
-            $emailViolations = $this->validator->validate($email, $emailConstraint);
-            $passwordViolations = $this->validator->validate($plainPassword, $passwordConstraint);
+            if ($plainPassword !== $confirmPassword) {
+                $this->addFlash('error', 'Passwords do not match.');
 
-            if (count($emailViolations) > 0 || count($passwordViolations) > 0 || $plainPassword !== $confirmPassword) {
-                $this->addFlash('error', 'Invalid input data.');
-
-                return $this->render('registration/register.html.twig');
+                return $this->render('registration/register.html.twig', [
+                    'registrationForm' => $form->createView(),
+                ]);
             }
 
-            $user = new User();
-            $user->setEmail($email);
-            $user->setRoles(['ROLE_USER']);
-            $hashedPassword = $this->passwordHasher->hashPassword($user, $plainPassword);
-            $user->setPassword($hashedPassword);
-
-            $this->userRepository->save($user, true);
-
+            $this->registrationService->registerUser($email, $plainPassword);
             $this->addFlash('success', 'Registration successful!');
 
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('registration/register.html.twig');
+        return $this->render('registration/register.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
     }
 }

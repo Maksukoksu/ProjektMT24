@@ -1,30 +1,14 @@
+{# templates/registration/register.html.twig #}
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
     <h1>{{ 'header.registration'|trans }}</h1>
 
-    {% for message in app.flashes('error') %}
-        <div class="alert alert-danger">{{ message }}</div>
-    {% endfor %}
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
-
-    <form action="{{ path('app_register') }}" method="POST">
-        <div class="form-group">
-            <label for="email">{{ 'label.email'|trans }}</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="plainPassword">{{ 'label.password'|trans }}</label>
-            <input type="password" id="plainPassword" name="plainPassword" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="confirmPassword">{{ 'label.password_confirm'|trans }}</label>
-            <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
-        </div>
-        <br>
-        <br>
-        <button type="submit" class="btn btn-primary">{{ 'action.confrim'|trans }}</button>
-    </form>
+    {{ form_start(registrationForm) }}
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.plainPassword) }}
+    {{ form_row(registrationForm.confirmPassword) }}
+    <button type="submit" class="btn btn-primary">{{ 'action.confrim'|trans }}</button>
+    {{ form_end(registrationForm) }}
 {% endblock %}

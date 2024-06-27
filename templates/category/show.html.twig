@@ -8,7 +8,7 @@
     <h1>{{ 'header.info'|trans({'%id%': category.id|default('')}) }}</h1>
     {% if category is defined and category|length %}
         <dl>
-            <dt>{{ 'title.id'|trans }}</dt>
+            <dt>{{ 'label.id'|trans }}</dt>
             <dd>{{ category.id }}</dd>
             <dt>{{ 'label.created_at'|trans }}</dt>
             <dd>{{ category.createdAt|format_date('long') }}</dd>
@@ -40,7 +40,7 @@
             </table>
         {% endif %}
         <p>
-            <a href="{{ url('category_index') }}" title="{{ 'action.back_to_list'|trans }}" class="btn btn-primary">
+            <a href="{{ url('category_index') }}" title="{{ 'action.return'|trans }}" class="btn btn-primary">
                 {{ 'action.return'|trans }}
             </a>
         </p>

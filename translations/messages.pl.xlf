@@ -18,9 +18,21 @@
         <source>label.actions</source>
         <target>Akcje</target>
       </trans-unit>
+      <trans-unit id="label.value">
+        <source>label.value</source>
+        <target>Wartość</target>
+      </trans-unit>
+      <trans-unit id="label.category">
+        <source>label.category</source>
+        <target>Kategoria</target>
+      </trans-unit>
       <trans-unit id="action.edit">
         <source>action.edit</source>
         <target>Edytuj</target>
+	</trans-unit>
+      <trans-unit id="header.info">
+        <source>header.info</source>
+        <target>Informacje</target>
       </trans-unit>
       <trans-unit id="action.show">
         <source>action.show</source>
@@ -113,6 +125,22 @@
       <trans-unit id="title.tags">
         <source>title.tags</source>
         <target>Tagi</target>
+      </trans-unit>
+      <trans-unit id="title.password_change">
+        <source>title.password_change</source>
+        <target>Zmiana hasła</target>
+      </trans-unit>
+      <trans-unit id="title.email_change">
+        <source>title.email_change</source>
+        <target>Zmiana adresu email</target>
+      </trans-unit>
+      <trans-unit id="label.old_password">
+        <source>label.old_password</source>
+        <target>Stare hasło</target>
+      </trans-unit>
+      <trans-unit id="label.new_password">
+        <source>label.new_password</source>
+        <target>Nowe hasło</target>
       </trans-unit>
       <trans-unit id="header.tag_list">
         <source>header.tag_list</source>
@@ -261,6 +289,38 @@
       <trans-unit id="message.password_incorrect">
         <source>message.password_incorrect</source>
         <target>Hasło nieprawidłowe!</target>
+      </trans-unit>
+      <trans-unit id="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="Roles">
+        <source>Roles</source>
+        <target>Role</target>
+      </trans-unit>
+      <trans-unit id="Użytkownik">
+        <source>Użytkownik</source>
+        <target>Użytkownik</target>
+      </trans-unit>
+      <trans-unit id="Administrator">
+        <source>Administrator</source>
+        <target>Administrator</target>
+      </trans-unit>
+      <trans-unit id="Nowe Hasło (pozostaw puste, jeśli nie chcesz zmieniać hasła)">
+        <source>Nowe Hasło (pozostaw puste, jeśli nie chcesz zmieniać hasła)</source>
+        <target>Nowe Hasło (pozostaw puste, jeśli nie chcesz zmieniać hasła)</target>
+      </trans-unit>
+      <trans-unit id="Błąd">
+        <source>Błąd</source>
+        <target>Error</target>
+      </trans-unit>
+      <trans-unit id="header.transaction_details">
+        <source>header.transaction_details </source>
+        <target>Szcegóły transakcji</target>
+      </trans-unit>
+      <trans-unit id="action.back_to_list">
+        <source>action.back_to_list</source>
+        <target>Powrót do listy</target>
       </trans-unit>
     </body>
   </file>
