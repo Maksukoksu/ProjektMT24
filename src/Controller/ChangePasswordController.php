@@ -33,13 +33,12 @@ class ChangePasswordController extends AbstractController
     /**
      * ChangePassword action.
      *
-     * @param Request               $request               HTTP Request
-     * @param ChangePasswordService $changePasswordService Service to handle password changes
+     * @param Request $request HTTP Request
      *
      * @return Response HTTP response
      */
-    #[\Symfony\Component\Routing\Attribute\Route('/change-password', name: 'user_change_password', methods: 'GET|POST')]
-    public function changePassword(Request $request, ChangePasswordService $changePasswordService): Response
+    #[\Symfony\Component\Routing\Attribute\Route('/change-password', name: 'user_change_password', methods: ['GET', 'POST'])]
+    public function changePassword(Request $request): Response
     {
         $user = $this->getUser();
 
@@ -51,11 +50,11 @@ class ChangePasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $oldPassword = $form->get('oldPassword')->getData(); // Pobierz stare hasło z formularza
-            $newPassword = $form->get('newPassword')->getData(); // Pobierz nowe hasło z formularza
+            $oldPassword = $form->get('oldPassword')->getData();
+            $newPassword = $form->get('newPassword')->getData();
 
             try {
-                $changePasswordService->changePassword($user, $oldPassword, $newPassword);
+                $this->changePasswordService->changePassword($user, $oldPassword, $newPassword);
 
                 $this->addFlash('success', $this->translator->trans('message.password_changed'));
 

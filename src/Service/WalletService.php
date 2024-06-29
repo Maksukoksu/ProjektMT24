@@ -8,8 +8,6 @@ namespace App\Service;
 use App\Entity\Wallet;
 use App\Repository\WalletRepository;
 use App\Repository\TransactionRepository;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
@@ -21,11 +19,11 @@ class WalletService implements WalletServiceInterface
     /**
      * Constructor.
      *
-     * @param WalletRepository      $walletRepository Wallet repository
-     * @param PaginatorInterface    $paginator        Paginator
-     * @param TransactionRepository $taskRepository   Transaction repository
+     * @param WalletRepository      $walletRepository      Wallet repository
+     * @param PaginatorInterface    $paginator             Paginator
+     * @param TransactionRepository $transactionRepository Transaction repository
      */
-    public function __construct(private readonly WalletRepository $walletRepository, private readonly PaginatorInterface $paginator, private readonly TransactionRepository $taskRepository)
+    public function __construct(private readonly WalletRepository $walletRepository, private readonly PaginatorInterface $paginator, private readonly TransactionRepository $transactionRepository)
     {
     }
 
@@ -54,13 +52,9 @@ class WalletService implements WalletServiceInterface
      */
     public function canBeDeleted(Wallet $wallet): bool
     {
-        try {
-            $result = $this->taskRepository->countByWallet($wallet);
+        $result = $this->transactionRepository->countByWallet($wallet);
 
-            return $result <= 0;
-        } catch (NoResultException|NonUniqueResultException) {
-            return false;
-        }
+        return $result <= 0;
     }
 
     /**
@@ -93,8 +87,8 @@ class WalletService implements WalletServiceInterface
     /**
      * Update the balance of a wallet based on a transaction amount.
      *
-     * @param Wallet $wallet the wallet to update
-     * @param float  $amount the amount of the transaction
+     * @param Wallet $wallet The wallet to update
+     * @param float  $amount The amount of the transaction
      */
     public function updateBalance(Wallet $wallet, float $amount): void
     {
@@ -120,5 +114,19 @@ class WalletService implements WalletServiceInterface
     public function delete(Wallet $wallet): void
     {
         $this->walletRepository->delete($wallet);
+    }
+
+    /**
+     * Find transactions for wallet by date range.
+     *
+     * @param Wallet                  $wallet   Wallet entity
+     * @param \DateTimeInterface|null $dateFrom Start date
+     * @param \DateTimeInterface|null $dateTo   End date
+     *
+     * @return array Transactions
+     */
+    public function findTransactionsForWalletByDateRange(Wallet $wallet, ?\DateTimeInterface $dateFrom, ?\DateTimeInterface $dateTo): array
+    {
+        return $this->transactionRepository->findTransactionsForWalletByDateRange($wallet, $dateFrom, $dateTo);
     }
 }

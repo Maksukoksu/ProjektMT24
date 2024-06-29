@@ -1,14 +1,25 @@
-{# templates/registration/register.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>{{ 'header.registration'|trans }}</h1>
+{% block title %}{{ 'header.registration'|trans }}{% endblock %}
 
-    {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.plainPassword) }}
-    {{ form_row(registrationForm.confirmPassword) }}
-    <button type="submit" class="btn btn-primary">{{ 'action.confrim'|trans }}</button>
-    {{ form_end(registrationForm) }}
+{% block body %}
+    <form method="post">
+        <h1 class="h3 mb-3 font-weight-normal">{{ 'header.registration'|trans }}</h1>
+
+        {{ form_start(registrationForm) }}
+        <div class="form-group">
+            <label for="registrationForm_email">{{ 'label.email'|trans }}</label>{{ form_widget(registrationForm.email) }}
+        </div>
+        <div class="form-group">
+            <label for="registrationForm_password_first">{{ 'label.password'|trans }}</label>{{ form_widget(registrationForm.password.first) }}
+        </div>
+        <div class="form-group">
+            <label for="registrationForm_password_second">{{ 'label.password_confirm'|trans }}</label>{{ form_widget(registrationForm.password.second) }}
+        </div>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="form-group">
+            <button class="btn btn-primary ms-2" type="submit">{{ 'action.register'|trans }}</button>
+        </div>
+        {{ form_end(registrationForm) }}
+    </form>
 {% endblock %}

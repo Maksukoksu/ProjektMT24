@@ -10,6 +10,8 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Transaction;
 use App\Entity\Wallet;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * Class TransactionRepository.
@@ -62,8 +64,8 @@ class TransactionRepository extends ServiceEntityRepository
     public function queryNotAll(array $filters = []): QueryBuilder
     {
         $qb = $this->createQueryBuilder('transaction')
-            ->join('transaction.wallet', 'wallet')  // Join with wallet
-            ->addSelect('wallet');  // Add wallet to the select
+            ->join('transaction.wallet', 'wallet')
+            ->addSelect('wallet');
 
         if (!empty($filters['category'])) {
             $qb->andWhere('transaction.category = :category')
@@ -105,5 +107,26 @@ class TransactionRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * Count transactions by wallet.
+     *
+     * @param Wallet $wallet Wallet entity
+     *
+     * @return int Number of transactions
+     */
+    public function countByWallet(Wallet $wallet): int
+    {
+        try {
+            return (int) $this->createQueryBuilder('transaction')
+                ->select('COUNT(transaction.id)')
+                ->where('transaction.wallet = :wallet')
+                ->setParameter('wallet', $wallet)
+                ->getQuery()
+                ->getSingleScalarResult();
+        } catch (NoResultException|NonUniqueResultException) {
+            return 0;
+        }
     }
 }

@@ -1,62 +1,56 @@
 <?php
-
 /**
- * Registration controller.
+ * Registration Controller.
  */
 
 namespace App\Controller;
 
-use App\Form\Type\RegistrationFormType;
-use App\Service\RegistrationServiceInterface;
+use App\Entity\User;
+use App\Form\Type\RegistrationType;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Class RegistrationController.
- *
- * Handles user registration actions.
  */
 class RegistrationController extends AbstractController
 {
     /**
      * RegistrationController constructor.
      *
-     * @param RegistrationServiceInterface $registrationService The registration service
+     * @param UserPasswordHasherInterface $passwordHasher Password hasher
+     * @param UserRepository              $userRepository User repository
      */
-    public function __construct(private readonly RegistrationServiceInterface $registrationService)
+    public function __construct(private readonly UserPasswordHasherInterface $passwordHasher, private readonly UserRepository $userRepository)
     {
     }
 
     /**
      * Register action.
      *
-     * @param Request $request The HTTP request
+     * @param Request $request HTTP request
      *
-     * @return Response The HTTP response
+     * @return Response HTTP response
      */
     #[\Symfony\Component\Routing\Attribute\Route('/register', name: 'app_register', methods: ['GET', 'POST'])]
     public function register(Request $request): Response
     {
-        $form = $this->createForm(RegistrationFormType::class);
+        $user = new User();
+        $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $email = $data['email'];
-            $plainPassword = $data['plainPassword'];
-            $confirmPassword = $form->get('confirmPassword')->getData();
-
-            if ($plainPassword !== $confirmPassword) {
-                $this->addFlash('error', 'Passwords do not match.');
-
-                return $this->render('registration/register.html.twig', [
-                    'registrationForm' => $form->createView(),
-                ]);
-            }
-
-            $this->registrationService->registerUser($email, $plainPassword);
-            $this->addFlash('success', 'Registration successful!');
+            $user->setPassword(
+                $this->passwordHasher->hashPassword(
+                    $user,
+                    $user->getPassword()
+                )
+            );
+            $user->setRoles(['ROLE_USER']);
+            $this->userRepository->save($user, true);
 
             return $this->redirectToRoute('app_login');
         }

@@ -55,4 +55,15 @@ interface WalletServiceInterface
      * @return bool Result
      */
     public function canAcceptTransaction(Wallet $wallet, float $transactionAmount, ?float $originalTransactionAmount = null): bool;
+
+    /**
+     * Find transactions for wallet by date range.
+     *
+     * @param Wallet                  $wallet   Wallet entity
+     * @param \DateTimeInterface|null $dateFrom Start date
+     * @param \DateTimeInterface|null $dateTo   End date
+     *
+     * @return array Transactions
+     */
+    public function findTransactionsForWalletByDateRange(Wallet $wallet, ?\DateTimeInterface $dateFrom, ?\DateTimeInterface $dateTo): array;
 }

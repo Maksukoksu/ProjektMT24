@@ -322,6 +322,10 @@
         <source>action.back_to_list</source>
         <target>Powrót do listy</target>
       </trans-unit>
+      <trans-unit id="title.registration">
+         <source>header.registration</source>
+         <target>Rejestracja</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

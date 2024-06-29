@@ -86,6 +86,10 @@
         <source>header.registration</source>
         <target>Registration</target>
       </trans-unit>
+      <trans-unit id="title.registration">
+         <source>header.registration</source>
+         <target>Registration</target>
+      </trans-unit>
       <trans-unit id="label.password">
         <source>label.password</source>
         <target>Password</target>

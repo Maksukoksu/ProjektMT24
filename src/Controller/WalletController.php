@@ -8,7 +8,6 @@ namespace App\Controller;
 use App\Entity\Wallet;
 use App\Form\Type\TransactionFilterType;
 use App\Form\Type\WalletType;
-use App\Repository\TransactionRepository;
 use App\Service\WalletServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -52,14 +51,13 @@ class WalletController extends AbstractController
     /**
      * Show action.
      *
-     * @param Request               $request               HTTP Request
-     * @param Wallet                $wallet                Wallet entity
-     * @param TransactionRepository $transactionRepository Transaction Repository
+     * @param Request $request HTTP Request
+     * @param Wallet  $wallet  Wallet entity
      *
      * @return Response HTTP response
      */
     #[\Symfony\Component\Routing\Attribute\Route('/{id}', name: 'wallet_show', requirements: ['id' => '[1-9]\d*'], methods: ['GET', 'POST'])]
-    public function show(Request $request, Wallet $wallet, TransactionRepository $transactionRepository): Response
+    public function show(Request $request, Wallet $wallet): Response
     {
         $filterForm = $this->createForm(TransactionFilterType::class);
         $filterForm->handleRequest($request);
@@ -72,7 +70,7 @@ class WalletController extends AbstractController
             $dateTo = $filterForm->get('dateTo')->getData();
         }
 
-        $transactions = $transactionRepository->findTransactionsForWalletByDateRange($wallet, $dateFrom, $dateTo);
+        $transactions = $this->walletService->findTransactionsForWalletByDateRange($wallet, $dateFrom, $dateTo);
 
         return $this->render('wallet/show.html.twig', [
             'wallet' => $wallet,
